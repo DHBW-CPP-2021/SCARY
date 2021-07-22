@@ -10,6 +10,7 @@ namespace LabyrinthGame
     public:
         PlayerToken(GameBoard &board_, Coordinate initialPos, char singleCharRepresentation);
         PlayerToken(GameBoard &board_, Coordinate initialPos, TokenArrayMatrix charRepresentation);
+        using PlacedToken::setCoordinate; // make this public for use in AbstractPlayer
 
     private:
         void notifyMovement(Geo::Direction d) override;
