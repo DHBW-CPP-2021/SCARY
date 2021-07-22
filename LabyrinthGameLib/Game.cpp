@@ -1,7 +1,7 @@
 #include "Game.h"
-#include "Player/AbstractPlayer.h"
 #include "IO/ConsoleUtils.h"
 #include "IO/GameDrawer.h"
+#include "Player/AbstractPlayer.h"
 
 LabyrinthGame::Game::Game()
 {
@@ -29,10 +29,7 @@ void LabyrinthGame::Game::config()
 bool LabyrinthGame::Game::createBoard()
 {
     m_board = std::make_shared<GameBoard>();
-    if (m_board != nullptr)
-        return true;
-    else
-        return false;
+    return m_board != nullptr;
 }
 
 bool LabyrinthGame::Game::createPlayers()
@@ -43,7 +40,7 @@ bool LabyrinthGame::Game::createPlayers()
         // What kind of Player
         kindOfPlayer player = getPlayer(i + 1);
 
-        //Just for debug
+        // Just for debug
         Geo::Coordinate coor(0, i);
         DrawMatrix drawMatrix = {std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
                                  std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
@@ -68,15 +65,12 @@ bool LabyrinthGame::Game::createPlayers()
 bool LabyrinthGame::Game::createGameRules()
 {
     std::vector<std::weak_ptr<AbstractPlayer>> temp;
-    for (auto player: m_players)
+    for (auto player : m_players)
     {
         temp.push_back(player);
     }
     m_rules = std::make_shared<GameRules>(temp, m_board);
-    if (m_rules != nullptr)
-        return true;
-    else
-        return false;
+    return m_rules != nullptr;
 }
 
 LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
@@ -103,11 +97,11 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 void LabyrinthGame::Game::round()
 {
     IO::GameDrawer drawer(*m_board);
-     std::cout << "Let's draw the initial maze\n";
-     drawer.drawMaze();
+    std::cout << "Let's draw the initial maze\n";
+    drawer.drawMaze();
 
-     std::cout << "\n\n\nLet's draw the spare pieces\n";
-     drawer.drawSparePieces();
+    std::cout << "\n\n\nLet's draw the spare pieces\n";
+    drawer.drawSparePieces();
     static int i;
     bool checkInput = false;
     std::shared_ptr<AbstractPlayer> player = m_players[i];
@@ -122,7 +116,7 @@ void LabyrinthGame::Game::round()
 
     } while (!checkInput);
 
-    placePart(placedPart);     
+    placePart(placedPart);
 
     Geo::Coordinate moveCoordinate(0, 0);
     do
@@ -137,28 +131,33 @@ void LabyrinthGame::Game::round()
 
     if (m_board->isTokenPlaced(moveCoordinate))
     {
-        player->addTreasure(); //remove Treasure from Board?
+        player->addTreasure(); // remove Treasure from Board?
     }
 
     m_rules->checkWin(player);
 
     // shift the player
     if (i < m_players.size() - 1)
+    {
         i++;
+    }
     else
+    {
         i = 0;
-    //clear Console
+    }
+    // clear Console
     LabyrinthGame::IO::ConsoleUtils::clearConsole();
-    //print Board
-    //IO::GameDrawer drawer(*m_board);
-
+    // print Board
+    // IO::GameDrawer drawer(*m_board);
 }
 
 bool LabyrinthGame::Game::gameOver()
 {
     bool win = 0;
     for (std::weak_ptr<AbstractPlayer> player : m_players)
+    {
         win |= m_rules->checkWin(player);
+    }
     return win;
 }
 

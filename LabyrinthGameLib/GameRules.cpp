@@ -31,14 +31,7 @@ bool LabyrinthGame::GameRules::checkPieceMove(const LabyrinthGame::PlacePartData
     std::shared_ptr<GameBoard> f_board = m_board.lock();
     const Maze &maze = f_board->getMaze();
 
-    if (maze.isFixed(coordinate))
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    return !maze.isFixed(coordinate)
 }
 
 bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
@@ -46,10 +39,7 @@ bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
     std::shared_ptr<AbstractPlayer> f_player = player.lock();
 
     // MAX_TREASURE == 3 in GameSettings
-    if (f_player->getTreasure() == LabyrinthGame::GameSettings::MAX_TREASURE && winPosition(f_player))
-        return true;
-    else
-        return false;
+    return f_player->getTreasure() == LabyrinthGame::GameSettings::MAX_TREASURE && winPosition(f_player);
 }
 
 LabyrinthGame::GameRules::Coordinate LabyrinthGame::GameRules::placePartDataToCoordinate(
@@ -80,12 +70,5 @@ bool LabyrinthGame::GameRules::winPosition(std::weak_ptr<AbstractPlayer> player)
 {
     std::shared_ptr<AbstractPlayer> f_player = player.lock();
     std::shared_ptr<GameBoard> f_board = m_board.lock();
-    if (f_board->coordIsConnectedToOutside(f_player->getCoordinate()))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return f_board->coordIsConnectedToOutside(f_player->getCoordinate());
 }
