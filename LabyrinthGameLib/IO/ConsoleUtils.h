@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 
 #include <climits> // needed for INT_MAX (only for certain compiler maybe).
 #include <string>
