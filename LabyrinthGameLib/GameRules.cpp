@@ -31,7 +31,7 @@ bool LabyrinthGame::GameRules::checkPieceMove(const LabyrinthGame::PlacePartData
     std::shared_ptr<GameBoard> f_board = m_board.lock();
     const Maze &maze = f_board->getMaze();
 
-    return !maze.isFixed(coordinate)
+    return !maze.isFixed(coordinate);
 }
 
 bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
