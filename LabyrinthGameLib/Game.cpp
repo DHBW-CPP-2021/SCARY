@@ -28,9 +28,13 @@ bool LabyrinthGame::Game::createBoard()
 {
     m_board = std::make_shared<GameBoard>();
     if (m_board != nullptr)
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 bool LabyrinthGame::Game::createPlayers()
@@ -120,8 +124,11 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 
         // shift the player
         if (i < m_players.size() - 1)
+        {
             i++;
+        }
         else
+
             i = 0;
     }
 
