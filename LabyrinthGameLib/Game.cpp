@@ -103,7 +103,7 @@ void LabyrinthGame::Game::round()
 
     } while (!checkInput);
 
-    // player->placePart(placedPart);       ==> Über Board
+    placePart(placedPart);     
 
     Geo::Coordinate moveCoordinate(0, 0);
     do
