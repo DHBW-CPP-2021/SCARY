@@ -1,9 +1,10 @@
-#include "Edge.h"
-#include "Graph.h"
-#include "Vertex.h"
 #include <cassert>
 #include <ostream>
 
+
+#include "Edge.h"
+#include "Graph.h"
+#include "Vertex.h"
 
 namespace Combinatorics
 {
