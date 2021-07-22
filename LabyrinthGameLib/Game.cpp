@@ -71,17 +71,20 @@ void LabyrinthGame::Game::round()
     bool checkInput = false;
     std::shared_ptr<AbstractPlayer> player = m_players[i];
     //Push the Piece/place the Part
+    // [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
+
+    LabyrinthGame::PlacePartData placedPart;
     do
     {
-        //respones unknowen// = player->placePartDialog();
-        checkInput = m_rules->checkPieceMove();
+       placedPart = player->PlacePartDialog();
+       checkInput = m_rules->checkPieceMove(placedPart);
     
     } while (!checkInput);
     
-    player->placePart();
+    player->placePart(placedPart);
 
 
-    //PLayer Move
+    //Player Move
     Geo::Coordinate moveCoordinate(0, 0);
     do
     {
@@ -94,7 +97,7 @@ void LabyrinthGame::Game::round()
     m_rules->checkWin(player);
     
     //shift the player
-    if (i < m_players.size())
+    if (i < m_players.size() - 1)
         i++;
     else
         i = 0;
