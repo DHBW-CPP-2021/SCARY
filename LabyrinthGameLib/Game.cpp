@@ -45,7 +45,8 @@ bool LabyrinthGame::Game::createPlayers()
 
         //Just for debug
         Geo::Coordinate coor(0, i);
-        DrawMatrix drawMatrix = {'x', 1, 1};
+        DrawMatrix drawMatrix = {std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
+                                 std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
 
         switch (player)
         {

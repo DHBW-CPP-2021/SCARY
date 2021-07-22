@@ -72,7 +72,7 @@ namespace LabyrinthGame
             "which piece do you want to insert? (0-" + std::to_string(GameSettings::NUM_SPARE_PIECES - 1), 0,
             GameSettings::NUM_SPARE_PIECES - 1);
         int direction_numeric = IO::ConsoleUtils::safelyReadInteger(
-            "where do you want to insert that piece?\n0 - top\n1 - right\n2 - bottom\n3 - right", 0, 3);
+            "where do you want to insert that piece?\n0 - top\n1 - right\n2 - bottom\n3 - left", 0, 3);
 
         using Dir = Geo::Direction;
         Dir direction;
