@@ -9,8 +9,7 @@ namespace LabyrinthGame
     public:
         using AbstractPlayer::AbstractPlayer;
 
-        // methoden die die bot logik bzw die player abfrage implementieren
-        void placePart() override;
-        void movePlayer() override;
+        PlacePartData placePartDialog() override;
+        Coordinate movePlayerDialog() override;
     };
 } // namespace LabyrinthGame

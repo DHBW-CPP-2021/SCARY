@@ -2,12 +2,14 @@
 
 namespace LabyrinthGame
 {
-
-    void BotPlayer::placePart()
+    using namespace Geo;
+    
+    PlacePartData BotPlayer::placePartDialog()
     {
+        return {0, Geo::Direction::left, 0};
     }
-    void BotPlayer::movePlayer()
+    Coordinate BotPlayer::movePlayerDialog()
     {
-        
+        return {0, 0};
     }
 } // namespace LabyrinthGame

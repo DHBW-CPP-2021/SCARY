@@ -2,11 +2,12 @@
 
 namespace LabyrinthGame
 {
-
-    void HumanPlayer::placePart()
+    using namespace Geo;
+    
+    PlacePartData HumanPlayer::placePartDialog()
     {
     }
-    void HumanPlayer::movePlayer()
+    Geo::Coordinate HumanPlayer::movePlayerDialog()
     {
     }
 } // namespace LabyrinthGame

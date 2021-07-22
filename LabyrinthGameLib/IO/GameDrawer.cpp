@@ -12,11 +12,6 @@ namespace LabyrinthGame::IO
     {
     }
 
-    std::string to_alph_numbering(unsigned int k)
-    {
-        return std::string(1, GameDrawer::digits.at(k));
-    }
-
     void GameDrawer::drawMaze(std::ostream &out) const
     {
         // Create IO Configuration (drawing to out, no whitespaces)
@@ -30,7 +25,7 @@ namespace LabyrinthGame::IO
         {
             // Create an Oracle grouping the MazePieces of a row
             MazeRowOracle oracle(_board, y);
-            draw_line_of_pieces(io, oracle, to_alph_numbering(y));
+            draw_line_of_pieces(io, oracle, std::string(1, GameDrawer::yDigits.at(y)));
             draw_whitespace_between_rows(io);
         }
         // Finally draw another x-axis
@@ -206,7 +201,7 @@ namespace LabyrinthGame::IO
         io.out << initial_blanks;
         for (CoordType k = 0; k < num_labels; ++k)
         {
-            io.out << k << blanks_between_pieces;
+            io.out << std::string(1, GameDrawer::xDigits.at(k)) << blanks_between_pieces;
         }
         io.out << "\n";
     }

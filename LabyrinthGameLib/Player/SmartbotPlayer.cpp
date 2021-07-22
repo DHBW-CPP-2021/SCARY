@@ -2,11 +2,12 @@
 
 namespace LabyrinthGame
 {
+    using namespace Geo;
 
-    void SmartbotPlayer::placePart()
+    PlacePartData SmartbotPlayer::placePartDialog()
     {
     }
-    void SmartbotPlayer::movePlayer()
+    Coordinate SmartbotPlayer::movePlayerDialog()
     {
     }
 } // namespace LabyrinthGame
