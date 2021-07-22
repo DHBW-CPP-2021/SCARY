@@ -11,7 +11,6 @@ void LabyrinthGame::Game::run()
     {
         round();
     }
-
 }
 
 void LabyrinthGame::Game::config()
@@ -70,21 +69,20 @@ void LabyrinthGame::Game::round()
     static int i;
     bool checkInput = false;
     std::shared_ptr<AbstractPlayer> player = m_players[i];
-    //Push the Piece/place the Part
+    // Push the Piece/place the Part
     // [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
 
     LabyrinthGame::PlacePartData placedPart;
     do
     {
-       placedPart = player->PlacePartDialog();
-       checkInput = m_rules->checkPieceMove(placedPart);
-    
+        placedPart = player->PlacePartDialog();
+        checkInput = m_rules->checkPieceMove(placedPart);
+
     } while (!checkInput);
-    
+
     player->placePart(placedPart);
 
-
-    //Player Move
+    // Player Move
     Geo::Coordinate moveCoordinate(0, 0);
     do
     {
@@ -92,17 +90,17 @@ void LabyrinthGame::Game::round()
         checkInput = m_rules->checkMove(player, moveCoordinate);
 
     } while (!checkInput);
-    
+
     player->move(moveCoordinate); // get treasure in move or here and with parameter?
+
+    if (m_board->isTokenPlaced(moveCoordinate))
+        player->setTreasure();
+
     m_rules->checkWin(player);
-    
-    //shift the player
+
+    // shift the player
     if (i < m_players.size() - 1)
         i++;
     else
         i = 0;
-
-
-
-
 }
