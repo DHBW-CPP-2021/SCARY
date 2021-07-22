@@ -78,6 +78,9 @@ namespace LabyrinthGame
         [[maybe_unused]] void insertSparePieceInColumn(GameSettings::CoordType x, Geo::Direction direction,
                                                        GameSettings::CoordType spare_piece_id);
 
+        [[nodiscard]] bool coordsAreConnected(const Coordinate &coord1, const Coordinate &coord2) const;
+        [[nodiscard]] bool coordIsConnectedToOutside(const Coordinate &coord) const;
+
     private:
         // Stable storage (after creation) of all available MazePieces
         std::vector<MazePiece> const _maze_pieces;

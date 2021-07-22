@@ -1,0 +1,9 @@
+diff a/LabyrinthGameLib/GameRules.cpp b/LabyrinthGameLib/GameRules.cpp	(rejected hunks)
+@@ -1,7 +1,6 @@
+ #include "GameRules.h"
+ #include "GameSettings.h"
+ 
+-GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board)
+ LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board)
+ {
+     m_board = board;

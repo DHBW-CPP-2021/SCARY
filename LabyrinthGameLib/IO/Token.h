@@ -20,6 +20,7 @@ namespace LabyrinthGame::IO
 
         // If you want you can specify the appearance of your token on the whole inner_width x inner_height Matrix
         explicit Token(TokenArrayMatrix const &character_representation_);
+        virtual ~Token() = default;
 
         // You can represent a token by a single character
         explicit Token(char single_char_representation);

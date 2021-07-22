@@ -11,7 +11,7 @@ namespace LabyrinthGame
         using namespace LabyrinthGame::GameSettings;
         using namespace LabyrinthGame::Geo;
 
-        GameDrawer::GameDrawer(GameBoard const &board_) : _board(board_), preComputed()
+        GameDrawer::GameDrawer(GameBoard const &board_) : _board(board_), preComputed(false)
         {
         }
 
@@ -54,7 +54,7 @@ namespace LabyrinthGame
         void GameDrawer::draw_upper_lower_wall_part(IO &io, MazePiece const &p, bool is_fixed, Direction d) const
         {
             assert(d == Direction::up || d == Direction::down);
-            std::string const &corner = preComputed._left_right_free;
+            std::string const &corner = preComputed._corner;
             io.out << corner;
             if (p.isClosed(d))
             {
@@ -216,11 +216,11 @@ namespace LabyrinthGame
             io.out << "\n";
         }
 
-        GameDrawer::PreparedStrings::PreparedStrings()
+        GameDrawer::PreparedStrings::PreparedStrings(bool open_corners)
             : _upper_lower_wall(GameDrawer::innerWidth(), '-'), _upper_lower_fixed_wall(GameDrawer::innerWidth(), '*'),
               _upper_lower_free(GameDrawer::innerWidth(), ' '), _left_right_wall(GameDrawer::wallWidth(), '|'),
               _left_right_fixed_wall(GameDrawer::wallWidth(), '*'), _left_right_free(GameDrawer::wallWidth(), ' '),
-              _inner_space(GameDrawer::innerWidth(), ' ')
+              _corner(GameDrawer::wallWidth(), open_corners ? ' ' : 'o'), _inner_space(GameDrawer::innerWidth(), ' ')
         {
         }
 

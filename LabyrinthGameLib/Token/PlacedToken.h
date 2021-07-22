@@ -19,11 +19,11 @@ namespace LabyrinthGame
         using Coordinate = Geo::Coordinate;
 
     public:
-        explicit PlacedToken(GameBoard &_board, TokenArrayMatrix const &character_representation);
-        explicit PlacedToken(GameBoard &_board, char single_char_representation);
+        explicit PlacedToken(GameBoard &_board, Coordinate initialPos, TokenArrayMatrix const &character_representation);
+        explicit PlacedToken(GameBoard &_board, Coordinate initialPos, char single_char_representation);
 
         // A placed token should be able to communicate its coordinates
-        virtual Coordinate getCoordinate() const = 0;
+        [[nodiscard]] Coordinate getCoordinate() const;
 
     protected:
         friend class GameBoardPlacedTokenMediator;
@@ -33,6 +33,11 @@ namespace LabyrinthGame
          * @param d The direction in which the underlying maze piece moves
          */
         virtual void notifyMovement(Geo::Direction d) = 0;
+
+        void setCoordinate(const Coordinate& pos);
+
+    private:
+        Coordinate m_pos;
     };
 
 } // namespace LabyrinthGame

@@ -17,15 +17,10 @@ namespace LabyrinthGame
         using Coordinate = Geo::Coordinate;
 
     public:
-        StupidToken(GameBoard &board_, Coordinate initialPos, char singleCharRepresentation);
-        StupidToken(GameBoard &board_, Coordinate initialPos, TokenArrayMatrix charRepresentation);
-
-        [[nodiscard]] Coordinate getCoordinate() const override;
+        [[deprecated]] StupidToken(GameBoard &board_, Coordinate initialPos, char singleCharRepresentation);
+        [[deprecated]] StupidToken(GameBoard &board_, Coordinate initialPos, TokenArrayMatrix charRepresentation);
 
         void notifyMovement(Geo::Direction d) override;
-
-    private:
-        Coordinate _pos;
     };
 
 } // namespace LabyrinthGame

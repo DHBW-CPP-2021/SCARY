@@ -1,10 +1,16 @@
 #include "GameRules.h"
 #include "GameSettings.h"
 
+
 LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board)
 {
     m_board = board;
     m_players = players;
+}
+
+bool LabyrinthGame::GameRules::checkPieceMove(const Coordinate &coordinate)
+{
+    return false;
 }
 
 bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)

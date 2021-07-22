@@ -6,22 +6,16 @@
 #include "../Utils/Utils.h"
 #include <iostream>
 
-
 namespace LabyrinthGame
 {
     using namespace Geo;
 
-    Coordinate StupidToken::getCoordinate() const
-    {
-        return _pos;
-    }
-
     void StupidToken::notifyMovement(Direction d)
     {
-        Coordinate const newCoord = _pos.adjacentCoordinate(d);
+        Coordinate const newCoord = getCoordinate().adjacentCoordinate(d);
         if (Utils::isValid(newCoord))
         {
-            _pos = newCoord;
+            setCoordinate(newCoord);
         }
         else
         {
@@ -30,12 +24,12 @@ namespace LabyrinthGame
     }
 
     StupidToken::StupidToken(GameBoard &board_, Coordinate initialPos, char singleCharRepresentation)
-        : PlacedToken(board_, singleCharRepresentation), _pos(initialPos)
+        : PlacedToken(board_, initialPos, singleCharRepresentation)
     {
     }
 
     StupidToken::StupidToken(GameBoard &board_, Coordinate initialPos, TokenArrayMatrix charRepresentation)
-        : PlacedToken(board_, charRepresentation), _pos(initialPos)
+        : PlacedToken(board_, initialPos, charRepresentation)
     {
     }
 

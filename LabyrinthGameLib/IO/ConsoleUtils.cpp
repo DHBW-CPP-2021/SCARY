@@ -81,5 +81,24 @@ namespace LabyrinthGame
             }
             return result;
         }
+        std::string ConsoleUtils::colorString(const std::string &str, const std::vector<Colors> &opts)
+        {
+            std::string buff = "\033[";
+            for (std::size_t i = 0; i < opts.size(); i++)
+            {
+                buff += std::to_string(static_cast<int>(opts[i]));
+                if (i < opts.size() - 1)
+                {
+                    buff += ';';
+                }
+            }
+            buff += "m";
+            return buff + str + "\033[0m";
+        }
+
+        void ConsoleUtils::clearConsole()
+        {
+            std::cout << "\x1B[2J\x1B[H";
+        }
     } // namespace IO
 } // namespace LabyrinthGame

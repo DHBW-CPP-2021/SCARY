@@ -40,7 +40,7 @@ namespace LabyrinthGame
             // In order to simplify the drawing procedure we will pre-compute some possible parts of the final drawing.
             struct PreparedStrings
             {
-                PreparedStrings();
+                PreparedStrings(bool open_corners);
 
                 std::string const _upper_lower_wall;
                 std::string const _upper_lower_fixed_wall;
@@ -48,6 +48,7 @@ namespace LabyrinthGame
                 std::string const _left_right_wall;
                 std::string const _left_right_fixed_wall;
                 std::string const _left_right_free;
+                std::string const _corner;
                 std::string const _inner_space;
             };
 
