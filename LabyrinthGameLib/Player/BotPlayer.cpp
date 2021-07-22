@@ -1,4 +1,5 @@
 #include "BotPlayer.h"
+#include <random>
 
 namespace LabyrinthGame
 {
@@ -9,19 +10,33 @@ namespace LabyrinthGame
     }
     PlacePartData BotPlayer::placePartDialog() const
     {
-        int SparePiece = (rand() % 3) + 1;
+        std::mt19937 generator(123);
+        std::uniform_real_distribution<int> dis(1, 3);
+        int SparePiece = dis(generator);
 
-        int randomDirection = (rand() % 3);
+        std::mt19937 generator(123);
+        std::uniform_real_distribution<int> dis(0, 3);
+        int randomDirection = dis(generator);
+
         static_cast Geo::Direction(int);
 
-        int row = (rand() % 7);
+
+        std::mt19937 generator(123);
+        std::uniform_real_distribution<int> dis(0, 7);
+        int row = dis(generator);
 
         return {SparePiece, Geo::Direction(randomDirection), row};
     }
     Coordinate BotPlayer::movePlayerDialog() const
     {
-        int y = (rand() % 7);
-        int x = (rand() % 7);
+        std::mt19937 generator(123);
+        std::uniform_real_distribution<int> dis(0, 7);
+        int y = dis(generator);
+
+        std::mt19937 generator(123);
+        std::uniform_real_distribution<int> dis(0, 7);
+        int x = dis(generator)
+
         return {y,x};
     }
 } // namespace LabyrinthGame
