@@ -3,12 +3,8 @@ project(Hackathon_2021)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# TODO: You may want to lower the compiler-standards (temporarily ;))
-if (MSVC)
-    add_compile_options(/W4 /WX)
-else()
-    add_compile_options(-Wall -Wextra -pedantic -Werror)
-endif()
+# include compiler warnings for unified compiler warnings along all devs
+include(cmake/CompilerWarnings.cmake)
 
 add_subdirectory(extern/googletest)
 
@@ -27,7 +23,9 @@ add_library(GraphLib
         Graph/Algorithm/BreadthFirstSearch.cpp
         Graph/Algorithm/BreadthFirstSearch.h
         Graph/VertexVector.h)
-        
+
+set_project_warnings(GraphLib)
+
 add_library(LoggerLib
         STATIC
         Logger/Logger.h
@@ -40,6 +38,8 @@ add_library(LoggerLib
         Logger/LogLevel.h
         Logger/Log.h)
 
+set_project_warnings(LoggerLib)
+        
 add_library(LabyrinthGameLib
         STATIC
         LabyrinthGameLib/IO/ConsoleUtils.cpp
@@ -68,7 +68,11 @@ add_library(LabyrinthGameLib
         LabyrinthGameLib/IO/MazePieceOracle/SparePieceOracle.cpp
         LabyrinthGameLib/IO/MazePieceOracle/SparePieceOracle.h LabyrinthGameLib/Token/PlacedToken.cpp LabyrinthGameLib/Token/PlacedToken.h LabyrinthGameLib/Token/StupidToken.cpp LabyrinthGameLib/Token/StupidToken.h LabyrinthGameLib/PathState.h LabyrinthGameLib/GameBoardPlacedTokenMediator.cpp LabyrinthGameLib/GameBoardPlacedTokenMediator.h)
 
+set_project_warnings(LabyrinthGameLib)
+
 add_executable(Hackathon_2021 main.cpp)
+set_project_warnings(Hackathon_2021)
+
 
 target_link_libraries(
         Hackathon_2021 
