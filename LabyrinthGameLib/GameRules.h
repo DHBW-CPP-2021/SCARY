@@ -1,18 +1,24 @@
 #pragma once
 #include "Game.h"
 #include "Geo/Coordinate.h"
+#include "GameBoard.h"
+#include "IO/MazePieceOracle/MazeRowOracle.h"
 
-class GameRules
+namespace LabyrinthGame
 {
-public:
 
-	GameRules(std::weak_ptr<AbstractPlayer> players, std::weak_ptr<GameBoard> board);
+    class GameRules
+    {
+    public:
+        GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board);
 
-    bool checkMove(std::weak_ptr<AbstractPlayer> player,const Coordinate move);
-    bool checkPieceMove();
-    bool checkWin(std::weak_ptr<AbstractPlayer> player);
+        bool checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move);
+        bool checkPieceMove();
+        bool checkWin(std::weak_ptr<AbstractPlayer> player);
 
-private:
-    std::vector<std::weak_ptr<AbstractPlayer>> m_players;
-    std::weak_ptr<GameBoard> m_board;
-};
+    private:
+        bool winPosition(std::weak_ptr<AbstractPlayer> player);
+        std::vector<std::weak_ptr<AbstractPlayer>> m_players;
+        std::weak_ptr<GameBoard> m_board;
+    };
+} // namespace LabyrinthGame
