@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "Player/AbstractPlayer.h"
+#include "IO/ConsoleUtils.h"
+#include "IO/GameDrawer.h"
 
 LabyrinthGame::Game::Game()
 {
@@ -42,8 +44,8 @@ bool LabyrinthGame::Game::createPlayers()
         kindOfPlayer player = getPlayer(i + 1);
 
         //Just for debug
-        Geo::Coordinate coor(0, 0);
-        DrawMatrix drawMatrix = {'X', 1, 1};
+        Geo::Coordinate coor(0, i);
+        DrawMatrix drawMatrix = {'x', 1, 1};
 
         switch (player)
         {
@@ -99,6 +101,12 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 
 void LabyrinthGame::Game::round()
 {
+    IO::GameDrawer drawer(*m_board);
+     std::cout << "Let's draw the initial maze\n";
+     drawer.drawMaze();
+
+     std::cout << "\n\n\nLet's draw the spare pieces\n";
+     drawer.drawSparePieces();
     static int i;
     bool checkInput = false;
     std::shared_ptr<AbstractPlayer> player = m_players[i];
@@ -139,7 +147,10 @@ void LabyrinthGame::Game::round()
     else
         i = 0;
     //clear Console
+    LabyrinthGame::IO::ConsoleUtils::clearConsole();
     //print Board
+    //IO::GameDrawer drawer(*m_board);
+
 }
 
 bool LabyrinthGame::Game::gameOver()
