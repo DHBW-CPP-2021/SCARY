@@ -4,6 +4,8 @@
 LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board)
     : m_board(board), m_players(players)
 {
+    treasureCoords.assign({std::make_shared<Geo::Coordinate>(0, 3), std::make_shared<Geo::Coordinate>(3, 0),
+                           std::make_shared<Geo::Coordinate>(6, 3), std::make_shared<Geo::Coordinate>(3, 6)});
 }
 
 bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> _player, const Coordinate move)
@@ -13,7 +15,7 @@ bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> _player, 
     for (std::weak_ptr<AbstractPlayer> player : m_players)
     {
         std::shared_ptr<AbstractPlayer> f_player = player.lock();
-        //to do check for himself???
+        // to do check for himself???
         if (move == f_player->getCoordinate() && f_player != f1_player)
         {
             return false;
@@ -42,6 +44,19 @@ bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
 
     // MAX_TREASURE == 3 in GameSettings
     return f_player->getTreasure() == LabyrinthGame::GameSettings::MAX_TREASURE && winPosition(f_player);
+}
+
+bool LabyrinthGame::GameRules::checkPieceForTreassure(Geo::Coordinate coordinate)
+{
+    auto occupied = std::find_if(treasureCoords.begin(), treasureCoords.end(),
+                                 [coordinate](std::shared_ptr<Geo::Coordinate> coord) { return *coord == coordinate; });
+
+    if (occupied == treasureCoords.end())
+    {
+        treasureCoords.push_back(std::make_shared<Geo::Coordinate>(coordinate.getX(), coordinate.getY()));
+        return true;
+    }
+    return false;
 }
 
 LabyrinthGame::GameRules::Coordinate LabyrinthGame::GameRules::placePartDataToCoordinate(

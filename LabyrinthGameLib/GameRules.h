@@ -21,11 +21,13 @@ namespace LabyrinthGame
         [[nodiscard]] bool checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move);
         [[nodiscard]] bool checkPieceMove(const LabyrinthGame::PlacePartData &coordinatePartData);
         [[nodiscard]] bool checkWin(std::weak_ptr<AbstractPlayer> player);
+        [[nodiscard]] bool checkPieceForTreassure(Geo::Coordinate coordinate);
 
     private:
         [[nodiscard]] Coordinate placePartDataToCoordinate(const LabyrinthGame::PlacePartData &coordinatePartData);
         [[nodiscard]] bool winPosition(std::weak_ptr<AbstractPlayer> player);
         std::vector<std::weak_ptr<AbstractPlayer>> m_players;
         std::weak_ptr<GameBoard> m_board;
+        std::vector<std::shared_ptr<Geo::Coordinate>> treasureCoords;
     };
 } // namespace LabyrinthGame

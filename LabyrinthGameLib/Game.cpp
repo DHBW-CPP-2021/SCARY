@@ -1,10 +1,10 @@
 #include "Game.h"
+#include "GameSettings.h"
 #include "IO/ConsoleUtils.h"
 #include "IO/GameDrawer.h"
 #include "Player/AbstractPlayer.h"
-#include "GameSettings.h"
-#include <random>
 #include <chrono>
+#include <random>
 
 LabyrinthGame::Game::Game()
 {
@@ -45,18 +45,17 @@ bool LabyrinthGame::Game::createPlayers()
         // What kind of Player
         kindOfPlayer player = getPlayer(i + 1);
 
-
         Geo::Coordinate coor(0, 0);
         DrawMatrix drawMatrix = {std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
                                  std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
 
-        //To Do different color for each Player !!!
+        // To Do different color for each Player !!!
         switch (i)
         {
         case 0:
             coor = Geo::Coordinate(0, 3);
-            drawMatrix = DrawMatrix {std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
-                                     std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
+            drawMatrix = DrawMatrix{std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
+                                    std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
             break;
         case 1:
             coor = Geo::Coordinate(6, 3);
@@ -67,7 +66,7 @@ bool LabyrinthGame::Game::createPlayers()
             coor = Geo::Coordinate(3, 0);
             drawMatrix = DrawMatrix{std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
                                     std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
-            break; 
+            break;
         case 3:
             coor = Geo::Coordinate(3, 6);
             drawMatrix = DrawMatrix{std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
@@ -96,18 +95,28 @@ bool LabyrinthGame::Game::createPlayers()
 
 bool LabyrinthGame::Game::createTreasures()
 {
-    
+
     for (int i = 0; i < LabyrinthGame::GameSettings::MAX_TREASURES_GAME; i++)
     {
         auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
         std::mt19937 generator(seed);
+
         std::uniform_int_distribution<int> CoordinationXArea(0, 6);
         auto CoordinationX = CoordinationXArea(generator);
         int x = CoordinationX % 7;
         std::uniform_int_distribution<int> CoordinationYArea(0, 6);
         auto CoordinationY = CoordinationYArea(generator);
         int y = CoordinationY % 7;
+
         Geo::Coordinate coordinate(x, y);
+
+        // Ensure that no treassure is generated over another so there are always enough treasures
+        while (m_rules->checkPieceForTreassure(coordinate))
+        {
+            Geo::Coordinate coord((x + 1) % 7, y);
+            coordinate = coord;
+        }
+
         m_treasures.push_back(std::make_shared<TreasureToken>(*m_board, coordinate));
     }
     return false;
@@ -145,7 +154,7 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
     }
 }
 
-//Player place Part and move 
+// Player place Part and move
 void LabyrinthGame::Game::round()
 {
     IO::GameDrawer drawer(*m_board);
@@ -157,7 +166,7 @@ void LabyrinthGame::Game::round()
     static int i;
     bool checkInput = false;
     std::shared_ptr<AbstractPlayer> player = m_players[i];
-   
+
     // Push the Piece/place the Part
     LabyrinthGame::PlacePartData placedPart;
     do
@@ -172,7 +181,7 @@ void LabyrinthGame::Game::round()
     LabyrinthGame::IO::ConsoleUtils::clearConsole();
     drawer.drawMaze();
 
-    //Move Player
+    // Move Player
     Geo::Coordinate moveCoordinate(0, 0);
     do
     {
@@ -182,7 +191,7 @@ void LabyrinthGame::Game::round()
     } while (!checkInput);
 
     player->setCoordinates(moveCoordinate); // get treasure in move or here and with parameter?
-    
+
     // delete Token and set it to Player
     if (m_board->isTokenPlaced(moveCoordinate))
     {
@@ -192,10 +201,9 @@ void LabyrinthGame::Game::round()
                 return treasure->getCoordinate() == playerCoord;
             });
         if (reachedTreasure != m_treasures.end())
-            m_treasures.erase(reachedTreasure); //To DO memory leak ask paul???
+            m_treasures.erase(reachedTreasure); // To DO memory leak ask paul???
 
-        
-        player->addTreasure(); 
+        player->addTreasure();
     }
 
     m_rules->checkWin(player);
@@ -209,7 +217,7 @@ void LabyrinthGame::Game::round()
     {
         i = 0;
     }
-    
+
     LabyrinthGame::IO::ConsoleUtils::clearConsole();
 }
 
