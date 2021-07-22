@@ -6,8 +6,10 @@ namespace LabyrinthGame
     
     PlacePartData HumanPlayer::placePartDialog()
     {
+        return {0, Geo::Direction::left, 0};
     }
     Geo::Coordinate HumanPlayer::movePlayerDialog()
     {
+        return {0, 0};
     }
 } // namespace LabyrinthGame
