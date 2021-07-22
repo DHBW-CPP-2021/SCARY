@@ -44,7 +44,7 @@ bool LabyrinthGame::Game::createPlayers()
     {
         // What kind of Player
         kindOfPlayer player = getPlayer(i + 1);
-        
+
         switch (player)
         {
         case kindOfPlayer::HUMANPLAYER:
@@ -74,11 +74,6 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 {
     int _player;
 
-    do
-    {
-        placedPart = player->placePartDialog();
-        checkInput = m_rules->checkPieceMove(placedPart);
-
     switch (_player)
     {
     case 0:
@@ -90,52 +85,57 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
     }
 }
 
-    void LabyrinthGame::Game::round()
+void LabyrinthGame::Game::round()
+{
+    static int i;
+    bool checkInput = false;
+    std::shared_ptr<AbstractPlayer> player = m_players[i];
+    // Push the Piece/place the Part
+    // [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
+
+    LabyrinthGame::PlacePartData placedPart;
+    do
     {
-        static int i;
-        bool checkInput = false;
-        std::shared_ptr<AbstractPlayer> player = m_players[i];
-        // Push the Piece/place the Part
-        // [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
+        placedPart = player->PlacePartDialog();
+        checkInput = m_rules->checkPieceMove(placedPart);
 
-        LabyrinthGame::PlacePartData placedPart;
-        do
-        {
-            placedPart = player->PlacePartDialog();
-            checkInput = m_rules->checkPieceMove(placedPart);
-
-        } while (!checkInput);
+    } while (!checkInput);
 
     player->setCoordinates(moveCoordinate); // get treasure in move or here and with parameter?
+
+    do
+    {
+        placedPart = player->placePartDialog();
+        checkInput = m_rules->checkPieceMove(placedPart);
+
+    } while (!checkInput);
+
+    player->move(moveCoordinate); // get treasure in move or here and with parameter?
 
     if (m_board->isTokenPlaced(moveCoordinate))
     {
         player->setTreasure();
     }
+    if (m_board->isTokenPlaced(moveCoordinate))
+        player->setTreasure();
 
-        } while (!checkInput);
+    m_rules->checkWin(player);
 
-        player->move(moveCoordinate); // get treasure in move or here and with parameter?
-
-        if (m_board->isTokenPlaced(moveCoordinate))
-            player->setTreasure();
-
-        m_rules->checkWin(player);
-
-        // shift the player
-        if (i < m_players.size() - 1)
-        {
-            i++;
-        }
-        else
-
-            i = 0;
-    }
-
-    bool LabyrinthGame::Game::gameOver()
+    // shift the player
+    if (i < m_players.size() - 1)
     {
-        bool win = 0;
-        for (std::weak_ptr<AbstractPlayer> player : m_players)
-            win |= m_rules->checkWin(player);
-       return win;
+        i++;
     }
+    else
+    {
+        i = 0;
+    }
+}
+
+bool LabyrinthGame::Game::gameOver()
+{
+    bool win = 0;
+    for (std::weak_ptr<AbstractPlayer> player : m_players)
+        win |= m_rules->checkWin(player);
+    return win;
+}
