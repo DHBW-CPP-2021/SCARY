@@ -46,10 +46,10 @@ bool LabyrinthGame::Game::createPlayers()
             m_players[i] = std::make_shared<HumanPlayer>();
             break;
         case 1:
-            m_players[i] = std::make_shared<DumbBot>();
+            m_players[i] = std::make_shared<BotPlayer>();
             break;
         case 2:
-            m_players[i] = std::make_shared<SmartBot>();
+            m_players[i] = std::make_shared<SmartbotPlayer>();
             break;
         }
     }
@@ -68,19 +68,31 @@ bool LabyrinthGame::Game::createGameRules()
 void LabyrinthGame::Game::round()
 {
     static int i;
+    std::shared_ptr<AbstractPlayer> player = players[i]->lock();
     //Push the Piece
-    //input a-g 1/6 or 1-6 a/g
-    m_rules.checkPieceMove();
+    //input a-g 1/6 or 1-6 a/g  
+    m_rules->checkPieceMove();
     m_players[i].pieceMove();
     //PLayer Move
+    while (coordinate == 0)
+    {
+        player->movePlayerDialog();
+    }
     //input coordinates to walk
     //check if players has 3 treasure and sit on a field where is open to the outside then WIN
-    m_rules.checkMove();
+    m_rules->checkMove();
 
-    m_rules.checkWin(m_player[i]);
-    m_players[i].move();//get treasure in move or here and with parameter?
+    m_rules->checkWin(m_players[i]);
+    m_players[i]->move();//get treasure in move or here and with parameter?
+    
+    
+    //shift the player
     if (i < m_players.size())
         i++;
     else
         i = 0;
+
+
+
+
 }

@@ -85,7 +85,11 @@ add_library(LabyrinthGameLib
         LabyrinthGameLib/Player/SmartbotPlayer.cpp
         LabyrinthGameLib/PathState.h
         LabyrinthGameLib/GameBoardPlacedTokenMediator.cpp
-        LabyrinthGameLib/GameBoardPlacedTokenMediator.h)
+        LabyrinthGameLib/GameBoardPlacedTokenMediator.h
+        LabyrinthGameLib/Game.h
+        LabyrinthGameLib/Game.cpp
+        LabyrinthGameLib/GameRules.h
+        LabyrinthGameLib/GameRules.cpp)
 
 set_project_warnings(LabyrinthGameLib)
 

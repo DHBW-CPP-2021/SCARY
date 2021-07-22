@@ -10,6 +10,7 @@ LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> p
 
 bool LabyrinthGame::GameRules::checkPieceMove(const Coordinate &coordinate)
 {
+
     return false;
 }
 
