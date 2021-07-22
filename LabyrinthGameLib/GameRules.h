@@ -1,5 +1,5 @@
 #pragma once
-#include "Game.h"
+
 #include "Geo/Coordinate.h"
 #include "GameBoard.h"
 #include "IO/MazePieceOracle/MazeRowOracle.h"
