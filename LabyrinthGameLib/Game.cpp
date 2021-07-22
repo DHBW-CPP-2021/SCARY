@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Player/AbstractPlayer.h"
 
 LabyrinthGame::Game::Game()
 {
@@ -71,9 +72,8 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 
     do
     {
-        std::cout << "Please select which kind the " << i << ". player should be:";
-        std::cin >> _player;
-    } while (_player >= 0 && _player < 3);
+        placedPart = player->placePartDialog();
+        checkInput = m_rules->checkPieceMove(placedPart);
 
     switch (_player)
     {
@@ -102,14 +102,12 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 
         } while (!checkInput);
 
-        player->placePart(placedPart);
+    player->setCoordinates(moveCoordinate); // get treasure in move or here and with parameter?
 
-        // Player Move
-        Geo::Coordinate moveCoordinate(0, 0);
-        do
-        {
-            moveCoordinate = player->movePlayerDialog();
-            checkInput = m_rules->checkMove(player, moveCoordinate);
+    if (m_board->isTokenPlaced(moveCoordinate))
+    {
+        player->setTreasure();
+    }
 
         } while (!checkInput);
 
