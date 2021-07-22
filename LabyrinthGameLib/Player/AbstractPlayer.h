@@ -9,7 +9,7 @@ namespace LabyrinthGame
 {
     struct PlacePartData
     {
-        GameSettings::CoordType y;
+        GameSettings::CoordType ColOrRowIndex;
         Geo::Direction direction; // hierüber kann herausgefunden werden ob in Row oder Col eingefügt wird.
         GameSettings::CoordType spare_piece_id;
     };
@@ -23,8 +23,8 @@ namespace LabyrinthGame
         virtual ~AbstractPlayer() = default;
 
         // methoden die die bot logik bzw die player abfrage implementieren
-        virtual PlacePartData placePartDialog() = 0;
-        virtual Coordinate movePlayerDialog() = 0;
+        [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
+        [[nodiscard]] virtual Coordinate movePlayerDialog() const = 0;
         [[nodiscard]] Coordinate getCoordinate() const;
 
         void setCoordinates(const Coordinate &pos); //! Achtung kann gefährlich sein.

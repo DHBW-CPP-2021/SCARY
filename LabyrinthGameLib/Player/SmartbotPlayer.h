@@ -7,10 +7,10 @@ namespace LabyrinthGame
     class SmartbotPlayer : public AbstractPlayer
     {
     public:
-        using AbstractPlayer::AbstractPlayer;
+        SmartbotPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation);
 
         // methoden die die bot logik bzw die player abfrage implementieren
-        PlacePartData placePartDialog() override;
-        Coordinate movePlayerDialog() override;
+        PlacePartData placePartDialog() const override;
+        Coordinate movePlayerDialog() const override;
     };
 } // namespace LabyrinthGame

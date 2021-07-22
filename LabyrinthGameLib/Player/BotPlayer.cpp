@@ -3,12 +3,15 @@
 namespace LabyrinthGame
 {
     using namespace Geo;
-    
-    PlacePartData BotPlayer::placePartDialog()
+    BotPlayer::BotPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation)
+        : AbstractPlayer(board, initialPos, charRepresentation)
+    {
+    }
+    PlacePartData BotPlayer::placePartDialog() const
     {
         return {0, Geo::Direction::left, 0};
     }
-    Coordinate BotPlayer::movePlayerDialog()
+    Coordinate BotPlayer::movePlayerDialog() const
     {
         return {0, 0};
     }
