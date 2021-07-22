@@ -1,0 +1,25 @@
+class BreadthFirstSearch
+{
+    .. Member ..
+    -_g : Graph
+    .. Constructor (Algorithm configuration and start) ..
+    +BreadthFirstSearch(g : Graph, start_id : VertexId)
+    +BreadthFirstSearch(g : Graph, start_vertex : Vertex)
+    +BreadthFirstSearch(g : Graph, forbidden_edges: std::set<EdgeId>, start_id : VertexId)
+    +BreadthFirstSearch(g : Graph, forbidden_vertex: VertexId, start_vertex : VertexId)
+    .. Simple Getter ..
+    +getGraph() : Graph
+    +getStartId() : getStartId
+    +getPredecessorVector() : VertexVector<VertexId>
+    +getDistVector() : VertexVector<VertexId>
+    +getPredecessor(t: VertexId) : VertexId
+    +getPredecessor(t: Vertex) : VertexId
+    +getDist(t: VertexId) : VertexId
+    +getDist(t: Vertex) : VertexId
+    +getPath(t: VertexId): std::list<VertexId>
+    +getPath(t: Vertex): std::list<VertexId>
+    +isReachable(t : VertexId): bool
+    +isReachable(t : Vertex): bool
+}
+
+BreadthFirstSearch "1:1" *--  Graph : contains >

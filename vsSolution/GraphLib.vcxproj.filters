@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\Edge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\Vertex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\Graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\Algorithm\BreadthFirstSearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\Edge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\Graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\Graph-commons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\PointerIteratorWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\SimpleRange.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\GraphMaps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\Algorithm\BreadthFirstSearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\Graph\VertexVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9A972D9D-C6F9-3008-92FB-D6FD92356C35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{88D157AE-963F-3587-BADE-CC56161DBAAA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,74 @@
+class Graph
+{
+    .. Member ..
+    -_vertices : VertexPtrContainer
+    -_edges : EdgePtrContainer
+    +INVALID_VERTEX_ID : VertexId
+    +INVALID_EDGE_ID : EdgeId
+    .. Constructor ..
+    +Graph()
+    +Graph(num_vertices: VertexId)
+    .. Simple Getter ..
+    +getVertex(id : VertexId) : Vertex
+    +getEdge(id : EdgeId) : Edge
+    .. Modifiers ..
+    +addVertex(): Vertex
+    +addVertices(k : VertexId): void
+    +addEdge(ep1: VertexId, ep2: VertexId2) : Edge
+    +removeIdgeIfExistent(ep1: VertexId, ep2: VertexId2) : void
+    +addEdgeIfNonexistent(ep1: VertexId, ep2: VertexId2) : void
+    +removeEdge(ep1: VertexId, ep2: VertexId2) : void
+    +removeEdge(e : EdgeId) : void
+    +removeEdges(c: EdgeIdContainer) : void;
+    .. Queries ..
+    +numVertices() : VertexId
+    +numEdges() : EdgeId
+    +hasEdge(ep1: VertexId, ep2: VertexId) : bool
+    +findEdge(ep1: VertexId, ep2: VertexId) : Edge
+    .. Others..
+    +printHumanReadable()
+}
+
+class Vertex
+{
+    .. Member..
+    -_id : VertexId
+    -_graph : Graph
+    -_edges : std::vector<EdgeId>
+    .. Constructor ..
+    +Vertex(id_ : VertexId, graph_ : Graph)
+    .. Simple Getter ..
+    +getId(): VertexId
+    .. Queries ..
+    +numEdges(): EdgeId
+    +getEdge(id: EdgeId) : Edge
+    +findEdgeTo(other: VertexId) : EdgeId
+    +findEdgeTo(other: Vertex) : EdgeId
+    +hasEdgeTo(other:VertexId) : bool
+    +hasEdgeTo(other:Vertex) : bool
+    +degree() : EdgeId
+}
+
+class Edge
+{
+    .. Member ..
+    -_id : EdgeId
+    -_ep1 : VertexId
+    -_ep2 : VertexId
+    -_graph : Graph
+    .. Constructor ..
+    +Edge(id_ : EdgeId, ep1_ : VertexId, ep_2 : VertexId, graph_ : Graph)
+    .. Simple Getter ..
+    +getEndpoint1() : Vertex
+    +getEndpoint2() : Vertex
+    +getId() : EdgeId
+    .. Queries ..
+    +getOtherEndpoint(v: Vertex) : Vertex
+    +isAdjacent(v : Vertex) : bool
+    +isAdjacent(v : VertexId) : bool
+    +connects(v : Vertex, w : Vertex) : bool
+    +connects(v : VertexId, w : VertexId) : bool
+}
+
+Graph "1:n" *-- Vertex : contains >
+Graph "1:n" *-- Edge : contains >

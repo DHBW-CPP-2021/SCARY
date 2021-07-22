@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\ConsoleUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\MazePiece.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Maze.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\GameDrawer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\GameBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Utils\Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Geo\Direction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\Token.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Geo\Coordinate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\MazePieceOracle\MazeRowOracle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\MazePieceOracle\SparePieceOracle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Token\PlacedToken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Token\StupidToken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\GameBoardPlacedTokenMediator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\ConsoleUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\MazePiece.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Geo\Direction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Maze.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\GameDrawer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\GameSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\GameBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Utils\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\Token.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\DrawingConst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Geo\Coordinate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\MazePieceOracle\MazePieceOracle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\MazePieceOracle\MazeRowOracle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\IO\MazePieceOracle\SparePieceOracle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Token\PlacedToken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\Token\StupidToken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\PathState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\LabyrinthGameLib\GameBoardPlacedTokenMediator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Asator\Documents\Hackathon-2021-Vorbereitung\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9A972D9D-C6F9-3008-92FB-D6FD92356C35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{88D157AE-963F-3587-BADE-CC56161DBAAA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

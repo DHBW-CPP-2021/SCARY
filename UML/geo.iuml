@@ -1,0 +1,22 @@
+enum Direction
+{
+    left
+    right
+    up
+    down
+}
+
+class Coordinate
+{
+    ..Member..
+    -_x : CoordType
+    -_y : CoordType
+    ..Constructor..
+    +Coordinate(x_:CoordType,y_:CoordType)
+    ..Queries..
+    +getX(): CoordType
+    +getY(): CoordType
+    +isValid(): bool
+    +adjacentCoordinate(d:Direction):Coordinate
+}
+Coordinate -- Direction : knows >

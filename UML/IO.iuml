@@ -1,0 +1,49 @@
+class GameDrawer
+{
+    .. Member ..
+    -_board: GameBoard
+    .. Drawing methods ..
+    +drawMaze(out: std::ostream)
+    +drawSparPieces(out: std::ostream)
+}
+class DrawingConst
+{
+    ..constexpr..
+    +wall_width
+    +wall_height
+    +inner_width
+    +inner_height
+    +row_label_spacing
+}
+GameDrawer -- DrawingConst : uses >
+
+class Token
+{
+    .. Alias..
+    +TokenArrayRow : std::array<char, inner_width>
+    +TokenArrayMatrix : std::array<TokenArrayRow, inner_height>
+    .. Member..
+    -_character_representation : TokenArrayMatrix
+    .. Constructor..
+    +Token(character_representation_ : TokenArrayMatrix)
+    +Token(single_char_representation_ : char)
+    .. Queries..
+    +getCharacterRepresentation() : TokenArrayMatrix
+    .. Static functionality..
+    {static} +getEmptyTokenArrayMatrix() : TokenArrayMatrix
+}
+note right: Only visual \nrepresentation
+Token -- DrawingConst : uses >
+GameDrawer -- Token : can draw >
+
+class ConsoleUtils
+{
+    ..Methods..
+    {static} +readInteger() : int
+    {static} +readLongs() : long
+    {static} +readDouble() : double
+    {static} +readString(): std::string
+    {static} +readString(msg: std::string, maxLength:int):std::string
+    {static} +safelyReadInteger(msg: std::string): int
+    {static} +safelyReadInteger(msg: std::string, min: int, max:int): int
+}

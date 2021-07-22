@@ -1,0 +1,117 @@
+enum PathState
+{
+    open
+    closed
+}
+
+class GameSettings
+{
+    .. Alias ..
+    +CoordType : unsigned short
+    .. Constants ..
+    {static} +WIDTH : CoordType
+    {static} +HEIGHT : CoordType
+    {static} +NUM_COORDINATES : CoordType
+    {static} +NUM_SPARE_PIECES : CoordType
+    {static} +TOTAL_NUM_PIECES : CoordType
+    {static} +OPEN_PROBABILITY : double
+}
+
+class MazePiece
+{
+    ..Member..
+    -_path_states_per_direction : std::array<PathState, 4>
+    .. Constructor..
+    +MazePiece(toLeft:PathState,toRight:PathState,up:PathState,down:PathState)
+   .. Queries..
+   +pathState(d:Direction): PathState
+   +isClosed(d:Direction): bool
+   +isOpen(d:Direction): bool
+}
+MazePiece *-- PathState : has one for \nevery direction >
+MazePiece -- Direction : knows >
+
+class Maze
+{
+    .. Member ..
+    -_pieces : std::vector<MazePiece>
+    -piece_placement : std::vector<CoordType>
+    -_is_fixed : std::vector<bool>
+    .. Queries ..
+    +getPiece(coordinate:Coordinate): MazePiece
+    +getSparePiece(id: CoordType) : MazePiece
+    +isFixed(coordinate:Coordinate) : bool
+    +isRowFixed(CoordType y) : bool
+    +isColumnFixed(CoordType y) : bool
+    .. Modifier ..
+    +insertSparePieceInRow(CoordType y, Direction d, CoordType spare_piece_id): void
+    +insertSparePieceInColumn(CoordType x, Direction d, CoordType spare_piece_id): void
+    +fixMazePiece(coordinate:Coordinate): void
+    +unfixMazePiece(coordinate:Coordinate): void
+    +setFixation(coordinate:Coordinate, b: bool): void
+}
+Maze -- GameBoard : Owns reference\nto _maze_pieces >
+GameBoard "1:1" *-- Maze : Owns >
+Maze -- MazePiece : Manages placement\nand fixation >
+
+class Utils
+{
+    .. Methods ..
+    {static} +compute1DFrom2D(coordinate:Coordinate) : CoordType
+    {static} +compute2DFrom1D(coordinate:CoordType) : Coordinate
+    {static} +isValid(coordinate:Coordinate): bool
+}
+Maze --r Utils : Uses >
+
+abstract PlacedToken
+{
+    .. Constructor ..
+    +PlacedToken(_board : GameBoard, character_representation : TokenArrayMatrix)
+    +PlacedToken(_board : GameBoard, single_char_representation : char)
+    .. Queries (pure virtual) ..
+    {abstract} +getCoordinate() : Coordinate
+    .. Modifier (pure virtual)..
+    {abstract} #notifyMovement(d: Direction)
+}
+PlacedToken --|> Token : Enhance with \ngame specifica >
+class StupidToken
+{
+    .. Constructor ..
+    +PlacedToken(_board : GameBoard, character_representation : TokenArrayMatrix)
+    +PlacedToken(_board : GameBoard, single_char_representation : char)
+    .. Queries ..
+    +getCoordinate() : Coordinate
+    .. Modifier ..
+    #notifyMovement(d: Direction)
+}
+StupidToken --|> PlacedToken: Example\nimplementation >
+
+class GameBoard
+{
+    .. Member ..
+    -_maze_pieces : std::vector<MazePiece>
+    -_registered_token : std::vector<PlacedToken*>
+    -_maze : Maze
+    -_graph : Graph
+    .. Constructor ..
+    +GameBoard()
+    .. Queries ..
+    +getMaze() : Maze
+    +getGraph() : Graph
+    +isTokenPlaced(coordinate:Coordinate): bool
+    +getToken(coordinate:Coordinate): PlacedToken
+    .. Modifier ..
+    +insertSparePieceInRow(y: CoordType, d: Direction, spare_piece_id : CoordType): void
+    +insertSparePieceInColumn(x: CoordType, d: Direction, spare_piece_id : CoordType): void
+    .. Private methods (excerpt) ..
+    -initiallyCreateMazePieces(): std::vector<MazePiece>
+    -setInitialMazeFication(): void
+    -getOusideVertex(): Vertex
+    -getVertex(coordinate:Coordinate): Vertex
+    -getMazePiece(coordinate:Coordinate): MazePiece
+}
+PlacedToken -- GameBoard: Register itself \nwhile creation >
+GameBoard -- PlacedToken: Notify about movement of \nMazePieces >
+GameBoard "1:n" *-- MazePiece : Owns >
+GameBoard "1:1" *-- Graph : Owns >
+GameDrawer -- GameBoard : Draws >
