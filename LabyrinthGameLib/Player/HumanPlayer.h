@@ -7,9 +7,9 @@ namespace LabyrinthGame
     class HumanPlayer : public AbstractPlayer
     {
     public:
-        using AbstractPlayer::AbstractPlayer;
+        HumanPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation);
 
-        PlacePartData placePartDialog() override;
-        Coordinate movePlayerDialog() override;
+        [[nodiscard]] PlacePartData placePartDialog() const override;
+        [[nodiscard]] Coordinate movePlayerDialog() const override;
     };
 } // namespace LabyrinthGame
