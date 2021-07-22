@@ -18,13 +18,13 @@ namespace LabyrinthGame
     public:
         GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board);
 
-        bool checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move);
-        bool checkPieceMove(const LabyrinthGame::PlacePartData &coordinatePartData);
-        bool checkWin(std::weak_ptr<AbstractPlayer> player);
+        [[nodiscard]] bool checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move);
+        [[nodiscard]] bool checkPieceMove(const LabyrinthGame::PlacePartData &coordinatePartData);
+        [[nodiscard]] bool checkWin(std::weak_ptr<AbstractPlayer> player);
 
     private:
-        Coordinate placePartDataToCoordinate(const LabyrinthGame::PlacePartData &coordinatePartData);
-        bool winPosition(std::weak_ptr<AbstractPlayer> player);
+        [[nodiscard]] Coordinate placePartDataToCoordinate(const LabyrinthGame::PlacePartData &coordinatePartData);
+        [[nodiscard]] bool winPosition(std::weak_ptr<AbstractPlayer> player);
         std::vector<std::weak_ptr<AbstractPlayer>> m_players;
         std::weak_ptr<GameBoard> m_board;
     };

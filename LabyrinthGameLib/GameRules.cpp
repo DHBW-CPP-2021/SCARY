@@ -9,7 +9,7 @@ LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> p
 bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move)
 {
     // Check if on piece is no other Player
-    for (std::weak_ptr<AbstractPlayer> player : m_players)
+    for (auto player : m_players)
     {
         std::shared_ptr<AbstractPlayer> f_player = player.lock();
         if (move == f_player->getCoordinate())
@@ -42,7 +42,7 @@ bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
     std::shared_ptr<AbstractPlayer> f_player = player.lock();
 
     // MAX_TREASURE == 3 in GameSettings
-    if (f_player->getTreasuer() == LabyrinthGame::GameSettings::MAX_TREASURE && winPosition(f_player))
+    if (f_player->getTreasure() == LabyrinthGame::GameSettings::MAX_TREASURE && winPosition(f_player))
         return true;
     else
         return false;

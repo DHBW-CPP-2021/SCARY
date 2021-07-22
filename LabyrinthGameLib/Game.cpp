@@ -40,17 +40,18 @@ bool LabyrinthGame::Game::createPlayers()
     {
         // What kind of Player
         kindOfPlayer player = getPlayer(i + 1);
-
+        Geo::Coordinate coor(0, 0);
+        DrawMatrix drawMatrix = {'X', 1, 1};
         switch (player)
         {
         case kindOfPlayer::HUMANPLAYER:
-            m_players[i] = std::make_shared<HumanPlayer>();
+            m_players[i] = std::make_shared<HumanPlayer>(*m_board, coor, drawMatrix);
             break;
         case kindOfPlayer::DUMPBOT:
-            m_players[i] = std::make_shared<BotPlayer>();
+            m_players[i] = std::make_shared<BotPlayer>(*m_board, coor, drawMatrix);
             break;
         case kindOfPlayer::SMARTBOT:
-            m_players[i] = std::make_shared<SmartbotPlayer>();
+            m_players[i] = std::make_shared<SmartbotPlayer>(*m_board, coor, drawMatrix);
             break;
         }
     }
@@ -118,7 +119,7 @@ void LabyrinthGame::Game::round()
 
     if (m_board->isTokenPlaced(moveCoordinate))
     {
-        player->setTreasure();
+        player->addTreasure(); //remove Treasure from Board?
     }
 
     m_rules->checkWin(player);

@@ -17,6 +17,7 @@ namespace LabyrinthGame
 
     class Game
     {
+        using DrawMatrix = std::array<std::array<char, IO::DrawingConst::inner_width>, IO::DrawingConst::inner_height>;
     public:
         Game();
         void run();
@@ -24,19 +25,19 @@ namespace LabyrinthGame
     private:
         // config Methods
         void config();
-        bool createBoard();
-        bool createPlayers();
-        bool createGameRules();
-        LabyrinthGame::kindOfPlayer getPlayer(int i);
+        [[nodiscard]] bool createBoard();
+        [[nodiscard]] bool createPlayers();
+        [[nodiscard]] bool createGameRules();
+        [[nodiscard]] LabyrinthGame::kindOfPlayer getPlayer(int i);
 
         // Round Methods
         void round();
-        bool gameOver();
-        bool placePart(LabyrinthGame::PlacePartData part);
+        [[nodiscard]] bool gameOver();
+        [[nodiscard]] bool placePart(LabyrinthGame::PlacePartData part);
 
         // Members
         std::vector<std::shared_ptr<AbstractPlayer>> m_players;
-        std::vector<std::shared_ptr<TreasureToken>> m_treasures;
+        //std::vector<std::shared_ptr<TreasureToken>> m_treasures;  can help for remove treasures???
         static std::shared_ptr<GameRules> m_rules;
         static std::shared_ptr<GameBoard> m_board; // static???
     };

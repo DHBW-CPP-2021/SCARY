@@ -26,7 +26,9 @@ namespace LabyrinthGame
         [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
         [[nodiscard]] virtual Coordinate movePlayerDialog() const = 0;
         [[nodiscard]] Coordinate getCoordinate() const;
+        [[nodiscard]] unsigned short getTreasure();
 
+        void addTreasure();
         void setCoordinates(const Coordinate &pos); //! Achtung kann gefährlich sein.
     protected:
         // ? Single Responsibility Principle: sollte das nicht in gameRules sein?!
@@ -36,5 +38,6 @@ namespace LabyrinthGame
     private:
         PlayerToken m_token;
         const GameBoard &m_board;
+        unsigned short m_treasureIndex;
     };
 } // namespace LabyrinthGame

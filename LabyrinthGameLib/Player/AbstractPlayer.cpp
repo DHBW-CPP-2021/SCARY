@@ -9,7 +9,15 @@ namespace LabyrinthGame
         : m_token(board, initialPos, charRepresentation), m_board(board)
     {
     }
-    void AbstractPlayer::setCoordinates(const Coordinate& pos)
+
+    void AbstractPlayer::addTreasure()
+    {
+        if (m_treasureIndex < 3)
+        {
+            m_treasureIndex++;
+        }
+    }
+    void AbstractPlayer::setCoordinates(const Coordinate &pos)
     {
         if (!canMoveTo(pos))
         {
@@ -21,6 +29,11 @@ namespace LabyrinthGame
     Geo::Coordinate AbstractPlayer::getCoordinate() const
     {
         return m_token.getCoordinate();
+    }
+
+    unsigned short AbstractPlayer::getTreasure()
+    {
+        return m_treasureIndex;
     }
     
     bool AbstractPlayer::canMoveTo(const Coordinate &pos)
