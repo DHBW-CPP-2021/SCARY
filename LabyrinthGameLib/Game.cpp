@@ -11,7 +11,6 @@ void LabyrinthGame::Game::run()
     {
         round();
     }
-
 }
 
 void LabyrinthGame::Game::config()
@@ -68,12 +67,21 @@ bool LabyrinthGame::Game::createGameRules()
 void LabyrinthGame::Game::round()
 {
     static int i;
-    //Push the Piece
+    // Push the Piece
 
-    //PLayer Move
-    m_players[i]
+    // Player Move
+    m_players[i];
     if (i < m_players.size())
+    {
+        playermove();
         i++;
+    }
     else
         i = 0;
+}
+
+void LabyrinthGame::Game::playermove()
+{
+    std::shared_ptr<LabyrinthGame::Geo::Coordinate> _coord =
+        std::make_shared<LabyrinthGame::Geo::Coordinate>(LabyrinthGame::IO::UserDecisions::movePlayer());
 }

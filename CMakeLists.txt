@@ -66,7 +66,9 @@ add_library(LabyrinthGameLib
         LabyrinthGameLib/IO/MazePieceOracle/MazeRowOracle.cpp
         LabyrinthGameLib/IO/MazePieceOracle/MazeRowOracle.h
         LabyrinthGameLib/IO/MazePieceOracle/SparePieceOracle.cpp
-        LabyrinthGameLib/IO/MazePieceOracle/SparePieceOracle.h 
+        LabyrinthGameLib/IO/MazePieceOracle/SparePieceOracle.h
+        LabyrinthGameLib/IO/UserDecisions.cpp
+        LabyrinthGameLib/IO/UserDecisions.h
         LabyrinthGameLib/Token/PlacedToken.cpp 
         LabyrinthGameLib/Token/PlacedToken.h 
         LabyrinthGameLib/Token/StupidToken.cpp 
