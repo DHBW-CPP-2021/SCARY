@@ -1,7 +1,8 @@
 #include "GameBoard.h"
+#include "../Graph/Algorithm/BreadthFirstSearch.h"
 #include "Utils/Utils.h"
 #include <random>
-
+#include <stdexcept>
 
 namespace LabyrinthGame
 {
@@ -265,5 +266,29 @@ namespace LabyrinthGame
     void GameBoard::registerToken(PlacedToken *token)
     {
         _registered_token.push_back(token);
+    }
+
+    bool GameBoard::coordsAreConnected(const Coordinate &coord1, const Coordinate &coord2) const
+    {
+        if (!Utils::isValid(coord1) || !Utils::isValid(coord2))
+        {
+            throw std::runtime_error("coordinate not valid");
+        }
+        auto vertex1 = getVertex(coord1);
+        auto vertex2 = getVertex(coord2);
+        Combinatorics::BreadthFirstSearch search(_graph, vertex1);
+        return search.isReachable(vertex2);
+    }
+
+    bool GameBoard::coordIsConnectedToOutside(const Coordinate &coord) const
+    {
+        if (!Utils::isValid(coord))
+        {
+            throw std::runtime_error("coordinate not valid");
+        }
+        auto vertex1 = getVertex(coord);
+        auto vertex2 = getOutsideVertex();
+        Combinatorics::BreadthFirstSearch search(_graph, vertex1);
+        return search.isReachable(vertex2);
     }
 } // namespace LabyrinthGame
