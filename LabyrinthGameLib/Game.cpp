@@ -69,9 +69,16 @@ void LabyrinthGame::Game::round()
 {
     static int i;
     //Push the Piece
-
+    //input a-g 1/6 or 1-6 a/g
+    m_rules.checkPieceMove();
+    m_players[i].pieceMove();
     //PLayer Move
-    m_players[i]
+    //input coordinates to walk
+    //check if players has 3 treasure and sit on a field where is open to the outside then WIN
+    m_rules.checkMove();
+
+    m_rules.checkWin(m_player[i]);
+    m_players[i].move();//get treasure in move or here and with parameter?
     if (i < m_players.size())
         i++;
     else
