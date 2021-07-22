@@ -98,12 +98,12 @@ void LabyrinthGame::Game::round()
     LabyrinthGame::PlacePartData placedPart;
     do
     {
-        placedPart = player->PlacePartDialog();
+        placedPart = player->placePartDialog();
         checkInput = m_rules->checkPieceMove(placedPart);
 
     } while (!checkInput);
 
-    player->placePart(placedPart);
+    // player->placePart(placedPart);       ==> Über Board
 
     Geo::Coordinate moveCoordinate(0, 0);
     do
@@ -114,15 +114,12 @@ void LabyrinthGame::Game::round()
     } while (!checkInput);
 
     // player->setCoordinates(moveCoordinate); // get treasure in move or here and with parameter?
-    player->move(moveCoordinate); // get treasure in move or here and with parameter?
+    player->setCoordinates(moveCoordinate); // get treasure in move or here and with parameter?
 
     if (m_board->isTokenPlaced(moveCoordinate))
     {
         player->setTreasure();
     }
-
-    if (m_board->isTokenPlaced(moveCoordinate))
-        player->setTreasure();
 
     m_rules->checkWin(player);
 
