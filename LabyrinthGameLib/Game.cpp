@@ -136,6 +136,7 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
     }
 }
 
+//Player place Part and move 
 void LabyrinthGame::Game::round()
 {
     IO::GameDrawer drawer(*m_board);
@@ -147,11 +148,9 @@ void LabyrinthGame::Game::round()
     static int i;
     bool checkInput = false;
     std::shared_ptr<AbstractPlayer> player = m_players[i];
+   
     // Push the Piece/place the Part
-    // [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
-
     LabyrinthGame::PlacePartData placedPart;
-    //do while raus und prüfung in placePartDialog
     do
     {
         placedPart = player->placePartDialog();
@@ -164,6 +163,7 @@ void LabyrinthGame::Game::round()
     LabyrinthGame::IO::ConsoleUtils::clearConsole();
     drawer.drawMaze();
 
+    //Move Player
     Geo::Coordinate moveCoordinate(0, 0);
     do
     {
@@ -172,28 +172,26 @@ void LabyrinthGame::Game::round()
 
     } while (!checkInput);
 
-    // player->setCoordinates(moveCoordinate); // get treasure in move or here and with parameter?
     player->setCoordinates(moveCoordinate); // get treasure in move or here and with parameter?
-
+    
+    // delete Token and set it to Player
     if (m_board->isTokenPlaced(moveCoordinate))
     {
-        // PlaceToken board.getToken(moveCoordinate)
         Geo::Coordinate playerCoord = player->getCoordinate();
         auto reachedTreasure =
             std::find_if(m_treasures.begin(), m_treasures.end(), [playerCoord](std::shared_ptr<TreasureToken> treasure) {
-                /*if (treasure->getCoordinate() == playerCoord)*/
                 return treasure->getCoordinate() == playerCoord;
             });
         if (reachedTreasure != m_treasures.end())
-            m_treasures.erase(reachedTreasure);
+            m_treasures.erase(reachedTreasure); //To DO memory leak ask paul???
 
-        // delete Token from vector
-        player->addTreasure(); // remove Treasure from Board!!!!
+        
+        player->addTreasure(); 
     }
 
     m_rules->checkWin(player);
 
-    // shift the player
+    // shift to the player
     if (i < m_players.size() - 1)
     {
         i++;
@@ -202,10 +200,8 @@ void LabyrinthGame::Game::round()
     {
         i = 0;
     }
-    // clear Console
+    
     LabyrinthGame::IO::ConsoleUtils::clearConsole();
-    // print Board
-    // IO::GameDrawer drawer(*m_board);
 }
 
 bool LabyrinthGame::Game::gameOver()
