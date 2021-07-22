@@ -126,3 +126,11 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
         else
             i = 0;
     }
+
+    bool LabyrinthGame::Game::gameOver()
+    {
+        bool win = 0;
+        for (std::weak_ptr<AbstractPlayer> player : m_players)
+            win |= m_rules->checkWin(player);
+       return win;
+    }
