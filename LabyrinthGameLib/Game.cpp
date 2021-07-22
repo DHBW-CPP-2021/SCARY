@@ -41,9 +41,37 @@ bool LabyrinthGame::Game::createPlayers()
         kindOfPlayer player = getPlayer(i + 1);
 
         // Just for debug
-        Geo::Coordinate coor(0, i);
+        //
+        /*Geo::Coordinate coords[4] = {Coordinate(0, 3), } */
+        Geo::Coordinate coor(0, 0);
         DrawMatrix drawMatrix = {std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
                                  std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
+
+        switch (i)
+        {
+        case 0:
+            coor = Geo::Coordinate(0, 3);
+            drawMatrix = DrawMatrix {std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
+                                     std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
+            break;
+        case 1:
+            coor = Geo::Coordinate(6, 3);
+            drawMatrix = DrawMatrix{std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
+                                    std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
+            break;
+        case 2:
+            coor = Geo::Coordinate(3, 0);
+            drawMatrix = DrawMatrix{std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
+                                    std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
+            break; 
+        case 3:
+            coor = Geo::Coordinate(3, 6);
+            drawMatrix = DrawMatrix{std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
+                                    std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
+            break;
+        default:
+            break;
+        }
 
         switch (player)
         {
@@ -109,6 +137,7 @@ void LabyrinthGame::Game::round()
     // [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
 
     LabyrinthGame::PlacePartData placedPart;
+    //do while raus und prüfung in placePartDialog
     do
     {
         placedPart = player->placePartDialog();

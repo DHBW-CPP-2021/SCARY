@@ -6,18 +6,20 @@ LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> p
 {
 }
 
-bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move)
+bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> _player, const Coordinate move)
 {
+    std::shared_ptr<AbstractPlayer> f1_player = _player.lock();
     // Check if on piece is no other Player
     for (std::weak_ptr<AbstractPlayer> player : m_players)
     {
         std::shared_ptr<AbstractPlayer> f_player = player.lock();
-        if (move == f_player->getCoordinate())
+        //to do check for himself???
+        if (move == f_player->getCoordinate() && f_player != f1_player)
         {
             return false;
         }
     }
-    std::shared_ptr<AbstractPlayer> f_player = player.lock();
+    std::shared_ptr<AbstractPlayer> f_player = _player.lock();
     std::shared_ptr<GameBoard> f_board = m_board.lock();
 
     // check if Path is Connected
@@ -31,7 +33,7 @@ bool LabyrinthGame::GameRules::checkPieceMove(const LabyrinthGame::PlacePartData
     std::shared_ptr<GameBoard> f_board = m_board.lock();
     const Maze &maze = f_board->getMaze();
 
-    return !maze.isFixed(coordinate)
+    return !maze.isFixed(coordinate);
 }
 
 bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
@@ -49,13 +51,13 @@ LabyrinthGame::GameRules::Coordinate LabyrinthGame::GameRules::placePartDataToCo
     switch (coordinatePartData.direction)
     {
     case LabyrinthGame::Geo::Direction::left:
-        coordinate = Coordinate(7, coordinatePartData.ColOrRowIndex + 1);
+        coordinate = Coordinate(6, coordinatePartData.ColOrRowIndex);
         return coordinate;
     case LabyrinthGame::Geo::Direction::right:
-        coordinate = Coordinate(0, coordinatePartData.ColOrRowIndex + 1);
+        coordinate = Coordinate(0, coordinatePartData.ColOrRowIndex);
         return coordinate;
     case LabyrinthGame::Geo::Direction::up:
-        coordinate = Coordinate(coordinatePartData.ColOrRowIndex + 1, 7);
+        coordinate = Coordinate(coordinatePartData.ColOrRowIndex + 1, 6);
         return coordinate;
     case LabyrinthGame::Geo::Direction::down:
         coordinate = Coordinate(coordinatePartData.ColOrRowIndex + 1, 0);
