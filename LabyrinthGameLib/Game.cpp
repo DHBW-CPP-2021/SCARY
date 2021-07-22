@@ -98,22 +98,15 @@ bool LabyrinthGame::Game::createTreasures()
 
     for (int i = 0; i < LabyrinthGame::GameSettings::MAX_TREASURES_GAME; i++)
     {
-        auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-        std::mt19937 generator(seed);
-
-        std::uniform_int_distribution<int> CoordinationXArea(0, 6);
-        auto CoordinationX = CoordinationXArea(generator);
-        int x = CoordinationX % 7;
-        std::uniform_int_distribution<int> CoordinationYArea(0, 6);
-        auto CoordinationY = CoordinationYArea(generator);
-        int y = CoordinationY % 7;
-
+        int x, y;
+        std::tie(x, y) = createRandomCoordinate();
         Geo::Coordinate coordinate(x, y);
 
         // Ensure that no treassure is generated over another so there are always enough treasures
-        while (m_rules->checkPieceForTreassure(coordinate))
+        while (!m_rules->checkPieceForTreassure(coordinate))
         {
-            Geo::Coordinate coord((x + 1) % 7, y);
+            std::tie(x, y) = createRandomCoordinate();
+            Geo::Coordinate coord(x, y);
             coordinate = coord;
         }
 
@@ -131,6 +124,22 @@ bool LabyrinthGame::Game::createGameRules()
     }
     m_rules = std::make_shared<GameRules>(temp, m_board);
     return m_rules != nullptr;
+}
+
+std::tuple<int, int> LabyrinthGame::Game::createRandomCoordinate()
+{
+    auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+    std::mt19937 generator(seed);
+
+    std::uniform_int_distribution<int> CoordinationXArea(0, 6);
+    auto CoordinationX = CoordinationXArea(generator);
+    int x = CoordinationX % 7;
+
+    std::uniform_int_distribution<int> CoordinationYArea(0, 6);
+    auto CoordinationY = CoordinationYArea(generator);
+    int y = CoordinationY % 7;
+
+    return std::make_tuple(x, y);
 }
 
 LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)

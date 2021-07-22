@@ -29,6 +29,7 @@ namespace LabyrinthGame
         [[nodiscard]] bool createPlayers();
         [[nodiscard]] bool createTreasures();
         [[nodiscard]] bool createGameRules();
+        [[nodiscard]] std::tuple<int, int> createRandomCoordinate();
         [[nodiscard]] LabyrinthGame::kindOfPlayer getPlayer(int i);
 
         // Round Methods
