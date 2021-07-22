@@ -1,8 +1,8 @@
 #include "LabyrinthGameLib/GameBoard.h"
 #include "LabyrinthGameLib/IO/GameDrawer.h"
-#include "LabyrinthGameLib/Token/StupidToken.h"
+#include "LabyrinthGameLib/Token/PlayerToken.h"
+#include "LabyrinthGameLib/Token/TreasureToken.h"
 #include <iostream>
-
 
 int main()
 {
@@ -20,7 +20,7 @@ int main()
     drawer.drawSparePieces();
 
     std::cout << "\n\n\nLet's place some token!\n";
-    StupidToken t1(board, Coordinate(1, 1), 'x');
+    PlayerToken t1(board, Coordinate(1, 1), 'x');
     // But the second one with a slightly more advanced char representation
     IO::Token::TokenArrayMatrix matrix = IO::Token::getEmptyTokenArrayMatrix();
     matrix[0][0] = 'a';
@@ -29,7 +29,8 @@ int main()
     matrix[1][3] = 'x';
     matrix[1][4] = 'y';
     matrix[1][5] = 'z';
-    StupidToken t2(board, Coordinate(2, 4), matrix);
+    PlayerToken t2(board, Coordinate(2, 4), matrix);
+    TreasureToken t3(board, Coordinate(3, 4));
     drawer.drawMaze();
 
     std::cout << "\n\n\nLet's insert the first spare piece into the second row!\n";

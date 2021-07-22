@@ -20,12 +20,7 @@ namespace LabyrinthGame
         StupidToken(GameBoard &board_, Coordinate initialPos, char singleCharRepresentation);
         StupidToken(GameBoard &board_, Coordinate initialPos, TokenArrayMatrix charRepresentation);
 
-        [[nodiscard]] Coordinate getCoordinate() const override;
-
         void notifyMovement(Geo::Direction d) override;
-
-    private:
-        Coordinate _pos;
     };
 
 } // namespace LabyrinthGame

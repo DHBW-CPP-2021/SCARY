@@ -66,7 +66,18 @@ add_library(LabyrinthGameLib
         LabyrinthGameLib/IO/MazePieceOracle/MazeRowOracle.cpp
         LabyrinthGameLib/IO/MazePieceOracle/MazeRowOracle.h
         LabyrinthGameLib/IO/MazePieceOracle/SparePieceOracle.cpp
-        LabyrinthGameLib/IO/MazePieceOracle/SparePieceOracle.h LabyrinthGameLib/Token/PlacedToken.cpp LabyrinthGameLib/Token/PlacedToken.h LabyrinthGameLib/Token/StupidToken.cpp LabyrinthGameLib/Token/StupidToken.h LabyrinthGameLib/PathState.h LabyrinthGameLib/GameBoardPlacedTokenMediator.cpp LabyrinthGameLib/GameBoardPlacedTokenMediator.h)
+        LabyrinthGameLib/IO/MazePieceOracle/SparePieceOracle.h
+        LabyrinthGameLib/Token/PlacedToken.cpp
+        LabyrinthGameLib/Token/PlacedToken.h
+        LabyrinthGameLib/Token/StupidToken.cpp
+        LabyrinthGameLib/Token/StupidToken.h
+        LabyrinthGameLib/Token/TreasureToken.h
+        LabyrinthGameLib/Token/TreasureToken.cpp
+        LabyrinthGameLib/Token/PlayerToken.h
+        LabyrinthGameLib/Token/PlayerToken.cpp
+        LabyrinthGameLib/PathState.h
+        LabyrinthGameLib/GameBoardPlacedTokenMediator.cpp
+        LabyrinthGameLib/GameBoardPlacedTokenMediator.h)
 
 set_project_warnings(LabyrinthGameLib)
 
