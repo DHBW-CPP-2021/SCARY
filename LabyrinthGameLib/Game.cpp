@@ -44,37 +44,11 @@ bool LabyrinthGame::Game::createPlayers()
     {
         // What kind of Player
         kindOfPlayer player = getPlayer(i + 1);
-
         Geo::Coordinate coor(0, 0);
         DrawMatrix drawMatrix = {std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
                                  std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
 
-        // To Do different color for each Player !!!
-        switch (i)
-        {
-        case 0:
-            coor = Geo::Coordinate(0, 3);
-            drawMatrix = DrawMatrix{std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
-                                    std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
-            break;
-        case 1:
-            coor = Geo::Coordinate(6, 3);
-            drawMatrix = DrawMatrix{std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
-                                    std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
-            break;
-        case 2:
-            coor = Geo::Coordinate(3, 0);
-            drawMatrix = DrawMatrix{std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
-                                    std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
-            break;
-        case 3:
-            coor = Geo::Coordinate(3, 6);
-            drawMatrix = DrawMatrix{std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
-                                    std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
-            break;
-        default:
-            break;
-        }
+        coor = placePlayers(i, coor);
 
         switch (player)
         {
@@ -142,6 +116,24 @@ std::tuple<int, int> LabyrinthGame::Game::createRandomCoordinate()
     return std::make_tuple(x, y);
 }
 
+LabyrinthGame::Geo::Coordinate LabyrinthGame::Game::placePlayers(int i, Geo::Coordinate coor)
+{
+    // To Do different color for each Player !!!
+    switch (i)
+    {
+    case 0:
+        return Geo::Coordinate(0, 3);
+    case 1:
+        return Geo::Coordinate(6, 3);
+    case 2:
+        return Geo::Coordinate(3, 0);
+    case 3:
+        return Geo::Coordinate(3, 6);
+    default:
+        return Geo::Coordinate(0, 0);
+    }
+}
+
 LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 {
     int _player;
@@ -173,47 +165,16 @@ void LabyrinthGame::Game::round()
     std::cout << "\n\n\nLet's draw the spare pieces\n";
     drawer.drawSparePieces();
     static int i;
-    bool checkInput = false;
     std::shared_ptr<AbstractPlayer> player = m_players[i];
 
-    // Push the Piece/place the Part
-    LabyrinthGame::PlacePartData placedPart;
-    do
-    {
-        placedPart = player->placePartDialog();
-        checkInput = m_rules->checkPieceMove(placedPart);
-
-    } while (!checkInput);
-
-    placePart(placedPart);
+    placePiece(player);
 
     LabyrinthGame::IO::ConsoleUtils::clearConsole();
     drawer.drawMaze();
 
-    // Move Player
-    Geo::Coordinate moveCoordinate(0, 0);
-    do
-    {
-        moveCoordinate = player->movePlayerDialog();
-        checkInput = m_rules->checkMove(player, moveCoordinate);
+    movePlayer(player);
 
-    } while (!checkInput);
-
-    player->setCoordinates(moveCoordinate); // get treasure in move or here and with parameter?
-
-    // delete Token and set it to Player
-    if (m_board->isTokenPlaced(moveCoordinate))
-    {
-        Geo::Coordinate playerCoord = player->getCoordinate();
-        auto reachedTreasure =
-            std::find_if(m_treasures.begin(), m_treasures.end(), [playerCoord](std::shared_ptr<TreasureToken> treasure) {
-                return treasure->getCoordinate() == playerCoord;
-            });
-        if (reachedTreasure != m_treasures.end())
-            m_treasures.erase(reachedTreasure); // To DO memory leak ask paul???
-
-        player->addTreasure();
-    }
+    deleteToken(player);
 
     m_rules->checkWin(player);
 
@@ -271,4 +232,51 @@ bool LabyrinthGame::Game::placePart(LabyrinthGame::PlacePartData part)
     default:
         return false;
     }
+}
+
+bool LabyrinthGame::Game::placePiece(std::shared_ptr<AbstractPlayer> player)
+{
+    bool checkInput = false;
+    LabyrinthGame::PlacePartData placedPart;
+    do
+    {
+        placedPart = player->placePartDialog();
+        checkInput = m_rules->checkPieceMove(placedPart);
+
+    } while (!checkInput);
+
+    placePart(placedPart);
+    return true;
+}
+
+bool LabyrinthGame::Game::movePlayer(std::shared_ptr<AbstractPlayer> player)
+{
+    Geo::Coordinate moveCoordinate(0, 0);
+    bool checkInput = false;
+    do
+    {
+        moveCoordinate = player->movePlayerDialog();
+        checkInput = m_rules->checkMove(player, moveCoordinate);
+
+    } while (!checkInput);
+
+    player->setCoordinates(moveCoordinate); // get treasure in move or here and with parameter?
+    return true;
+}
+
+bool LabyrinthGame::Game::deleteToken(std::shared_ptr<AbstractPlayer> player)
+{
+    if (m_board->isTokenPlaced(player->getCoordinate()))
+    {
+        Geo::Coordinate playerCoord = player->getCoordinate();
+        auto reachedTreasure =
+            std::find_if(m_treasures.begin(), m_treasures.end(), [playerCoord](std::shared_ptr<TreasureToken> treasure) {
+                return treasure->getCoordinate() == playerCoord;
+            });
+        if (reachedTreasure != m_treasures.end())
+            m_treasures.erase(reachedTreasure); // To DO memory leak ask paul???
+
+        player->addTreasure();
+    }
+    return true;
 }

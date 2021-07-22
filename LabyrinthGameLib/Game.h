@@ -30,12 +30,16 @@ namespace LabyrinthGame
         [[nodiscard]] bool createTreasures();
         [[nodiscard]] bool createGameRules();
         [[nodiscard]] std::tuple<int, int> createRandomCoordinate();
+        [[nodiscard]] LabyrinthGame::Geo::Coordinate placePlayers(int i, Geo::Coordinate coor);
         [[nodiscard]] LabyrinthGame::kindOfPlayer getPlayer(int i);
 
         // Round Methods
         void round();
         [[nodiscard]] bool gameOver();
         [[nodiscard]] bool placePart(LabyrinthGame::PlacePartData part);
+        [[nodiscard]] bool placePiece(std::shared_ptr<AbstractPlayer> player);
+        [[nodiscard]] bool movePlayer(std::shared_ptr<AbstractPlayer> player);
+        [[nodiscard]] bool deleteToken(std::shared_ptr<AbstractPlayer> player);
 
         // Members
         std::vector<std::shared_ptr<AbstractPlayer>> m_players;
