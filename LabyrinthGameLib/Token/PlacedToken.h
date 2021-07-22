@@ -23,7 +23,7 @@ namespace LabyrinthGame
         explicit PlacedToken(GameBoard &_board, char single_char_representation);
 
         // A placed token should be able to communicate its coordinates
-        virtual Coordinate getCoordinate() const = 0;
+        virtual Coordinate getCoordinate() const = 0; // todo should this be implemented?
 
     protected:
         friend class GameBoardPlacedTokenMediator;
