@@ -128,6 +128,9 @@ void LabyrinthGame::Game::round()
         i++;
     else
         i = 0;
+
+
+    // TODO CLEAR TERMINAL
 }
 
 bool LabyrinthGame::Game::gameOver()
@@ -136,4 +139,29 @@ bool LabyrinthGame::Game::gameOver()
     for (std::weak_ptr<AbstractPlayer> player : m_players)
         win |= m_rules->checkWin(player);
     return win;
+}
+
+bool LabyrinthGame::Game::placePart(LabyrinthGame::PlacePartData part)
+{
+    switch (part.direction)
+    {
+    case LabyrinthGame::Geo::Direction::down:
+        if (part.ColOrRowIndex % 2 == 0)
+            m_board->insertSparePieceInColumn(part.ColOrRowIndex, part.direction, part.spare_piece_id);
+        break;
+    case LabyrinthGame::Geo::Direction::up:
+        if (part.ColOrRowIndex % 2 == 0)
+            m_board->insertSparePieceInColumn(part.ColOrRowIndex, part.direction, part.spare_piece_id);
+        break;
+    case LabyrinthGame::Geo::Direction::left:
+        if (part.ColOrRowIndex % 2 == 0)
+            m_board->insertSparePieceInRow(part.ColOrRowIndex, part.direction, part.spare_piece_id);
+        break;
+    case LabyrinthGame::Geo::Direction::right:
+        if (part.ColOrRowIndex % 2 == 0)
+            m_board->insertSparePieceInRow(part.ColOrRowIndex, part.direction, part.spare_piece_id);
+        break;
+    }
+
+    return false;
 }
