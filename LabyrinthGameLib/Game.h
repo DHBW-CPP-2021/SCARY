@@ -32,6 +32,7 @@ namespace LabyrinthGame
         // Round Methods
         void round();
         bool gameOver();
+        bool placePart(LabyrinthGame::PlacePartData part);
 
         // Members
         std::vector<std::shared_ptr<AbstractPlayer>> m_players;
