@@ -29,12 +29,16 @@ bool LabyrinthGame::GameRules::checkPieceMove(const LabyrinthGame::PlacePartData
     Coordinate coordinate = placePartDataToCoordinate(coordinatePartData);
 
     std::shared_ptr<GameBoard> f_board = m_board.lock();
-    const Maze& maze = f_board->getMaze();
+    const Maze &maze = f_board->getMaze();
 
     if (maze.isFixed(coordinate))
+    {
         return false;
+    }
     else
+    {
         return true;
+    }
 }
 
 bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
@@ -51,20 +55,20 @@ bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
 LabyrinthGame::GameRules::Coordinate LabyrinthGame::GameRules::placePartDataToCoordinate(
     const LabyrinthGame::PlacePartData &coordinatePartData)
 {
-    Coordinate coordinate(0,0);
+    Coordinate coordinate(0, 0);
     switch (coordinatePartData.direction)
     {
     case LabyrinthGame::Geo::Direction::left:
-        coordinate = Coordinate(7, coordinatePartData.ColOrRowIndex);
+        coordinate = Coordinate(7, coordinatePartData.ColOrRowIndex + 1);
         return coordinate;
     case LabyrinthGame::Geo::Direction::right:
-        coordinate = Coordinate(0, coordinatePartData.ColOrRowIndex);
+        coordinate = Coordinate(0, coordinatePartData.ColOrRowIndex + 1);
         return coordinate;
     case LabyrinthGame::Geo::Direction::up:
-        coordinate = Coordinate(coordinatePartData.ColOrRowIndex, 7);
+        coordinate = Coordinate(coordinatePartData.ColOrRowIndex + 1, 7);
         return coordinate;
     case LabyrinthGame::Geo::Direction::down:
-        coordinate = Coordinate(coordinatePartData.ColOrRowIndex, 0);
+        coordinate = Coordinate(coordinatePartData.ColOrRowIndex + 1, 0);
         return coordinate;
     default:
         std::cerr << "Coordinate(0,0) in GameRules.cpp playePartDatatoCoordinate()\n";
