@@ -27,6 +27,7 @@ namespace LabyrinthGame
         void config();
         [[nodiscard]] bool createBoard();
         [[nodiscard]] bool createPlayers();
+        [[nodiscard]] bool createTreasures();
         [[nodiscard]] bool createGameRules();
         [[nodiscard]] LabyrinthGame::kindOfPlayer getPlayer(int i);
 
@@ -37,7 +38,7 @@ namespace LabyrinthGame
 
         // Members
         std::vector<std::shared_ptr<AbstractPlayer>> m_players;
-        //std::vector<std::shared_ptr<TreasureToken>> m_treasures;  can help for remove treasures???
+        std::vector<std::shared_ptr<TreasureToken>> m_treasures;  
         /*static */std::shared_ptr<GameRules> m_rules;
         /*static*/ std::shared_ptr<GameBoard> m_board; // static???
     };

@@ -2,6 +2,7 @@
 #include "IO/ConsoleUtils.h"
 #include "IO/GameDrawer.h"
 #include "Player/AbstractPlayer.h"
+#include "GameSettings.h"
 
 LabyrinthGame::Game::Game()
 {
@@ -24,6 +25,8 @@ void LabyrinthGame::Game::config()
         std::cerr << "Players not available\n";
     else if (!createGameRules())
         std::cerr << "Rules not available\n";
+    else if (!createTreasures())
+        std::cerr << "Treasures not available\n";
 }
 
 bool LabyrinthGame::Game::createBoard()
@@ -87,6 +90,18 @@ bool LabyrinthGame::Game::createPlayers()
         }
     }
     return true;
+}
+
+bool LabyrinthGame::Game::createTreasures()
+{
+    for (int i = 0; i < LabyrinthGame::GameSettings::MAX_TREASURES_GAME; i++)
+    {
+        int x = i % 7;
+        int y = (i+2) % 7;
+        Geo::Coordinate coordinate(x, y);
+        m_treasures.push_back(std::make_shared<TreasureToken>(*m_board, coordinate));
+    }
+    return false;
 }
 
 bool LabyrinthGame::Game::createGameRules()
@@ -162,7 +177,9 @@ void LabyrinthGame::Game::round()
 
     if (m_board->isTokenPlaced(moveCoordinate))
     {
-        player->addTreasure(); // remove Treasure from Board?
+        // PlaceToken board.getToken(moveCoordinate)
+        // delete Token from vector
+        player->addTreasure(); // remove Treasure from Board!!!!
     }
 
     m_rules->checkWin(player);

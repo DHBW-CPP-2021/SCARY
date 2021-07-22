@@ -15,6 +15,7 @@ namespace LabyrinthGame::GameSettings
     // But, if all 4 sides are closed we open a randomly chosen side.
     double constexpr OPEN_PROBABILITY = 0.55;
     unsigned int constexpr MAX_TREASURE = 3;
+    unsigned int constexpr MAX_TREASURES_GAME = 6;
 } // namespace LabyrinthGame::GameSettings
 
 #endif // HACKATHON_2021_GAMESETTINGS_H
