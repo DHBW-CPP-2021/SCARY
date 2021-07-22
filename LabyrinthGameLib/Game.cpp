@@ -38,16 +38,17 @@ bool LabyrinthGame::Game::createPlayers()
     for (int i = 0; i < 2; i++)
     {
         // What kind of Player
-        int kindOfPlayer = 0;
-        switch (kindOfPlayer)
+        kindOfPlayer player = getPlayer(i + 1);
+        
+        switch (player)
         {
-        case 0:
+        case kindOfPlayer::HUMANPLAYER:
             m_players[i] = std::make_shared<HumanPlayer>();
             break;
-        case 1:
+        case kindOfPlayer::DUMPBOT:
             m_players[i] = std::make_shared<BotPlayer>();
             break;
-        case 2:
+        case kindOfPlayer::SMARTBOT:
             m_players[i] = std::make_shared<SmartbotPlayer>();
             break;
         }
@@ -64,43 +65,64 @@ bool LabyrinthGame::Game::createGameRules()
         return false;
 }
 
-void LabyrinthGame::Game::round()
+LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 {
-    static int i;
-    bool checkInput = false;
-    std::shared_ptr<AbstractPlayer> player = m_players[i];
-    // Push the Piece/place the Part
-    // [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
+    int _player;
 
-    LabyrinthGame::PlacePartData placedPart;
     do
     {
-        placedPart = player->PlacePartDialog();
-        checkInput = m_rules->checkPieceMove(placedPart);
+        std::cout << "Please select which kind the " << i << ". player should be:";
+        std::cin >> _player;
+    } while (_player >= 0 && _player < 3);
 
-    } while (!checkInput);
-
-    player->placePart(placedPart);
-
-    // Player Move
-    Geo::Coordinate moveCoordinate(0, 0);
-    do
+    switch (_player)
     {
-        moveCoordinate = player->movePlayerDialog();
-        checkInput = m_rules->checkMove(player, moveCoordinate);
-
-    } while (!checkInput);
-
-    player->move(moveCoordinate); // get treasure in move or here and with parameter?
-
-    if (m_board->isTokenPlaced(moveCoordinate))
-        player->setTreasure();
-
-    m_rules->checkWin(player);
-
-    // shift the player
-    if (i < m_players.size() - 1)
-        i++;
-    else
-        i = 0;
+    case 0:
+        return kindOfPlayer::HUMANPLAYER;
+    case 1:
+        return kindOfPlayer::DUMPBOT;
+    case 2:
+        return kindOfPlayer::SMARTBOT;
+    }
 }
+
+    void LabyrinthGame::Game::round()
+    {
+        static int i;
+        bool checkInput = false;
+        std::shared_ptr<AbstractPlayer> player = m_players[i];
+        // Push the Piece/place the Part
+        // [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
+
+        LabyrinthGame::PlacePartData placedPart;
+        do
+        {
+            placedPart = player->PlacePartDialog();
+            checkInput = m_rules->checkPieceMove(placedPart);
+
+        } while (!checkInput);
+
+        player->placePart(placedPart);
+
+        // Player Move
+        Geo::Coordinate moveCoordinate(0, 0);
+        do
+        {
+            moveCoordinate = player->movePlayerDialog();
+            checkInput = m_rules->checkMove(player, moveCoordinate);
+
+        } while (!checkInput);
+
+        player->move(moveCoordinate); // get treasure in move or here and with parameter?
+
+        if (m_board->isTokenPlaced(moveCoordinate))
+            player->setTreasure();
+
+        m_rules->checkWin(player);
+
+        // shift the player
+        if (i < m_players.size() - 1)
+            i++;
+        else
+            i = 0;
+    }
