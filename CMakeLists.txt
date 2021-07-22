@@ -75,6 +75,14 @@ add_library(LabyrinthGameLib
         LabyrinthGameLib/Token/TreasureToken.cpp
         LabyrinthGameLib/Token/PlayerToken.h
         LabyrinthGameLib/Token/PlayerToken.cpp
+        LabyrinthGameLib/Player/AbstractPlayer.h
+        LabyrinthGameLib/Player/AbstractPlayer.cpp
+        LabyrinthGameLib/Player/HumanPlayer.h
+        LabyrinthGameLib/Player/HumanPlayer.cpp
+        LabyrinthGameLib/Player/BotPlayer.h
+        LabyrinthGameLib/Player/BotPlayer.cpp
+        LabyrinthGameLib/Player/SmartbotPlayer.h
+        LabyrinthGameLib/Player/SmartbotPlayer.cpp
         LabyrinthGameLib/PathState.h
         LabyrinthGameLib/GameBoardPlacedTokenMediator.cpp
         LabyrinthGameLib/GameBoardPlacedTokenMediator.h)
