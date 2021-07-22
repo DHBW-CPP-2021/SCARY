@@ -11,32 +11,26 @@ namespace LabyrinthGame
     PlacePartData BotPlayer::placePartDialog() const
     {
         std::mt19937 generator(123);
-        std::uniform_real_distribution<int> dis(1, 3);
-        int SparePiece = dis(generator);
+        std::uniform_int_distribution<GameSettings::CoordType> SparePieceDist(1, 3);
+        auto SparePiece = SparePieceDist(generator);
 
-        std::mt19937 generator(123);
-        std::uniform_real_distribution<int> dis(0, 3);
-        int randomDirection = dis(generator);
+        std::uniform_int_distribution<int> randomDirectionDist(0, 3);
+        int randomDirection = randomDirectionDist(generator);
 
-        static_cast Geo::Direction(int);
-
-
-        std::mt19937 generator(123);
-        std::uniform_real_distribution<int> dis(0, 7);
-        int row = dis(generator);
+        std::uniform_int_distribution<GameSettings::CoordType> rowDist(0, 7);
+        auto row = rowDist(generator);
 
         return {SparePiece, Geo::Direction(randomDirection), row};
     }
     Coordinate BotPlayer::movePlayerDialog() const
     {
         std::mt19937 generator(123);
-        std::uniform_real_distribution<int> dis(0, 7);
-        int y = dis(generator);
+        std::uniform_int_distribution<GameSettings::CoordType> yDist(0, 7);
+        auto y = yDist(generator);
 
-        std::mt19937 generator(123);
-        std::uniform_real_distribution<int> dis(0, 7);
-        int x = dis(generator)
+        std::uniform_int_distribution<GameSettings::CoordType> xDist(0, 7);
+        auto x = xDist(generator);
 
-        return {y,x};
+        return {y, x};
     }
 } // namespace LabyrinthGame
