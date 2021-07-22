@@ -166,28 +166,29 @@ bool LabyrinthGame::Game::placePart(LabyrinthGame::PlacePartData part)
     switch (part.direction)
     {
     case LabyrinthGame::Geo::Direction::down:
-        if (part.ColOrRowIndex % 2 == 0)
+        if (part.ColOrRowIndex % 2 == 1)
         {
             m_board->insertSparePieceInColumn(part.ColOrRowIndex, part.direction, part.spare_piece_id);
         }
         return true;
     case LabyrinthGame::Geo::Direction::up:
-        if (part.ColOrRowIndex % 2 == 0)
+        if (part.ColOrRowIndex % 2 == 1)
         {
             m_board->insertSparePieceInColumn(part.ColOrRowIndex, part.direction, part.spare_piece_id);
         }
         return true;
     case LabyrinthGame::Geo::Direction::left:
-        if (part.ColOrRowIndex % 2 == 0)
+        if (part.ColOrRowIndex % 2 == 1)
         {
             m_board->insertSparePieceInRow(part.ColOrRowIndex, part.direction, part.spare_piece_id);
         }
         return true;
     case LabyrinthGame::Geo::Direction::right:
-        if (part.ColOrRowIndex % 2 == 0)
+        if (part.ColOrRowIndex % 2 == 1)
         {
             m_board->insertSparePieceInRow(part.ColOrRowIndex, part.direction, part.spare_piece_id);
         }
+        return true;
     default:
         return false;
     }
