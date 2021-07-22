@@ -9,7 +9,7 @@ namespace LabyrinthGame
         : m_token(board, initialPos, charRepresentation), m_board(board)
     {
     }
-    void AbstractPlayer::move(const Coordinate& pos)
+    void AbstractPlayer::setCoordinates(const Coordinate& pos)
     {
         if (!canMoveTo(pos))
         {

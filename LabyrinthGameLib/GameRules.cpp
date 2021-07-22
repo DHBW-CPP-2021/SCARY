@@ -6,17 +6,26 @@ LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> p
 {
 }
 
-bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> player,
-                                         const LabyrinthGame::GameBoard::Coordinate move)
+bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move)
 {
+    //Check if on piece is no other Player
+    for (std::weak_ptr<AbstractPlayer> player : m_players)
+    {
+        std::shared_ptr<AbstractPlayer> f_player = player.lock();
+        if (move == f_player->getCoordinate())
+        {
+            return false;
+        }
+    }
     std::shared_ptr<AbstractPlayer> f_player = player.lock();
     std::shared_ptr<GameBoard> f_board = m_board.lock();
+
+    //check if Path is Connected
     return f_board->coordsAreConnected(move, f_player->getCoordinate());
 }
 
 bool LabyrinthGame::GameRules::checkPieceMove(const Coordinate &coordinate)
 {
-    // with Maze?  .isColumFixed() or isRawFixed()  in Board implemented ??
     std::shared_ptr<GameBoard> f_board = m_board.lock();
     Maze maze = f_board->getMaze();
     if (maze.isFixed(coordinate))

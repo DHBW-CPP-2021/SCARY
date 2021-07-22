@@ -18,7 +18,7 @@ namespace LabyrinthGame
     public:
         GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board);
 
-        bool checkMove(std::weak_ptr<AbstractPlayer> player, const LabyrinthGame::GameBoard::Coordinate move);
+        bool checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move);
         bool checkPieceMove(const Coordinate &coordinate);
         bool checkWin(std::weak_ptr<AbstractPlayer> player);
 
