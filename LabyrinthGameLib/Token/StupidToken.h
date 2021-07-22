@@ -17,8 +17,8 @@ namespace LabyrinthGame
         using Coordinate = Geo::Coordinate;
 
     public:
-        StupidToken(GameBoard &board_, Coordinate initialPos, char singleCharRepresentation);
-        StupidToken(GameBoard &board_, Coordinate initialPos, TokenArrayMatrix charRepresentation);
+        [[deprecated]] StupidToken(GameBoard &board_, Coordinate initialPos, char singleCharRepresentation);
+        [[deprecated]] StupidToken(GameBoard &board_, Coordinate initialPos, TokenArrayMatrix charRepresentation);
 
         void notifyMovement(Geo::Direction d) override;
     };
