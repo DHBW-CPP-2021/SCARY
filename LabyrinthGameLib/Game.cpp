@@ -70,11 +70,10 @@ void LabyrinthGame::Game::round()
     static int i;
     bool checkInput = false;
     std::shared_ptr<AbstractPlayer> player = m_players[i];
-    //Push the Piece
-    //input a-g 1/6 or 1-6 a/g  
+    //Push the Piece/place the Part
     do
     {
-        //respones unknowen = player->placePartDialog();
+        //respones unknowen// = player->placePartDialog();
         checkInput = m_rules->checkPieceMove();
     
     } while (!checkInput);
