@@ -6,6 +6,7 @@
 #include "Token/StupidToken.h"
 #include "Player/AbstractPlayer.h"
 #include "Player/BotPlayer.h"
+#include "Player/SmartbotPlayer.h"
 #include "Player/HumanPlayer.h"
 
 namespace LabyrinthGame

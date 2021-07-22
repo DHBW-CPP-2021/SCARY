@@ -26,8 +26,9 @@ bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
 
 bool LabyrinthGame::GameRules::winPosition(std::weak_ptr<AbstractPlayer> player)
 {
-
-    if (board.coordIsConnectedToOutside(player.getCoordinate()))
+    std::shared_ptr<AbstractPlayer> f_player = player.lock();
+    std::shared_ptr<GameBoard> board = m_board.lock();
+    if (board->coordIsConnectedToOutside(f_player->getCoordinate()))
     {
         return true;
     }

@@ -3,6 +3,7 @@
 
 #include "GameBoard.h"
 #include "GameRules.h"
+#include "Token/TreasureToken.h"
 
 namespace LabyrinthGame
 {

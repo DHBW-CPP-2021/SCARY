@@ -68,23 +68,31 @@ bool LabyrinthGame::Game::createGameRules()
 void LabyrinthGame::Game::round()
 {
     static int i;
-    std::shared_ptr<AbstractPlayer> player = players[i]->lock();
+    bool checkInput = false;
+    std::shared_ptr<AbstractPlayer> player = m_players[i];
     //Push the Piece
     //input a-g 1/6 or 1-6 a/g  
-    m_rules->checkPieceMove();
-    m_players[i].pieceMove();
-    //PLayer Move
-    while (coordinate == 0)
+    do
     {
-        player->movePlayerDialog();
-    }
-    //input coordinates to walk
-    //check if players has 3 treasure and sit on a field where is open to the outside then WIN
-    m_rules->checkMove();
-
-    m_rules->checkWin(m_players[i]);
-    m_players[i]->move();//get treasure in move or here and with parameter?
+        //respones unknowen = player->placePartDialog();
+        checkInput = m_rules->checkPieceMove();
     
+    } while (!checkInput);
+    
+    player->placePart();
+
+
+    //PLayer Move
+    Geo::Coordinate moveCoordinate(0, 0);
+    do
+    {
+        moveCoordinate = player->movePlayerDialog();
+        checkInput = m_rules->checkMove(player, moveCoordinate);
+
+    } while (!checkInput);
+    
+    player->move(moveCoordinate); // get treasure in move or here and with parameter?
+    m_rules->checkWin(player);
     
     //shift the player
     if (i < m_players.size())
