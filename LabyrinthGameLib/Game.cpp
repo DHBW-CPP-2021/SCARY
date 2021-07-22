@@ -40,18 +40,22 @@ bool LabyrinthGame::Game::createPlayers()
     {
         // What kind of Player
         kindOfPlayer player = getPlayer(i + 1);
+
+        //Just for debug
         Geo::Coordinate coor(0, 0);
         DrawMatrix drawMatrix = {'X', 1, 1};
+
         switch (player)
         {
         case kindOfPlayer::HUMANPLAYER:
-            m_players[i] = std::make_shared<HumanPlayer>(*m_board, coor, drawMatrix);
+            /*m_players[i] = std::make_shared<HumanPlayer>(*m_board, coor, drawMatrix);*/
+            m_players.push_back(std::make_shared<HumanPlayer>(*m_board, coor, drawMatrix));
             break;
         case kindOfPlayer::DUMPBOT:
-            m_players[i] = std::make_shared<BotPlayer>(*m_board, coor, drawMatrix);
+            m_players.push_back(std::make_shared<BotPlayer>(*m_board, coor, drawMatrix));
             break;
         case kindOfPlayer::SMARTBOT:
-            m_players[i] = std::make_shared<SmartbotPlayer>(*m_board, coor, drawMatrix);
+            m_players.push_back(std::make_shared<SmartbotPlayer>(*m_board, coor, drawMatrix));
             break;
         }
     }
@@ -60,7 +64,12 @@ bool LabyrinthGame::Game::createPlayers()
 
 bool LabyrinthGame::Game::createGameRules()
 {
-    m_rules = std::make_shared<GameRules>(m_board, m_players);
+    std::vector<std::weak_ptr<AbstractPlayer>> temp;
+    for (auto player: m_players)
+    {
+        temp.push_back(player);
+    }
+    m_rules = std::make_shared<GameRules>(temp, m_board);
     if (m_rules != nullptr)
         return true;
     else
@@ -75,7 +84,7 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
     {
         std::cout << "Please select which kind the " << i << ". player should be:";
         std::cin >> _player;
-    } while (_player >= 0 && _player < 3);
+    } while (_player > 3 || _player < 0);
 
     switch (_player)
     {
@@ -129,6 +138,8 @@ void LabyrinthGame::Game::round()
         i++;
     else
         i = 0;
+    //clear Console
+    //print Board
 }
 
 bool LabyrinthGame::Game::gameOver()
@@ -148,23 +159,25 @@ bool LabyrinthGame::Game::placePart(LabyrinthGame::PlacePartData part)
         {
             m_board->insertSparePieceInColumn(part.ColOrRowIndex, part.direction, part.spare_piece_id);
         }
-        break;
+        return true;
     case LabyrinthGame::Geo::Direction::up:
         if (part.ColOrRowIndex % 2 == 0)
         {
             m_board->insertSparePieceInColumn(part.ColOrRowIndex, part.direction, part.spare_piece_id);
         }
-        break;
+        return true;
     case LabyrinthGame::Geo::Direction::left:
         if (part.ColOrRowIndex % 2 == 0)
         {
             m_board->insertSparePieceInRow(part.ColOrRowIndex, part.direction, part.spare_piece_id);
         }
-        break;
+        return true;
     case LabyrinthGame::Geo::Direction::right:
         if (part.ColOrRowIndex % 2 == 0)
         {
             m_board->insertSparePieceInRow(part.ColOrRowIndex, part.direction, part.spare_piece_id);
         }
+    default:
+        return false;
     }
 }

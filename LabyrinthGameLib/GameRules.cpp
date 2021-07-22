@@ -9,7 +9,7 @@ LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> p
 bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move)
 {
     // Check if on piece is no other Player
-    for (auto player : m_players)
+    for (std::weak_ptr<AbstractPlayer> player : m_players)
     {
         std::shared_ptr<AbstractPlayer> f_player = player.lock();
         if (move == f_player->getCoordinate())
@@ -65,6 +65,9 @@ LabyrinthGame::GameRules::Coordinate LabyrinthGame::GameRules::placePartDataToCo
         return coordinate;
     case LabyrinthGame::Geo::Direction::down:
         coordinate = Coordinate(coordinatePartData.ColOrRowIndex, 0);
+        return coordinate;
+    default:
+        std::cerr << "Coordinate(0,0) in GameRules.cpp playePartDatatoCoordinate()\n";
         return coordinate;
     }
 }

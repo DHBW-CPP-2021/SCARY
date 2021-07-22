@@ -17,7 +17,7 @@ namespace LabyrinthGame
         using Coordinate = Geo::Coordinate;
     public:
         GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board);
-
+        //~GameRules();
         [[nodiscard]] bool checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move);
         [[nodiscard]] bool checkPieceMove(const LabyrinthGame::PlacePartData &coordinatePartData);
         [[nodiscard]] bool checkWin(std::weak_ptr<AbstractPlayer> player);
