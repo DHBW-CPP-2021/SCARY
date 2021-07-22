@@ -3,51 +3,48 @@
 
 namespace LabyrinthGame
 {
-	namespace IO
-	{
-		using namespace Geo;
+    namespace IO
+    {
+        using namespace Geo;
 
-		GameSettings::CoordType MazeRowOracle::numPieces() const
-		{
-			return GameSettings::WIDTH;
-		}
+        GameSettings::CoordType MazeRowOracle::numPieces() const
+        {
+            return GameSettings::WIDTH;
+        }
 
-		MazePiece const& MazeRowOracle::getMazePiece(GameSettings::CoordType x) const
-		{
-			assert(x < GameSettings::WIDTH);
-			return _board.getMaze().getPiece(coord(x));
-		}
+        MazePiece const &MazeRowOracle::getMazePiece(GameSettings::CoordType x) const
+        {
+            assert(x < GameSettings::WIDTH);
+            return _board.getMaze().getPiece(coord(x));
+        }
 
-		MazeRowOracle::MazeRowOracle(GameBoard const& board_, GameSettings::CoordType y_)
-			:
-			_board(board_), _y(y_)
-		{
-			assert(y_ < GameSettings::HEIGHT);
-		}
+        MazeRowOracle::MazeRowOracle(GameBoard const &board_, GameSettings::CoordType y_) : _board(board_), _y(y_)
+        {
+            assert(y_ < GameSettings::HEIGHT);
+        }
 
-		bool MazeRowOracle::isTokenPlaced(GameSettings::CoordType x) const
-		{
-			assert(x < GameSettings::WIDTH);
-			return _board.isTokenPlaced(coord(x));
-		}
+        bool MazeRowOracle::isTokenPlaced(GameSettings::CoordType x) const
+        {
+            assert(x < GameSettings::WIDTH);
+            return _board.isTokenPlaced(coord(x));
+        }
 
-		const Token& MazeRowOracle::getPlacedToken(GameSettings::CoordType x) const
-		{
-			assert(isTokenPlaced(x));
-			return _board.getToken(coord(x));
-		}
+        const Token &MazeRowOracle::getPlacedToken(GameSettings::CoordType x) const
+        {
+            assert(isTokenPlaced(x));
+            return _board.getToken(coord(x));
+        }
 
-		bool MazeRowOracle::isFixed(GameSettings::CoordType x) const
-		{
-			assert(x < GameSettings::WIDTH);
-			return _board.getMaze().isFixed(coord(x));
-		}
+        bool MazeRowOracle::isFixed(GameSettings::CoordType x) const
+        {
+            assert(x < GameSettings::WIDTH);
+            return _board.getMaze().isFixed(coord(x));
+        }
 
-		Coordinate MazeRowOracle::coord(GameSettings::CoordType x) const
-		{
-			assert(x < GameSettings::WIDTH);
-			return Coordinate(x, _y);
-		}
-	}
-}
-
+        Coordinate MazeRowOracle::coord(GameSettings::CoordType x) const
+        {
+            assert(x < GameSettings::WIDTH);
+            return Coordinate(x, _y);
+        }
+    } // namespace IO
+} // namespace LabyrinthGame

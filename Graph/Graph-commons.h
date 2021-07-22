@@ -6,15 +6,15 @@
 namespace Combinatorics
 {
 
-	// Forward declarations
-	class Graph;
-	class Edge;
-	class Vertex;
+    // Forward declarations
+    class Graph;
+    class Edge;
+    class Vertex;
 
-	// Typedefs
-	using EdgeId = size_t;
-	using VertexId = size_t;
+    // Typedefs
+    using EdgeId = size_t;
+    using VertexId = size_t;
 
-}
+} // namespace Combinatorics
 
-#endif //HACKATHON_GRAPH_COMMONS_H
+#endif // HACKATHON_GRAPH_COMMONS_H

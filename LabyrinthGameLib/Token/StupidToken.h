@@ -9,24 +9,25 @@
 
 namespace LabyrinthGame
 {
-	/**
-	 * Just an example to get started. You most likely don't want to use this class (without adaption)
-	 */
-	class StupidToken : public PlacedToken
-	{
-		using Coordinate = Geo::Coordinate;
-	public:
-		StupidToken(GameBoard& board_, Coordinate initialPos, char singleCharRepresentation);
-		StupidToken(GameBoard& board_, Coordinate initialPos, TokenArrayMatrix charRepresentation);
+    /**
+     * Just an example to get started. You most likely don't want to use this class (without adaption)
+     */
+    class StupidToken : public PlacedToken
+    {
+        using Coordinate = Geo::Coordinate;
 
-		[[nodiscard]] Coordinate getCoordinate() const override;
+    public:
+        StupidToken(GameBoard &board_, Coordinate initialPos, char singleCharRepresentation);
+        StupidToken(GameBoard &board_, Coordinate initialPos, TokenArrayMatrix charRepresentation);
 
-		void notifyMovement(Geo::Direction d) override;
+        [[nodiscard]] Coordinate getCoordinate() const override;
 
-	private:
-		Coordinate _pos;
-	};
+        void notifyMovement(Geo::Direction d) override;
 
-}
+    private:
+        Coordinate _pos;
+    };
 
-#endif //HACKATHON_2021_STUPIDTOKEN_H
+} // namespace LabyrinthGame
+
+#endif // HACKATHON_2021_STUPIDTOKEN_H

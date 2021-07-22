@@ -1,39 +1,41 @@
 #ifndef HACKATHON_2021_MAZEROWORACLE_H
 #define HACKATHON_2021_MAZEROWORACLE_H
 
-#include "MazePieceOracle.h"
-#include "../Token.h"
-#include "../../Maze.h"
 #include "../../GameBoard.h"
+#include "../../Maze.h"
+#include "../Token.h"
+#include "MazePieceOracle.h"
+
 
 namespace LabyrinthGame
 {
-	namespace IO
-	{
-		class MazeRowOracle : public MazePieceOracle
-		{
-			using Coordinate = Geo::Coordinate;
-		public:
-			MazeRowOracle(GameBoard const& board_, GameSettings::CoordType y_);
+    namespace IO
+    {
+        class MazeRowOracle : public MazePieceOracle
+        {
+            using Coordinate = Geo::Coordinate;
 
-			GameSettings::CoordType numPieces() const override;
+        public:
+            MazeRowOracle(GameBoard const &board_, GameSettings::CoordType y_);
 
-			MazePiece const& getMazePiece(GameSettings::CoordType x) const override;
+            GameSettings::CoordType numPieces() const override;
 
-			bool isFixed(GameSettings::CoordType id) const override;
+            MazePiece const &getMazePiece(GameSettings::CoordType x) const override;
 
-			bool isTokenPlaced(GameSettings::CoordType id) const override;
+            bool isFixed(GameSettings::CoordType id) const override;
 
-			const Token& getPlacedToken(GameSettings::CoordType id) const override;
+            bool isTokenPlaced(GameSettings::CoordType id) const override;
 
-		private:
-			GameBoard const& _board;
-			GameSettings::CoordType const _y;
+            const Token &getPlacedToken(GameSettings::CoordType id) const override;
 
-			// Returns coordinate for an given x value
-			Coordinate coord(GameSettings::CoordType x) const;
-		};
-	}
-}
+        private:
+            GameBoard const &_board;
+            GameSettings::CoordType const _y;
 
-#endif //HACKATHON_2021_MAZEROWORACLE_H
+            // Returns coordinate for an given x value
+            Coordinate coord(GameSettings::CoordType x) const;
+        };
+    } // namespace IO
+} // namespace LabyrinthGame
+
+#endif // HACKATHON_2021_MAZEROWORACLE_H

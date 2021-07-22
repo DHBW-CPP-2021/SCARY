@@ -7,11 +7,11 @@
 
 namespace LabyrinthGame
 {
-	enum class PathState
-	{
-		open,
-		closed
-	};
-}
+    enum class PathState
+    {
+        open,
+        closed
+    };
+} // namespace LabyrinthGame
 
-#endif //HACKATHON_2021_PATHSTATE_H
+#endif // HACKATHON_2021_PATHSTATE_H

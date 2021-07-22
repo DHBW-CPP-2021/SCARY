@@ -6,10 +6,9 @@
 class CoutLogPolicy : public LogPolicyInterface
 {
 public:
-	void open_ostream() const override;
-	void close_ostream() const override;
-	void write(std::string const& msg) const override;
+    void open_ostream() const override;
+    void close_ostream() const override;
+    void write(std::string const &msg) const override;
 };
 
-
-#endif //GAMEFIELDGRAPH_COUTLOGPOLICY_H
+#endif // GAMEFIELDGRAPH_COUTLOGPOLICY_H

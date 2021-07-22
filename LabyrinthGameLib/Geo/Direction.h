@@ -3,19 +3,19 @@
 
 namespace LabyrinthGame::Geo
 {
-	enum class Direction : short unsigned
-	{
-		left,
-		right,
-		up,
-		down
-	};
+    enum class Direction : short unsigned
+    {
+        left,
+        right,
+        up,
+        down
+    };
 
-	[[nodiscard]] bool isVertical(Direction direction);
-	[[nodiscard]] bool isHorizontal(Direction direction);
+    [[nodiscard]] bool isVertical(Direction direction);
+    [[nodiscard]] bool isHorizontal(Direction direction);
 
-	[[nodiscard]] Direction oppositeDirection(Direction d);
+    [[nodiscard]] Direction oppositeDirection(Direction d);
 
-} // namespace LabyrinthGame
+} // namespace LabyrinthGame::Geo
 
-#endif //HACKATHON_2021_DIRECTION_H
+#endif // HACKATHON_2021_DIRECTION_H

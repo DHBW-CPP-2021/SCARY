@@ -1,25 +1,26 @@
-#include <cassert>
 #include "Utils.h"
 #include "../GameSettings.h"
+#include <cassert>
 
-namespace LabyrinthGame {
 
-	using namespace Geo;
+namespace LabyrinthGame
+{
 
-	GameSettings::CoordType Utils::compute1DFrom2D(const Coordinate& coordinate) {
-		assert(coordinate.getY() * GameSettings::WIDTH + coordinate.getX() < GameSettings::NUM_COORDINATES);
-		return coordinate.getY() * GameSettings::WIDTH + coordinate.getX();
-	}
+    using namespace Geo;
 
-	Coordinate Utils::compute2DFrom1D(GameSettings::CoordType coord) {
-		return Coordinate(coord % GameSettings::WIDTH, coord / GameSettings::WIDTH);
-	}
+    GameSettings::CoordType Utils::compute1DFrom2D(const Coordinate &coordinate)
+    {
+        assert(coordinate.getY() * GameSettings::WIDTH + coordinate.getX() < GameSettings::NUM_COORDINATES);
+        return coordinate.getY() * GameSettings::WIDTH + coordinate.getX();
+    }
 
-	bool Utils::isValid(Coordinate const& coordinate)
-	{
-		return (
-			coordinate.getX() < GameSettings::WIDTH &&
-			coordinate.getY() < GameSettings::HEIGHT
-			);
-	}
-}
+    Coordinate Utils::compute2DFrom1D(GameSettings::CoordType coord)
+    {
+        return Coordinate(coord % GameSettings::WIDTH, coord / GameSettings::WIDTH);
+    }
+
+    bool Utils::isValid(Coordinate const &coordinate)
+    {
+        return (coordinate.getX() < GameSettings::WIDTH && coordinate.getY() < GameSettings::HEIGHT);
+    }
+} // namespace LabyrinthGame

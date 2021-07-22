@@ -4,13 +4,13 @@
 
 namespace LabyrinthGame
 {
-	void LabyrinthGame::GameBoardPlacedTokenMediator::registerToken(PlacedToken* token, GameBoard& board)
-	{
-		board.registerToken(token);
-	}
+    void LabyrinthGame::GameBoardPlacedTokenMediator::registerToken(PlacedToken *token, GameBoard &board)
+    {
+        board.registerToken(token);
+    }
 
-	void GameBoardPlacedTokenMediator::notifyMovement(PlacedToken& token, Geo::Direction d)
-	{
-		token.notifyMovement(d);
-	}
-}
+    void GameBoardPlacedTokenMediator::notifyMovement(PlacedToken &token, Geo::Direction d)
+    {
+        token.notifyMovement(d);
+    }
+} // namespace LabyrinthGame
