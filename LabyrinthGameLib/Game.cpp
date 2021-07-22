@@ -3,6 +3,8 @@
 #include "IO/GameDrawer.h"
 #include "Player/AbstractPlayer.h"
 #include "GameSettings.h"
+#include <random>
+#include <chrono>
 
 LabyrinthGame::Game::Game()
 {
@@ -94,10 +96,17 @@ bool LabyrinthGame::Game::createPlayers()
 
 bool LabyrinthGame::Game::createTreasures()
 {
+    
     for (int i = 0; i < LabyrinthGame::GameSettings::MAX_TREASURES_GAME; i++)
     {
-        int x = i % 7;
-        int y = (i+2) % 7;
+        auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+        std::mt19937 generator(seed);
+        std::uniform_int_distribution<int> CoordinationXArea(0, 6);
+        auto CoordinationX = CoordinationXArea(generator);
+        int x = CoordinationX % 7;
+        std::uniform_int_distribution<int> CoordinationYArea(0, 6);
+        auto CoordinationY = CoordinationYArea(generator);
+        int y = CoordinationY % 7;
         Geo::Coordinate coordinate(x, y);
         m_treasures.push_back(std::make_shared<TreasureToken>(*m_board, coordinate));
     }
