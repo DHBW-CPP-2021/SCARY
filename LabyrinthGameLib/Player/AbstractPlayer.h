@@ -7,6 +7,12 @@
 
 namespace LabyrinthGame
 {
+    struct PlacePartData
+    {
+        GameSettings::CoordType ColOrRowIndex;
+        Geo::Direction direction; // hierüber kann herausgefunden werden ob in Row oder Col eingefügt wird.
+        GameSettings::CoordType spare_piece_id;
+    };
     class AbstractPlayer
     {
     public:
@@ -17,15 +23,15 @@ namespace LabyrinthGame
         virtual ~AbstractPlayer() = default;
 
         // methoden die die bot logik bzw die player abfrage implementieren
-        virtual void placePart() = 0;
-        virtual void movePlayer() = 0;
+        [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
+        [[nodiscard]] virtual Coordinate movePlayerDialog() const = 0;
         [[nodiscard]] Coordinate getCoordinate() const;
 
+        void setCoordinates(const Coordinate &pos); //! Achtung kann gefährlich sein.
     protected:
-        void move(const Coordinate &pos);
-
         // ? Single Responsibility Principle: sollte das nicht in gameRules sein?!
-        bool canMoveTo(const Coordinate &pos);
+        [[deprecated]] bool canMoveTo(
+            const Coordinate &pos); // TODO Überall durch methode in GameRules ersetzen oder entfernen. Danach entfernen.
 
     private:
         PlayerToken m_token;

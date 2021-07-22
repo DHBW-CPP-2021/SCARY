@@ -7,10 +7,9 @@ namespace LabyrinthGame
     class HumanPlayer : public AbstractPlayer
     {
     public:
-        using AbstractPlayer::AbstractPlayer;
+        HumanPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation);
 
-        // methoden die die bot logik bzw die player abfrage implementieren
-        void placePart() override;
-        void movePlayer() override;
+        [[nodiscard]] PlacePartData placePartDialog() const override;
+        [[nodiscard]] Coordinate movePlayerDialog() const override;
     };
 } // namespace LabyrinthGame

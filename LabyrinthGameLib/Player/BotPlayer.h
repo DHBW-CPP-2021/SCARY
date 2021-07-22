@@ -6,11 +6,13 @@ namespace LabyrinthGame
 {
     class BotPlayer : public AbstractPlayer
     {
+        using Coordinate = Geo::Coordinate;
+
     public:
-        using AbstractPlayer::AbstractPlayer;
+        BotPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation);
 
         // methoden die die bot logik bzw die player abfrage implementieren
-        void placePart() override;
-        void movePlayer() override;
+        [[nodiscard]] PlacePartData placePartDialog() const override;
+        [[nodiscard]] Coordinate movePlayerDialog() const override;
     };
 } // namespace LabyrinthGame
