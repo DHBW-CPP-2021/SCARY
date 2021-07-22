@@ -178,6 +178,15 @@ void LabyrinthGame::Game::round()
     if (m_board->isTokenPlaced(moveCoordinate))
     {
         // PlaceToken board.getToken(moveCoordinate)
+        Geo::Coordinate playerCoord = player->getCoordinate();
+        auto reachedTreasure =
+            std::find_if(m_treasures.begin(), m_treasures.end(), [playerCoord](std::shared_ptr<TreasureToken> treasure) {
+                /*if (treasure->getCoordinate() == playerCoord)*/
+                return treasure->getCoordinate() == playerCoord;
+            });
+        if (reachedTreasure != m_treasures.end())
+            m_treasures.erase(reachedTreasure);
+
         // delete Token from vector
         player->addTreasure(); // remove Treasure from Board!!!!
     }
