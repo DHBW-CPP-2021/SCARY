@@ -57,10 +57,10 @@ LabyrinthGame::GameRules::Coordinate LabyrinthGame::GameRules::placePartDataToCo
         coordinate = Coordinate(0, coordinatePartData.ColOrRowIndex);
         return coordinate;
     case LabyrinthGame::Geo::Direction::up:
-        coordinate = Coordinate(coordinatePartData.ColOrRowIndex + 1, 6);
+        coordinate = Coordinate(coordinatePartData.ColOrRowIndex, 6);
         return coordinate;
     case LabyrinthGame::Geo::Direction::down:
-        coordinate = Coordinate(coordinatePartData.ColOrRowIndex + 1, 0);
+        coordinate = Coordinate(coordinatePartData.ColOrRowIndex, 0);
         return coordinate;
     default:
         std::cerr << "Coordinate(0,0) in GameRules.cpp playePartDatatoCoordinate()\n";

@@ -40,13 +40,12 @@ bool LabyrinthGame::Game::createPlayers()
         // What kind of Player
         kindOfPlayer player = getPlayer(i + 1);
 
-        // Just for debug
-        //
-        /*Geo::Coordinate coords[4] = {Coordinate(0, 3), } */
+
         Geo::Coordinate coor(0, 0);
         DrawMatrix drawMatrix = {std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
                                  std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
 
+        //To Do different color for each Player !!!
         switch (i)
         {
         case 0:
@@ -146,6 +145,9 @@ void LabyrinthGame::Game::round()
     } while (!checkInput);
 
     placePart(placedPart);
+
+    LabyrinthGame::IO::ConsoleUtils::clearConsole();
+    drawer.drawMaze();
 
     Geo::Coordinate moveCoordinate(0, 0);
     do
