@@ -9,10 +9,20 @@ namespace LabyrinthGame
     }
     PlacePartData BotPlayer::placePartDialog() const
     {
-        return {0, Geo::Direction::left, 0};
-    }
+        int SparePiece = (rand() % 3) + 1;
+        
+        int randomDirection = (rand() % 3);
+
+        int row = (rand() % 7);
+        
+        return  {SparePiece, }
+
+
     Coordinate BotPlayer::movePlayerDialog() const
     {
-        return {0, 0};
+        int MoveWidth = (rand() % 7);
+        int MoveHeight = (rand() % 7);
+        return
+        {MoveHeight,MoveWidth};
     }
 } // namespace LabyrinthGame
