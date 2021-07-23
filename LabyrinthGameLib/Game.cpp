@@ -22,13 +22,21 @@ void LabyrinthGame::Game::run()
 void LabyrinthGame::Game::config()
 {
     if (!createBoard())
+    {
         std::cerr << "Game Board not available\n";
+    }
     else if (!createPlayers())
+    {
         std::cerr << "Players not available\n";
+    }
     else if (!createGameRules())
+    {
         std::cerr << "Rules not available\n";
+    }
     else if (!createTreasures())
+    {
         std::cerr << "Treasures not available\n";
+    }
 }
 
 bool LabyrinthGame::Game::createBoard()
@@ -72,7 +80,8 @@ bool LabyrinthGame::Game::createTreasures()
 
     for (int i = 0; i < LabyrinthGame::GameSettings::MAX_TREASURES_GAME; i++)
     {
-        int x, y;
+        int x = 0;
+        int y = 0;
         std::tie(x, y) = createRandomCoordinate();
         Geo::Coordinate coordinate(x, y);
 
@@ -92,7 +101,7 @@ bool LabyrinthGame::Game::createTreasures()
 bool LabyrinthGame::Game::createGameRules()
 {
     std::vector<std::weak_ptr<AbstractPlayer>> temp;
-    for (auto player : m_players)
+    for (const auto& player : m_players)
     {
         temp.push_back(player);
     }
@@ -105,13 +114,13 @@ std::tuple<int, int> LabyrinthGame::Game::createRandomCoordinate()
     auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
     std::mt19937 generator(seed);
 
-    std::uniform_int_distribution<int> CoordinationXArea(0, 6);
+    std::uniform_int_distribution<int> CoordinationXArea(0, LabyrinthGame::GameSettings::WIDTH - 1);
     auto CoordinationX = CoordinationXArea(generator);
-    int x = CoordinationX % 7;
+    int x = CoordinationX % LabyrinthGame::GameSettings::WIDTH;
 
-    std::uniform_int_distribution<int> CoordinationYArea(0, 6);
+    std::uniform_int_distribution<int> CoordinationYArea(0, LabyrinthGame::GameSettings::HEIGHT - 1);
     auto CoordinationY = CoordinationYArea(generator);
-    int y = CoordinationY % 7;
+    int y = CoordinationY % LabyrinthGame::GameSettings::HEIGHT;
 
     return std::make_tuple(x, y);
 }
@@ -122,13 +131,13 @@ LabyrinthGame::Geo::Coordinate LabyrinthGame::Game::placePlayers(int i, Geo::Coo
     switch (i)
     {
     case 0:
-        return Geo::Coordinate(0, 3);
+        return Geo::Coordinate(0, LabyrinthGame::GameSettings::HEIGHT / 2);
     case 1:
-        return Geo::Coordinate(6, 3);
+        return Geo::Coordinate(LabyrinthGame::GameSettings::WIDTH - 1, LabyrinthGame::GameSettings::HEIGHT / 2);
     case 2:
-        return Geo::Coordinate(3, 0);
+        return Geo::Coordinate(LabyrinthGame::GameSettings::WIDTH / 2, 0);
     case 3:
-        return Geo::Coordinate(3, 6);
+        return Geo::Coordinate(LabyrinthGame::GameSettings::WIDTH / 2, LabyrinthGame::GameSettings::HEIGHT - 1);
     default:
         return Geo::Coordinate(0, 0);
     }
@@ -175,7 +184,7 @@ void LabyrinthGame::Game::round()
 
     deleteToken(player);
 
-    m_rules->checkWin(player);
+    bool win = m_rules->checkWin(player);
 
     // shift to the player
     if (i < m_players.size() - 1)
@@ -192,8 +201,8 @@ void LabyrinthGame::Game::round()
 
 bool LabyrinthGame::Game::gameOver()
 {
-    bool win = 0;
-    for (std::weak_ptr<AbstractPlayer> player : m_players)
+    bool win = false;
+    for (const auto& player : m_players)
     {
         win |= m_rules->checkWin(player);
     }
@@ -244,8 +253,7 @@ bool LabyrinthGame::Game::placePiece(std::shared_ptr<AbstractPlayer> player)
 
     } while (!checkInput);
 
-    placePart(placedPart);
-    return true;
+    return placePart(placedPart);
 }
 
 bool LabyrinthGame::Game::movePlayer(std::shared_ptr<AbstractPlayer> player)
@@ -269,11 +277,13 @@ bool LabyrinthGame::Game::deleteToken(std::shared_ptr<AbstractPlayer> player)
     {
         Geo::Coordinate playerCoord = player->getCoordinate();
         auto reachedTreasure =
-            std::find_if(m_treasures.begin(), m_treasures.end(), [playerCoord](std::shared_ptr<TreasureToken> treasure) {
+            std::find_if(m_treasures.begin(), m_treasures.end(), [playerCoord](const std::shared_ptr<TreasureToken>& treasure) {
                 return treasure->getCoordinate() == playerCoord;
             });
         if (reachedTreasure != m_treasures.end())
+        {
             m_treasures.erase(reachedTreasure); // To DO memory leak ask paul???
+        }
 
         player->addTreasure();
     }

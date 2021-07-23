@@ -26,6 +26,7 @@ namespace LabyrinthGame
     private:
         [[nodiscard]] Coordinate placePartDataToCoordinate(const LabyrinthGame::PlacePartData &coordinatePartData);
         [[nodiscard]] bool winPosition(std::weak_ptr<AbstractPlayer> player);
+
         std::vector<std::weak_ptr<AbstractPlayer>> m_players;
         std::weak_ptr<GameBoard> m_board;
         std::vector<std::shared_ptr<Geo::Coordinate>> treasureCoords;
