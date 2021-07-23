@@ -56,7 +56,7 @@ bool LabyrinthGame::Game::createPlayers()
         DrawMatrix drawMatrix = {std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
                                  std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
 
-        coor = placePlayers(i, coor);
+        coor = placePlayers(i);
 
         switch (player)
         {
@@ -101,7 +101,7 @@ bool LabyrinthGame::Game::createTreasures()
 bool LabyrinthGame::Game::createGameRules()
 {
     std::vector<std::weak_ptr<AbstractPlayer>> temp;
-    for (const auto& player : m_players)
+    for (const auto &player : m_players)
     {
         temp.push_back(player);
     }
@@ -125,7 +125,7 @@ std::tuple<int, int> LabyrinthGame::Game::createRandomCoordinate()
     return std::make_tuple(x, y);
 }
 
-LabyrinthGame::Geo::Coordinate LabyrinthGame::Game::placePlayers(int i, Geo::Coordinate coor)
+LabyrinthGame::Geo::Coordinate LabyrinthGame::Game::placePlayers(int i)
 {
     // To Do different color for each Player !!!
     switch (i)
@@ -202,14 +202,14 @@ void LabyrinthGame::Game::round()
 bool LabyrinthGame::Game::gameOver()
 {
     bool win = false;
-    for (const auto& player : m_players)
+    for (const auto &player : m_players)
     {
         win |= m_rules->checkWin(player);
     }
     return win;
 }
 
-bool LabyrinthGame::Game::placePart(LabyrinthGame::PlacePartData part)
+bool LabyrinthGame::Game::placePart(const LabyrinthGame::PlacePartData &part)
 {
     switch (part.direction)
     {
@@ -276,10 +276,10 @@ bool LabyrinthGame::Game::deleteToken(std::shared_ptr<AbstractPlayer> player)
     if (m_board->isTokenPlaced(player->getCoordinate()))
     {
         Geo::Coordinate playerCoord = player->getCoordinate();
-        auto reachedTreasure =
-            std::find_if(m_treasures.begin(), m_treasures.end(), [playerCoord](const std::shared_ptr<TreasureToken>& treasure) {
-                return treasure->getCoordinate() == playerCoord;
-            });
+        auto reachedTreasure = std::find_if(m_treasures.begin(), m_treasures.end(),
+                                            [playerCoord](const std::shared_ptr<TreasureToken> &treasure) {
+                                                return treasure->getCoordinate() == playerCoord;
+                                            });
         if (reachedTreasure != m_treasures.end())
         {
             m_treasures.erase(reachedTreasure); // To DO memory leak ask paul???

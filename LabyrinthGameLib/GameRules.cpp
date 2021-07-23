@@ -9,11 +9,11 @@ LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> p
                            std::make_shared<Geo::Coordinate>(6, 3), std::make_shared<Geo::Coordinate>(3, 6)});
 }
 
-bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> _player, const Coordinate move)
+bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> _player, const Coordinate &move)
 {
     std::shared_ptr<AbstractPlayer> f1_player = _player.lock();
     // Check if on piece is no other Player
-    for (std::weak_ptr<AbstractPlayer> player : m_players)
+    for (const std::weak_ptr<AbstractPlayer> &player : m_players)
     {
         std::shared_ptr<AbstractPlayer> f_player = player.lock();
         // to do check for himself???
@@ -49,20 +49,21 @@ bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
     {
         std::cout << "You just got three treasures. Your mission now is leaving the maze. Hurry!" << std::endl;
     }
-    
+
     if (f_player->getTreasure() == LabyrinthGame::GameSettings::MAX_TREASURE && winPosition(f_player))
     {
         std::cout << "YOU WON!" << std::endl;
         return true;
     }
-    
+
     return false;
 }
 
-bool LabyrinthGame::GameRules::checkPieceForTreassure(Geo::Coordinate coordinate)
+bool LabyrinthGame::GameRules::checkPieceForTreassure(const Geo::Coordinate &coordinate)
 {
-    auto occupied = std::find_if(treasureCoords.begin(), treasureCoords.end(),
-                                 [coordinate](std::shared_ptr<Geo::Coordinate> coord) { return *coord == coordinate; });
+    auto occupied =
+        std::find_if(treasureCoords.begin(), treasureCoords.end(),
+                     [coordinate](const std::shared_ptr<Geo::Coordinate> &coord) { return *coord == coordinate; });
 
     if (occupied == treasureCoords.end())
     {

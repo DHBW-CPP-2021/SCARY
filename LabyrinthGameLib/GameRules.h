@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Geo/Coordinate.h"
 #include "GameBoard.h"
+#include "Geo/Coordinate.h"
 #include "IO/MazePieceOracle/MazeRowOracle.h"
-#include "Token/StupidToken.h"
 #include "Player/AbstractPlayer.h"
 #include "Player/BotPlayer.h"
-#include "Player/SmartbotPlayer.h"
 #include "Player/HumanPlayer.h"
+#include "Player/SmartbotPlayer.h"
+#include "Token/StupidToken.h"
 
 namespace LabyrinthGame
 {
@@ -15,13 +15,14 @@ namespace LabyrinthGame
     class GameRules
     {
         using Coordinate = Geo::Coordinate;
+
     public:
         GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board);
         //~GameRules();
-        [[nodiscard]] bool checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate move);
+        [[nodiscard]] bool checkMove(std::weak_ptr<AbstractPlayer> player, const Coordinate &move);
         [[nodiscard]] bool checkPieceMove(const LabyrinthGame::PlacePartData &coordinatePartData);
         [[nodiscard]] bool checkWin(std::weak_ptr<AbstractPlayer> player);
-        [[nodiscard]] bool checkPieceForTreassure(Geo::Coordinate coordinate);
+        [[nodiscard]] bool checkPieceForTreassure(const Geo::Coordinate &coordinate);
 
     private:
         [[nodiscard]] Coordinate placePartDataToCoordinate(const LabyrinthGame::PlacePartData &coordinatePartData);
