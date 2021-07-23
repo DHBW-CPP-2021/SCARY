@@ -54,7 +54,7 @@ void LabyrinthGame::Game::createPlayers()
         kindOfPlayer player = getPlayer(i + 1);
         Geo::Coordinate coor(0, 0);
         DrawMatrix drawMatrix = {std::array<std::string, IO::DrawingConst::inner_width>{"P", "l", "a", "y", "e", "r"},
-                                 std::array<std::string, IO::DrawingConst::inner_width>{" ", " ", " ", " ", " ", " "}};
+                                 std::array<std::string, IO::DrawingConst::inner_width>{std::to_string(i), " ", " ", " ", " ", " "}};
 
         coor = placePlayers(i);
 
