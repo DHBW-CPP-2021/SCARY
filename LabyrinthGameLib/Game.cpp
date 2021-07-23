@@ -23,6 +23,16 @@ void LabyrinthGame::Game::run()
     drawer.drawMaze();
 }
 
+void LabyrinthGame::Game::setWinner(int id)
+{
+    m_winner = id;
+}
+
+int LabyrinthGame::Game::getWinner()
+{
+    return m_winner;
+}
+
 void LabyrinthGame::Game::config()
 {
     if (!createBoard())
@@ -179,6 +189,11 @@ bool LabyrinthGame::Game::gameOver()
     for (const auto &player : m_board->getPlayers())
     {
         win |= m_rules->checkWin(player);
+        if (win == true)
+        {
+            m_winner = player->getID();
+            break;
+        }
     }
     return win;
 }

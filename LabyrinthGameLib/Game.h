@@ -22,6 +22,9 @@ namespace LabyrinthGame
         Game();
         void run();
 
+        void setWinner(int id);
+        int getWinner();
+
     protected:
         // config Methods
         void config();
@@ -47,6 +50,8 @@ namespace LabyrinthGame
         // Members
         std::shared_ptr<GameRules> m_rules;
         std::shared_ptr<GameBoard> m_board;
+
+        int m_winner;
     };
 
 } // namespace LabyrinthGame
