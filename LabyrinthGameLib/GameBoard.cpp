@@ -276,7 +276,8 @@ namespace LabyrinthGame
         }
         auto vertex1 = getVertex(coord1); // getVertex(coord1);
         auto vertex2 = getVertex(coord2);
-        Combinatorics::BreadthFirstSearch search(_graph, vertex1);
+        auto outsideVertex = getOutsideVertex();
+        Combinatorics::BreadthFirstSearch search(_graph, outsideVertex,  vertex1);
         return search.isReachable(vertex2);
     }
 
