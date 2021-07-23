@@ -27,11 +27,10 @@ bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> _player, 
             return false;
         }
     }
-    std::shared_ptr<AbstractPlayer> f_player = _player.lock();
     std::shared_ptr<GameBoard> f_board = m_board.lock();
 
     // check if Path is Connected
-    return f_board->coordsAreConnected(move, f_player->getCoordinate());
+    return f_board->coordsAreConnected(move, f1_player->getCoordinate());
 }
 
 bool LabyrinthGame::GameRules::checkPieceMove(const LabyrinthGame::PlacePartData &coordinatePartData)

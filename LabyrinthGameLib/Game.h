@@ -22,7 +22,7 @@ namespace LabyrinthGame
         Game();
         void run();
 
-    private:
+    protected:
         // config Methods
         void config();
         bool createBoard(); // TODO remove error code as return value

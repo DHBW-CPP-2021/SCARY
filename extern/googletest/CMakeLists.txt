@@ -9,5 +9,6 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 add_executable(
     Google_Tests_run
         testcases/labyrinth_game_utils.cpp
-    testcases/test_graph.cpp)
+    testcases/test_graph.cpp
+    testcases/SmartVsRandomBot.cpp)
 target_link_libraries(Google_Tests_run gtest gtest_main GraphLib LoggerLib LabyrinthGameLib)
