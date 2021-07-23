@@ -2,6 +2,8 @@
 #include "MazePieceOracle/MazeRowOracle.h"
 #include "MazePieceOracle/SparePieceOracle.h"
 #include <cmath>
+#include <string>
+
 
 namespace LabyrinthGame::IO
 {
@@ -76,7 +78,7 @@ namespace LabyrinthGame::IO
         if (oracle.isTokenPlaced(k))
         {
             Token const &token = oracle.getPlacedToken(k);
-            for (char const &c : token.getCharacterRepresentation()[inner_y])
+            for (std::string const &c : token.getCharacterRepresentation()[inner_y])
             {
                 io.out << c;
             }
