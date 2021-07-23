@@ -54,7 +54,7 @@ void LabyrinthGame::Game::createPlayers()
         kindOfPlayer player = getPlayer(i + 1);
         Geo::Coordinate coor(0, 0);
         DrawMatrix drawMatrix = {std::array<std::string, IO::DrawingConst::inner_width>{"P", "l", "a", "y", "e", "r"},
-                                 std::array<std::string, IO::DrawingConst::inner_width>{std::to_string(i), " ", " ", " ", " ", " "}};
+                                 std::array<std::string, IO::DrawingConst::inner_width>{" ", " ", " ", std::to_string(i + 1), " ", " "}};
 
         coor = placePlayers(i);
 
@@ -62,13 +62,13 @@ void LabyrinthGame::Game::createPlayers()
         {
         case kindOfPlayer::HUMANPLAYER:
             /*m_players[i] = std::make_shared<HumanPlayer>(*m_board, coor, drawMatrix);*/
-            players.push_back(std::make_shared<HumanPlayer>(*m_board, coor, drawMatrix));
+            players.push_back(std::make_shared<HumanPlayer>(*m_board, coor, drawMatrix, i + 1));
             break;
         case kindOfPlayer::DUMPBOT:
-            players.push_back(std::make_shared<BotPlayer>(*m_board, coor, drawMatrix));
+            players.push_back(std::make_shared<BotPlayer>(*m_board, coor, drawMatrix, i + 1));
             break;
         case kindOfPlayer::SMARTBOT:
-            players.push_back(std::make_shared<SmartbotPlayer>(*m_board, coor, drawMatrix));
+            players.push_back(std::make_shared<SmartbotPlayer>(*m_board, coor, drawMatrix, i + 1));
             break;
         }
     }

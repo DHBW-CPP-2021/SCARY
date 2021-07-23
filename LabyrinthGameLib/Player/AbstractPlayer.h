@@ -20,7 +20,7 @@ namespace LabyrinthGame
         using Coordinate = Geo::Coordinate;
         using DrawMatrix = std::array<std::array<std::string, IO::DrawingConst::inner_width>, IO::DrawingConst::inner_height>;
 
-        AbstractPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation);
+        AbstractPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation, int id);
         virtual ~AbstractPlayer() = default;
 
         // methoden die die bot logik bzw die player abfrage implementieren
@@ -32,10 +32,13 @@ namespace LabyrinthGame
         void addTreasure();
         void setCoordinates(const Coordinate &pos); //! Achtung kann gefährlich sein.
 
+        int getID();
+
     protected:
         [[nodiscard]] const GameBoard& getGameBoard() const;
     
     private:
+        const int m_id;
         PlayerToken m_token;
         const GameBoard &m_board;
         unsigned short m_treasureIndex;

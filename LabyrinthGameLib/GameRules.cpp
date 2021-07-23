@@ -67,7 +67,7 @@ bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
 
     if (f_player->getTreasure() == LabyrinthGame::GameSettings::MAX_TREASURE && winPosition(f_player))
     {
-        std::cout << "YOU WON!" << std::endl;
+        std::cout << "YOU WON, Player " << f_player->getID() <<"!" << std::endl;
         return true;
     }
 

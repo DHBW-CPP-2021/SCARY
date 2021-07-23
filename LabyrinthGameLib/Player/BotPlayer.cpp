@@ -4,8 +4,8 @@
 namespace LabyrinthGame
 {
     using namespace Geo;
-    BotPlayer::BotPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation)
-        : AbstractPlayer(board, initialPos, charRepresentation)
+    BotPlayer::BotPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation, int id)
+        : AbstractPlayer(board, initialPos, charRepresentation, id)
     {
     }
     PlacePartData BotPlayer::placePartDialog() const

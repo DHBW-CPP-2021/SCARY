@@ -8,8 +8,8 @@
 namespace LabyrinthGame
 {
     using namespace Geo;
-    SmartbotPlayer::SmartbotPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation)
-        : AbstractPlayer(board, initialPos, charRepresentation)
+    SmartbotPlayer::SmartbotPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation, int id)
+        : AbstractPlayer(board, initialPos, charRepresentation, id)
     {
     }
 

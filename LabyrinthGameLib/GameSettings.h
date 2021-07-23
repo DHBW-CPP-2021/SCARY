@@ -15,7 +15,7 @@ namespace LabyrinthGame::GameSettings
     // But, if all 4 sides are closed we open a randomly chosen side.
     double constexpr OPEN_PROBABILITY = 0.55;
     unsigned int constexpr MAX_TREASURE = 3;
-    unsigned int constexpr MAX_PLAYER = 4;
+    unsigned int constexpr MAX_PLAYER = 2;
     unsigned int constexpr MAX_TREASURES_GAME = MAX_PLAYER*3;
 } // namespace LabyrinthGame::GameSettings
 
