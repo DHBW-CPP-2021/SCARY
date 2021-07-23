@@ -4,7 +4,10 @@
 #include "IO/GameDrawer.h"
 #include "Player/AbstractPlayer.h"
 #include <chrono>
+#include <iostream>
 #include <random>
+#include <stdexcept>
+#include <string>
 
 LabyrinthGame::Game::Game()
 {
@@ -25,18 +28,12 @@ void LabyrinthGame::Game::config()
     {
         std::cerr << "Game Board not available\n";
     }
-    else if (!createPlayers())
-    {
-        std::cerr << "Players not available\n";
-    }
-    else if (!createGameRules())
+    createPlayers();
+    if (!createGameRules())
     {
         std::cerr << "Rules not available\n";
     }
-    else if (!createTreasures())
-    {
-        std::cerr << "Treasures not available\n";
-    }
+    createTreasures();
 }
 
 bool LabyrinthGame::Game::createBoard()
@@ -45,7 +42,7 @@ bool LabyrinthGame::Game::createBoard()
     return m_board != nullptr;
 }
 
-bool LabyrinthGame::Game::createPlayers()
+void LabyrinthGame::Game::createPlayers()
 {
     int anzahl = 2; // how many Players
     for (int i = 0; i < 2; i++)
@@ -72,30 +69,25 @@ bool LabyrinthGame::Game::createPlayers()
             break;
         }
     }
-    return true;
 }
 
-bool LabyrinthGame::Game::createTreasures()
+void LabyrinthGame::Game::createTreasures()
 {
 
     for (int i = 0; i < LabyrinthGame::GameSettings::MAX_TREASURES_GAME; i++)
     {
         int x = 0;
         int y = 0;
-        std::tie(x, y) = createRandomCoordinate();
-        Geo::Coordinate coordinate(x, y);
+        Geo::Coordinate coordinate = createRandomCoordinate();
 
         // Ensure that no treassure is generated over another so there are always enough treasures
         while (!m_rules->checkPieceForTreassure(coordinate))
         {
-            std::tie(x, y) = createRandomCoordinate();
-            Geo::Coordinate coord(x, y);
-            coordinate = coord;
+            coordinate = createRandomCoordinate();
         }
 
         m_treasures.push_back(std::make_shared<TreasureToken>(*m_board, coordinate));
     }
-    return false;
 }
 
 bool LabyrinthGame::Game::createGameRules()
@@ -109,20 +101,22 @@ bool LabyrinthGame::Game::createGameRules()
     return m_rules != nullptr;
 }
 
-std::tuple<int, int> LabyrinthGame::Game::createRandomCoordinate()
+LabyrinthGame::Geo::Coordinate LabyrinthGame::Game::createRandomCoordinate()
 {
+    using CoordType = LabyrinthGame::GameSettings::CoordType;
+
     auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
     std::mt19937 generator(seed);
 
-    std::uniform_int_distribution<int> CoordinationXArea(0, LabyrinthGame::GameSettings::WIDTH - 1);
+    std::uniform_int_distribution<CoordType> CoordinationXArea(0, LabyrinthGame::GameSettings::WIDTH - 1);
     auto CoordinationX = CoordinationXArea(generator);
-    int x = CoordinationX % LabyrinthGame::GameSettings::WIDTH;
+    CoordType x = CoordinationX % LabyrinthGame::GameSettings::WIDTH;
 
     std::uniform_int_distribution<int> CoordinationYArea(0, LabyrinthGame::GameSettings::HEIGHT - 1);
     auto CoordinationY = CoordinationYArea(generator);
-    int y = CoordinationY % LabyrinthGame::GameSettings::HEIGHT;
+    CoordType y = CoordinationY % LabyrinthGame::GameSettings::HEIGHT;
 
-    return std::make_tuple(x, y);
+    return {x, y};
 }
 
 LabyrinthGame::Geo::Coordinate LabyrinthGame::Game::placePlayers(int i)
@@ -145,58 +139,34 @@ LabyrinthGame::Geo::Coordinate LabyrinthGame::Game::placePlayers(int i)
 
 LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 {
-    int _player;
-
-    do
-    {
-        std::cout << "Please select which kind the " << i << ". player should be:";
-        std::cin >> _player;
-    } while (_player > 3 || _player < 0);
-
-    switch (_player)
-    {
-    case 0:
-        return kindOfPlayer::HUMANPLAYER;
-    case 1:
-        return kindOfPlayer::DUMPBOT;
-    case 2:
-        return kindOfPlayer::SMARTBOT;
-    }
+    int playerIndex = IO::ConsoleUtils::safelyReadInteger(
+        "Select the Player type for Player" + std::to_string(i) + "\n0-Human\n1-Bot\n2-SmartBot", 0, 2);
+    return kindOfPlayer(playerIndex);
 }
 
 void LabyrinthGame::Game::round()
 {
-    IO::GameDrawer drawer(*m_board);
-    std::cout << "Let's draw the initial maze\n";
-    drawer.drawMaze();
-
-    std::cout << "\n\n\nLet's draw the spare pieces\n";
-    drawer.drawSparePieces();
-    static int i;
-    std::shared_ptr<AbstractPlayer> player = m_players[i];
-
-    placePiece(player);
-
-    LabyrinthGame::IO::ConsoleUtils::clearConsole();
-    drawer.drawMaze();
-
-    movePlayer(player);
-
-    deleteToken(player);
-
-    bool win = m_rules->checkWin(player);
-
-    // shift to the player
-    if (i < m_players.size() - 1)
+    for (std::size_t i = 0; i < m_players.size(); i++)
     {
-        i++;
-    }
-    else
-    {
-        i = 0;
-    }
+        IO::GameDrawer drawer(*m_board);
+        IO::ConsoleUtils::clearConsole();
 
-    LabyrinthGame::IO::ConsoleUtils::clearConsole();
+        std::cout << "The Maze\n";
+        drawer.drawMaze();
+        std::cout << "\n\nAll the spare Pieces:\n";
+        drawer.drawSparePieces();
+        std::shared_ptr<AbstractPlayer> player = m_players[i];
+        placePlayerSelectPiece(player);
+
+        LabyrinthGame::IO::ConsoleUtils::clearConsole();
+
+        std::cout << "The Maze\n";
+        drawer.drawMaze();
+        movePlayer(player);
+        playerFindToken(player);
+
+        LabyrinthGame::IO::ConsoleUtils::clearConsole();
+    }
 }
 
 bool LabyrinthGame::Game::gameOver()
@@ -209,43 +179,29 @@ bool LabyrinthGame::Game::gameOver()
     return win;
 }
 
-bool LabyrinthGame::Game::placePart(const LabyrinthGame::PlacePartData &part)
+void LabyrinthGame::Game::placePart(const LabyrinthGame::PlacePartData &part)
 {
     switch (part.direction)
     {
     case LabyrinthGame::Geo::Direction::down:
-        if (part.ColOrRowIndex % 2 == 1)
-        {
-            m_board->insertSparePieceInColumn(part.ColOrRowIndex, part.direction, part.spare_piece_id);
-        }
-        return true;
+        m_board->insertSparePieceInColumn(part.ColOrRowIndex, part.direction, part.spare_piece_id);
+        break;
     case LabyrinthGame::Geo::Direction::up:
-        if (part.ColOrRowIndex % 2 == 1)
-        {
-            m_board->insertSparePieceInColumn(part.ColOrRowIndex, part.direction, part.spare_piece_id);
-        }
-        return true;
+        m_board->insertSparePieceInColumn(part.ColOrRowIndex, part.direction, part.spare_piece_id);
+        break;
     case LabyrinthGame::Geo::Direction::left:
-        if (part.ColOrRowIndex % 2 == 1)
-        {
-            m_board->insertSparePieceInRow(part.ColOrRowIndex, part.direction, part.spare_piece_id);
-        }
-        return true;
+        m_board->insertSparePieceInRow(part.ColOrRowIndex, part.direction, part.spare_piece_id);
+        break;
     case LabyrinthGame::Geo::Direction::right:
-        if (part.ColOrRowIndex % 2 == 1)
-        {
-            m_board->insertSparePieceInRow(part.ColOrRowIndex, part.direction, part.spare_piece_id);
-        }
-        return true;
-    default:
-        return false;
+        m_board->insertSparePieceInRow(part.ColOrRowIndex, part.direction, part.spare_piece_id);
+        break;
     }
 }
 
-bool LabyrinthGame::Game::placePiece(std::shared_ptr<AbstractPlayer> player)
+void LabyrinthGame::Game::placePlayerSelectPiece(const std::shared_ptr<AbstractPlayer> &player)
 {
     bool checkInput = false;
-    LabyrinthGame::PlacePartData placedPart;
+    LabyrinthGame::PlacePartData placedPart{};
     do
     {
         placedPart = player->placePartDialog();
@@ -253,10 +209,10 @@ bool LabyrinthGame::Game::placePiece(std::shared_ptr<AbstractPlayer> player)
 
     } while (!checkInput);
 
-    return placePart(placedPart);
+    placePart(placedPart);
 }
 
-bool LabyrinthGame::Game::movePlayer(std::shared_ptr<AbstractPlayer> player)
+void LabyrinthGame::Game::movePlayer(const std::shared_ptr<AbstractPlayer> &player)
 {
     Geo::Coordinate moveCoordinate(0, 0);
     bool checkInput = false;
@@ -268,10 +224,9 @@ bool LabyrinthGame::Game::movePlayer(std::shared_ptr<AbstractPlayer> player)
     } while (!checkInput);
 
     player->setCoordinates(moveCoordinate); // get treasure in move or here and with parameter?
-    return true;
 }
 
-bool LabyrinthGame::Game::deleteToken(std::shared_ptr<AbstractPlayer> player)
+void LabyrinthGame::Game::playerFindToken(std::shared_ptr<AbstractPlayer> player)
 {
     if (m_board->isTokenPlaced(player->getCoordinate()))
     {
@@ -282,10 +237,9 @@ bool LabyrinthGame::Game::deleteToken(std::shared_ptr<AbstractPlayer> player)
                                             });
         if (reachedTreasure != m_treasures.end())
         {
-            m_treasures.erase(reachedTreasure); // To DO memory leak ask paul???
+            m_treasures.erase(reachedTreasure); // TODO memory leak ask paul???
         }
 
         player->addTreasure();
     }
-    return true;
 }

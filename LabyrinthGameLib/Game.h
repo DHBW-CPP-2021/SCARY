@@ -26,27 +26,30 @@ namespace LabyrinthGame
     private:
         // config Methods
         void config();
-        [[nodiscard]] bool createBoard();
-        [[nodiscard]] bool createPlayers();
-        [[nodiscard]] bool createTreasures();
-        [[nodiscard]] bool createGameRules();
-        [[nodiscard]] std::tuple<int, int> createRandomCoordinate();
+        bool createBoard(); // TODO remove error code as return value
+        void createPlayers();
+        void createTreasures();
+        bool createGameRules(); // TODO remove error code as return value
+        [[nodiscard]] static LabyrinthGame::Geo::Coordinate createRandomCoordinate(); // TODO make coordinate return type
+        // TODO refactor this method, this does not place players but the name says it does.
         [[nodiscard]] LabyrinthGame::Geo::Coordinate placePlayers(int i);
+        // TODO same as above. getPlayer does not get player even tho the name suggest it does.
         [[nodiscard]] LabyrinthGame::kindOfPlayer getPlayer(int i);
 
         // Round Methods
         void round();
         [[nodiscard]] bool gameOver();
-        [[nodiscard]] bool placePart(const LabyrinthGame::PlacePartData &part);
-        [[nodiscard]] bool placePiece(std::shared_ptr<AbstractPlayer> player);
-        [[nodiscard]] bool movePlayer(std::shared_ptr<AbstractPlayer> player);
-        [[nodiscard]] bool deleteToken(std::shared_ptr<AbstractPlayer> player);
+        void placePart(const LabyrinthGame::PlacePartData &part);
+        void placePlayerSelectPiece(const std::shared_ptr<AbstractPlayer> &player);
+        void movePlayer(const std::shared_ptr<AbstractPlayer> &player);
+        void playerFindToken(
+            std::shared_ptr<AbstractPlayer> player); // TODO name is not what it does and function needs major refactoring!!!
 
         // Members
         std::vector<std::shared_ptr<AbstractPlayer>> m_players;
         std::vector<std::shared_ptr<TreasureToken>> m_treasures;
-        /*static */ std::shared_ptr<GameRules> m_rules;
-        /*static*/ std::shared_ptr<GameBoard> m_board; // static???
+        std::shared_ptr<GameRules> m_rules;
+        std::shared_ptr<GameBoard> m_board;
     };
 
 } // namespace LabyrinthGame
