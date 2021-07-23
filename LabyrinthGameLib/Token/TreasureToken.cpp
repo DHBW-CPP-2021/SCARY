@@ -1,5 +1,6 @@
 #include "TreasureToken.h"
 #include "../Utils/Utils.h"
+#include "../IO/ConsoleUtils.h"
 #include <iostream>
 #include <stdexcept>
 #include <string>
