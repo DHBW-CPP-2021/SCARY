@@ -29,6 +29,7 @@ void LabyrinthGame::Game::config()
     {
         std::cerr << "Game Board not available\n";
     }
+    //How Many Players    
     createPlayers();
     if (!createGameRules())
     {
@@ -53,7 +54,7 @@ void LabyrinthGame::Game::createPlayers()
         kindOfPlayer player = getPlayer(i + 1);
         Geo::Coordinate coor(0, 0);
         DrawMatrix drawMatrix = {std::array<char, IO::DrawingConst::inner_width>{'P', 'l', 'a', 'y', 'e', 'r'},
-                                 std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', ' ', ' ', ' '}};
+                                 std::array<char, IO::DrawingConst::inner_width>{' ', ' ', ' ', (char)(i+1), ' ', ' '}};
 
         coor = placePlayers(i);
 
