@@ -68,7 +68,7 @@ public:
 
 };
 
-/*int gamer()
+int gamer()
 {
     int counter = 0;
     for (int i = 0; i < 10; i++)
@@ -85,56 +85,56 @@ public:
 TEST(TestConversion, all)
 {
     ASSERT_GE(gamer(), 8);
-}*/
-
-int gamer()
-{
-    game _game = game();
-    _game.config();
-    _game.run();
-    if (_game.getWinner() == 1)
-        return true;
-    return false;
 }
 
-
-TEST(Test1, all)
-{
-    ASSERT_TRUE(gamer());
-}
-TEST(Test2, all)
-{
-    ASSERT_TRUE(gamer());
-}
-TEST(Test3, all)
-{
-    ASSERT_TRUE(gamer());
-}
-TEST(Test4, all)
-{
-    ASSERT_TRUE(gamer());
-}
-TEST(Test5, all)
-{
-    ASSERT_TRUE(gamer());
-}
-TEST(Test6, all)
-{
-    ASSERT_TRUE(gamer());
-}
-TEST(Test7, all)
-{
-    ASSERT_TRUE(gamer());
-}
-TEST(Test8, all)
-{
-    ASSERT_TRUE(gamer());
-}
-TEST(Test9, all)
-{
-    ASSERT_TRUE(gamer());
-}
-TEST(Test10, all)
-{
-    ASSERT_TRUE(gamer());
-}
+//int gamer()
+//{
+//    game _game = game();
+//    _game.config();
+//    _game.run();
+//    if (_game.getWinner() == 1)
+//        return true;
+//    return false;
+//}
+//
+//
+//TEST(Test1, all)
+//{
+//    ASSERT_TRUE(gamer());
+//}
+//TEST(Test2, all)
+//{
+//    ASSERT_TRUE(gamer());
+//}
+//TEST(Test3, all)
+//{
+//    ASSERT_TRUE(gamer());
+//}
+//TEST(Test4, all)
+//{
+//    ASSERT_TRUE(gamer());
+//}
+//TEST(Test5, all)
+//{
+//    ASSERT_TRUE(gamer());
+//}
+//TEST(Test6, all)
+//{
+//    ASSERT_TRUE(gamer());
+//}
+//TEST(Test7, all)
+//{
+//    ASSERT_TRUE(gamer());
+//}
+//TEST(Test8, all)
+//{
+//    ASSERT_TRUE(gamer());
+//}
+//TEST(Test9, all)
+//{
+//    ASSERT_TRUE(gamer());
+//}
+//TEST(Test10, all)
+//{
+//    ASSERT_TRUE(gamer());
+//}
