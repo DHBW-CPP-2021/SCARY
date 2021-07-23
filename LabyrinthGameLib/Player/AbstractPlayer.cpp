@@ -20,10 +20,6 @@ namespace LabyrinthGame
     }
     void AbstractPlayer::setCoordinates(const Coordinate &pos)
     {
-        if (!canMoveTo(pos))
-        {
-            throw std::runtime_error("cant move to pos, you should've checked before moving!");
-        }
         m_token.setCoordinate(pos);
     }
 
@@ -36,9 +32,5 @@ namespace LabyrinthGame
     {
         return m_treasureIndex;
     }
-    
-    bool AbstractPlayer::canMoveTo(const Coordinate &pos)
-    {
-        return m_board.coordsAreConnected(pos, getCoordinate());
-    }
+
 } // namespace LabyrinthGame
