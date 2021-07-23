@@ -1,6 +1,7 @@
 #include "PlayerToken.h"
 #include "../Utils/Utils.h"
 #include <iostream>
+#include <stdexcept>
 
 namespace LabyrinthGame
 {
@@ -17,11 +18,11 @@ namespace LabyrinthGame
         {
             setCoordinate(Coordinate{GameSettings::WIDTH - 1, newCoord.getY()});
         }
-        else if (newCoord.getX() > GameSettings::WIDTH) // piece moved out right
+        else if (newCoord.getX() > GameSettings::WIDTH-1) // piece moved out right
         {
             setCoordinate(Coordinate{0, newCoord.getY()});
         }
-        else if (newCoord.getY() > GameSettings::HEIGHT) // piece moved out bottom
+        else if (newCoord.getY() > GameSettings::HEIGHT-1) // piece moved out bottom
         {
             setCoordinate(Coordinate{newCoord.getX(), 0});
         }
@@ -31,7 +32,7 @@ namespace LabyrinthGame
         }
         else
         {
-            std::cerr << "something went wrong... this shouldn't happen. check playerToken.cpp\n";
+            throw std::runtime_error("something went wrong... this shouldn't happen. check playerToken.cpp\n");
         }
     }
 
