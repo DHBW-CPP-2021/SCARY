@@ -32,6 +32,9 @@ namespace LabyrinthGame
         void addTreasure();
         void setCoordinates(const Coordinate &pos); //! Achtung kann gefährlich sein.
 
+    protected:
+        [[nodiscard]] const GameBoard& getGameBoard() const;
+    
     private:
         PlayerToken m_token;
         const GameBoard &m_board;

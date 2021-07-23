@@ -33,4 +33,9 @@ namespace LabyrinthGame
         return m_treasureIndex;
     }
 
+    const GameBoard &AbstractPlayer::getGameBoard() const
+    {
+        return m_board;
+    }
+
 } // namespace LabyrinthGame
