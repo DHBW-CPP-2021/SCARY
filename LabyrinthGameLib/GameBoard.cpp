@@ -1,4 +1,5 @@
 #include "GameBoard.h"
+#include "GameBoard.h"
 #include "../Graph/Algorithm/BreadthFirstSearch.h"
 #include "Utils/Utils.h"
 #include <random>
@@ -306,6 +307,10 @@ namespace LabyrinthGame
         m_treasures = treasures;
     }
     std::vector<std::shared_ptr<TreasureToken>> GameBoard::getTreasures() const
+    {
+        return m_treasures;
+    }
+    std::vector<std::shared_ptr<TreasureToken>> &GameBoard::getTreasures()
     {
         return m_treasures;
     }

@@ -86,6 +86,7 @@ namespace LabyrinthGame
         [[nodiscard]] std::vector<std::shared_ptr<AbstractPlayer>> getPlayers() const;
         void setTreasures(const std::vector<std::shared_ptr<TreasureToken>> &treasures);
         [[nodiscard]] std::vector<std::shared_ptr<TreasureToken>> getTreasures() const;
+        [[nodiscard]] std::vector<std::shared_ptr<TreasureToken>> &getTreasures();
 
     private:
         // Stable storage (after creation) of all available MazePieces

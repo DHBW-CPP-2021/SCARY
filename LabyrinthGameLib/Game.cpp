@@ -233,7 +233,7 @@ void LabyrinthGame::Game::playerFindToken(std::shared_ptr<AbstractPlayer> player
 {
     if (m_board->isTokenPlaced(player->getCoordinate()))
     {
-        auto treasures = m_board->getTreasures();
+        auto &treasures = m_board->getTreasures();
         Geo::Coordinate playerCoord = player->getCoordinate();
         auto reachedTreasure =
             std::find_if(treasures.begin(), treasures.end(), [playerCoord](const std::shared_ptr<TreasureToken> &treasure) {
@@ -241,7 +241,7 @@ void LabyrinthGame::Game::playerFindToken(std::shared_ptr<AbstractPlayer> player
             });
         if (reachedTreasure != treasures.end())
         {
-            treasures.erase(reachedTreasure); // TODO memory leak ask paul???
+            treasures.erase(reachedTreasure); // TODO does not delet in the vector? 
             player->addTreasure();
         }
 
