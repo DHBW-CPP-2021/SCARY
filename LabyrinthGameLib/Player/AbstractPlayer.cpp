@@ -8,6 +8,7 @@ namespace LabyrinthGame
     AbstractPlayer::AbstractPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation)
         : m_token(board, initialPos, charRepresentation), m_board(board)
     {
+        m_treasureIndex = 0;
     }
 
     void AbstractPlayer::addTreasure()
