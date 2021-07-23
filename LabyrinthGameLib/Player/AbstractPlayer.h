@@ -30,6 +30,7 @@ namespace LabyrinthGame
         [[nodiscard]] unsigned short getTreasure();
 
         void addTreasure();
+        void addTreasure(const int &treasureScore);
         void setCoordinates(const Coordinate &pos); //! Achtung kann gefährlich sein.
 
     protected:

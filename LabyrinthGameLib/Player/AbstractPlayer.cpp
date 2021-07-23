@@ -18,6 +18,10 @@ namespace LabyrinthGame
             m_treasureIndex++;
         }
     }
+    void AbstractPlayer::addTreasure(const int &treasureScore)
+    {
+        m_treasureIndex += treasureScore;
+    }
     void AbstractPlayer::setCoordinates(const Coordinate &pos)
     {
         m_token.setCoordinate(pos);

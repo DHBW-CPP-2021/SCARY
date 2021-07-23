@@ -1,4 +1,5 @@
 #include "TreasureToken.h"
+#include "TreasureToken.h"
 #include "../Utils/Utils.h"
 #include "../IO/ConsoleUtils.h"
 #include <iostream>
@@ -53,9 +54,14 @@ namespace LabyrinthGame
                                        " ", " ", " ", " "}};
 
     }
-    TreasureToken::TreasureToken(GameBoard &board_, Coordinate initialPos)
-        : PlacedToken(board_, initialPos, getTreasureMatrix())
+    TreasureToken::TreasureToken(GameBoard &board_, Coordinate initialPos, int &treasureScore)
+        : PlacedToken(board_, initialPos, getTreasureMatrix()), m_treasureScore(treasureScore)
     {
+    }
+
+    int TreasureToken::getScore() const
+    {
+        return m_treasureScore;
     }
 
 } // namespace LabyrinthGame
