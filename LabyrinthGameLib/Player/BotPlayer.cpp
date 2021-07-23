@@ -13,7 +13,7 @@ namespace LabyrinthGame
         std::random_device rd;
         std::mt19937 generator{rd()};
 
-        std::uniform_int_distribution<GameSettings::CoordType> SparePieceDist(0, GameSettings::NUM_SPARE_PIECES);
+        std::uniform_int_distribution<GameSettings::CoordType> SparePieceDist(0, GameSettings::NUM_SPARE_PIECES-1);
         auto SparePiece = SparePieceDist(generator);
 
         std::uniform_int_distribution<int> randomDirectionDist(0, 3);

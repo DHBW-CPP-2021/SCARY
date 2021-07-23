@@ -1,6 +1,6 @@
 #include "GameRules.h"
 #include "GameSettings.h"
-#include "Windows.h"
+#include "Utils/Utils.h"
 
 LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board)
     : m_board(board), m_players(players)
@@ -11,12 +11,17 @@ LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> p
 
 bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> _player, const Coordinate &move)
 {
+    if (!LabyrinthGame::Utils::isValid(move))
+    {
+        return false;
+    }
+
     std::shared_ptr<AbstractPlayer> f1_player = _player.lock();
     // Check if on piece is no other Player
     for (const std::weak_ptr<AbstractPlayer> &player : m_players)
     {
         std::shared_ptr<AbstractPlayer> f_player = player.lock();
-        // to do check for himself???
+        // todo check for himself???
         if (move == f_player->getCoordinate() && f_player != f1_player)
         {
             return false;
@@ -31,7 +36,18 @@ bool LabyrinthGame::GameRules::checkMove(std::weak_ptr<AbstractPlayer> _player, 
 
 bool LabyrinthGame::GameRules::checkPieceMove(const LabyrinthGame::PlacePartData &coordinatePartData)
 {
+    // check piece ID
+    if (coordinatePartData.spare_piece_id > GameSettings::NUM_SPARE_PIECES - 1)
+    {
+        return false;
+    }
+
+    // check the coordinate
     Coordinate coordinate = placePartDataToCoordinate(coordinatePartData);
+    if (!coordinate.isValid())
+    {
+        return false;
+    }
 
     std::shared_ptr<GameBoard> f_board = m_board.lock();
     const Maze &maze = f_board->getMaze();

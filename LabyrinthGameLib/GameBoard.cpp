@@ -274,7 +274,7 @@ namespace LabyrinthGame
         {
             throw std::runtime_error("coordinate not valid");
         }
-        auto vertex1 = getVertex(coord1);
+        auto vertex1 = getVertex(coord1);//getVertex(coord1);
         auto vertex2 = getVertex(coord2);
         Combinatorics::BreadthFirstSearch search(_graph, vertex1);
         return search.isReachable(vertex2);

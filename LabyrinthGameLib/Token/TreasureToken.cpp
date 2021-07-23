@@ -19,11 +19,11 @@ namespace LabyrinthGame
         {
             setCoordinate(Coordinate{GameSettings::WIDTH - 1, newCoord.getY()});
         }
-        else if (newCoord.getX() > GameSettings::WIDTH) // piece moved out right
+        else if (newCoord.getX() > GameSettings::WIDTH-1) // piece moved out right
         {
             setCoordinate(Coordinate{0, newCoord.getY()});
         }
-        else if (newCoord.getY() > GameSettings::HEIGHT) // piece moved out bottom
+        else if (newCoord.getY() > GameSettings::HEIGHT-1) // piece moved out bottom
         {
             setCoordinate(Coordinate{newCoord.getX(), 0});
         }
