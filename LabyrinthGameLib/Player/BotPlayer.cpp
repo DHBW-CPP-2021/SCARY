@@ -10,21 +10,27 @@ namespace LabyrinthGame
     }
     PlacePartData BotPlayer::placePartDialog() const
     {
-        std::mt19937 generator(123);
-        std::uniform_int_distribution<GameSettings::CoordType> SparePieceDist(1, 3);
+        std::random_device rd;
+        std::mt19937 generator{rd()};
+
+        std::uniform_int_distribution<GameSettings::CoordType> SparePieceDist(0, GameSettings::NUM_SPARE_PIECES);
         auto SparePiece = SparePieceDist(generator);
 
         std::uniform_int_distribution<int> randomDirectionDist(0, 3);
         int randomDirection = randomDirectionDist(generator);
 
-        std::uniform_int_distribution<GameSettings::CoordType> rowDist(0, 7);
+        std::uniform_int_distribution<GameSettings::CoordType> rowDist(0,
+                                                                       std::max(GameSettings::HEIGHT, GameSettings::WIDTH));
         auto row = rowDist(generator);
 
-        return {SparePiece, Geo::Direction(randomDirection), row};
+        return {row, Geo::Direction(randomDirection), SparePiece};
     }
     Coordinate BotPlayer::movePlayerDialog() const
     {
-        std::mt19937 generator(123);
+
+        std::random_device rd;
+        std::mt19937 generator{rd()};
+
         std::uniform_int_distribution<GameSettings::CoordType> yDist(0, 7);
         auto y = yDist(generator);
 

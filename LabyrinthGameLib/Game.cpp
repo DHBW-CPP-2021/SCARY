@@ -103,8 +103,8 @@ LabyrinthGame::Geo::Coordinate LabyrinthGame::Game::createRandomCoordinate()
 {
     using CoordType = LabyrinthGame::GameSettings::CoordType;
 
-    auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-    std::mt19937 generator(seed);
+    std::random_device rd;
+    std::mt19937 generator(rd());
 
     std::uniform_int_distribution<CoordType> CoordinationXArea(0, LabyrinthGame::GameSettings::WIDTH - 1);
     auto CoordinationX = CoordinationXArea(generator);
