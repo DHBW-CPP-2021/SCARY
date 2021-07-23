@@ -165,25 +165,30 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 
 void LabyrinthGame::Game::round()
 {
+    int i = 0;
     for (const auto &player : m_board->getPlayers())
     {
-        IO::GameDrawer drawer(*m_board);
-        IO::ConsoleUtils::clearConsole();
+        
+     IO::GameDrawer drawer(*m_board);
+     IO::ConsoleUtils::clearConsole();
 
-        std::cout << "The Maze\n";
-        drawer.drawMaze();
-        std::cout << "\n\nAll the spare Pieces:\n";
-        drawer.drawSparePieces();
-        placePlayerSelectPiece(player);
+     std::cout << "The Maze\n";
+     drawer.drawMaze();
+     std::cout << "\n\nAll the spare Pieces:\n";
+     drawer.drawSparePieces();
 
-        LabyrinthGame::IO::ConsoleUtils::clearConsole();
+     std::cout << std::string("Player") + std::to_string(i) + ":";
+     placePlayerSelectPiece(player);
+     LabyrinthGame::IO::ConsoleUtils::clearConsole();
 
-        std::cout << "The Maze\n";
-        drawer.drawMaze();
-        movePlayer(player);
-        playerFindToken(player);
+     std::cout << "The Maze\n";
+     drawer.drawMaze();
+     std::cout << std::string("Player") + std::to_string(i) + ":";
+     movePlayer(player);
+     playerFindToken(player);
 
-        LabyrinthGame::IO::ConsoleUtils::clearConsole();
+     LabyrinthGame::IO::ConsoleUtils::clearConsole();
+     i++;
     }
 }
 
