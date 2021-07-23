@@ -7,6 +7,7 @@
 
 namespace LabyrinthGame
 {
+    class TreasureToken;
     class GameBoard;
     struct PlacePartData
     {
@@ -27,10 +28,9 @@ namespace LabyrinthGame
         [[nodiscard]] virtual PlacePartData placePartDialog() const = 0;
         [[nodiscard]] virtual Coordinate movePlayerDialog() const = 0;
         [[nodiscard]] Coordinate getCoordinate() const;
-        [[nodiscard]] unsigned short getTreasure();
+        [[nodiscard]] std::size_t getTreasure();
 
-        void addTreasure();
-        void addTreasure(const int &treasureScore);
+        void addTreasure(const TreasureToken& treasure);
         void setCoordinates(const Coordinate &pos); //! Achtung kann gefährlich sein.
 
     protected:
@@ -39,6 +39,6 @@ namespace LabyrinthGame
     private:
         PlayerToken m_token;
         const GameBoard &m_board;
-        unsigned short m_treasureIndex;
+        std::size_t m_treasureValue;
     };
 } // namespace LabyrinthGame

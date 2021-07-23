@@ -242,7 +242,7 @@ void LabyrinthGame::Game::playerFindToken(std::shared_ptr<AbstractPlayer> player
             });
         if (reachedTreasure != treasures.end())
         {
-            player->addTreasure(reachedTreasure->getScore());
+            player->addTreasure(**reachedTreasure);
             treasures.erase(reachedTreasure); // TODO does not delet in the vector?
         }
     }
