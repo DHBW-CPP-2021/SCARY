@@ -1,5 +1,6 @@
 #include "GameRules.h"
 #include "GameSettings.h"
+#include "Windows.h"
 
 LabyrinthGame::GameRules::GameRules(std::vector<std::weak_ptr<AbstractPlayer>> players, std::weak_ptr<GameBoard> board)
     : m_board(board), m_players(players)
@@ -43,7 +44,19 @@ bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
     std::shared_ptr<AbstractPlayer> f_player = player.lock();
 
     // MAX_TREASURE == 3 in GameSettings
-    return f_player->getTreasure() == LabyrinthGame::GameSettings::MAX_TREASURE && winPosition(f_player);
+    // Output in Messageboxes?
+    if (f_player->getTreasure() == LabyrinthGame::GameSettings::MAX_TREASURE)
+    {
+        std::cout << "You just got three treasures. Your mission now is leaving the maze. Hurry!" << std::endl;
+    }
+    
+    if (f_player->getTreasure() == LabyrinthGame::GameSettings::MAX_TREASURE && winPosition(f_player))
+    {
+        std::cout << "YOU WON!" << std::endl;
+        return true;
+    }
+    
+    return false;
 }
 
 bool LabyrinthGame::GameRules::checkPieceForTreassure(Geo::Coordinate coordinate)

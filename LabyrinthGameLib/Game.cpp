@@ -155,7 +155,6 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
     }
 }
 
-// Player place Part and move
 void LabyrinthGame::Game::round()
 {
     IO::GameDrawer drawer(*m_board);
