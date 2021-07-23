@@ -61,12 +61,12 @@ bool LabyrinthGame::GameRules::checkWin(std::weak_ptr<AbstractPlayer> player)
 
     // MAX_TREASURE == 3 in GameSettings
     // Output in Messageboxes?
-    if (f_player->getTreasure() >= LabyrinthGame::GameSettings::MAX_TREASURE)
+    if (f_player->getTreasure() >= LabyrinthGame::GameSettings::MAX_TREASURE+3)
     {
         std::cout << "You just got three treasures. Your mission now is leaving the maze. Hurry!" << std::endl;
     }
 
-    if (f_player->getTreasure() >= LabyrinthGame::GameSettings::MAX_TREASURE && winPosition(f_player))
+    if (f_player->getTreasure() >= LabyrinthGame::GameSettings::MAX_TREASURE+3 && winPosition(f_player))
     {
         std::cout << "YOU WON!" << std::endl;
         return true;
