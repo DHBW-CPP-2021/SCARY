@@ -51,9 +51,9 @@ public:
                                      std::array<std::string, IO::DrawingConst::inner_width>{" ", " ", " ", " ", " ", " "}};
 
             coor = placePlayers(0);
-            players.push_back(std::make_shared<BotPlayer>(*m_board, coor, drawMatrix));
+            players.push_back(std::make_shared<BotPlayer>(*m_board, coor, drawMatrix, 1));
             coor = placePlayers(1);
-            players.push_back(std::make_shared<SmartbotPlayer>(*m_board, coor, drawMatrix));
+            players.push_back(std::make_shared<SmartbotPlayer>(*m_board, coor, drawMatrix, 2));
 
             m_board->setPlayers(players);
     }
@@ -62,7 +62,10 @@ public:
 
 TEST(testConversion, all)
 {
-    game _game = game();
-    _game.config();
-    _game.run();
+    for (int i = 0; i < 100; i++)
+    {
+        game _game = game();
+        _game.config();
+        _game.run();
+    }
 }

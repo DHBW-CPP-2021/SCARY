@@ -5,8 +5,8 @@
 namespace LabyrinthGame
 {
 
-    AbstractPlayer::AbstractPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation)
-        : m_token(board, initialPos, charRepresentation), m_board(board)
+    AbstractPlayer::AbstractPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation, int id)
+        : m_token(board, initialPos, charRepresentation), m_board(board), m_id(id)
     {
         m_treasureIndex = 0;
     }
@@ -21,6 +21,11 @@ namespace LabyrinthGame
     void AbstractPlayer::setCoordinates(const Coordinate &pos)
     {
         m_token.setCoordinate(pos);
+    }
+
+    int AbstractPlayer::getID()
+    {
+        return m_id;
     }
 
     Geo::Coordinate AbstractPlayer::getCoordinate() const

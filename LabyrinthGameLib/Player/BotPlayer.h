@@ -9,7 +9,7 @@ namespace LabyrinthGame
         using Coordinate = Geo::Coordinate;
 
     public:
-        BotPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation);
+        BotPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation, int id);
 
         // methoden die die bot logik bzw die player abfrage implementieren
         [[nodiscard]] PlacePartData placePartDialog() const override;

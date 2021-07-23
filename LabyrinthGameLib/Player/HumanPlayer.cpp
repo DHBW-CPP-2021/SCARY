@@ -9,8 +9,8 @@
 namespace LabyrinthGame
 {
     using namespace Geo;
-    HumanPlayer::HumanPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation)
-        : AbstractPlayer(board, initialPos, charRepresentation)
+    HumanPlayer::HumanPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation, int id)
+        : AbstractPlayer(board, initialPos, charRepresentation, id)
     {
     }
     char readChar(const std::string &dialog)
