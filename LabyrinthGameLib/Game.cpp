@@ -29,6 +29,7 @@ void LabyrinthGame::Game::config()
     {
         std::cerr << "Game Board not available\n";
     }
+    //How Many Players    
     createPlayers();
     if (!createGameRules())
     {
