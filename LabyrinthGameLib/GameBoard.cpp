@@ -274,7 +274,7 @@ namespace LabyrinthGame
         {
             throw std::runtime_error("coordinate not valid");
         }
-        auto vertex1 = getVertex(coord1);//getVertex(coord1);
+        auto vertex1 = getVertex(coord1); // getVertex(coord1);
         auto vertex2 = getVertex(coord2);
         Combinatorics::BreadthFirstSearch search(_graph, vertex1);
         return search.isReachable(vertex2);
@@ -290,5 +290,22 @@ namespace LabyrinthGame
         auto vertex2 = getOutsideVertex();
         Combinatorics::BreadthFirstSearch search(_graph, vertex1);
         return search.isReachable(vertex2);
+    }
+
+    void GameBoard::setPlayers(const std::vector<std::shared_ptr<AbstractPlayer>> &players)
+    {
+        m_players = players;
+    }
+    std::vector<std::shared_ptr<AbstractPlayer>> GameBoard::getPlayers() const
+    {
+        return m_players;
+    }
+    void GameBoard::setTreasures(const std::vector<std::shared_ptr<TreasureToken>> &treasures)
+    {
+        m_treasures = treasures;
+    }
+    std::vector<std::shared_ptr<TreasureToken>> GameBoard::getTreasures() const
+    {
+        return m_treasures;
     }
 } // namespace LabyrinthGame

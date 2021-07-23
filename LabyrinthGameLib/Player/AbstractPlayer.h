@@ -1,12 +1,13 @@
 #pragma once
 
-#include "../GameBoard.h"
 #include "../IO/DrawingConst.h"
 #include "../Token/PlayerToken.h"
 #include <array>
 
+
 namespace LabyrinthGame
 {
+    class GameBoard;
     struct PlacePartData
     {
         GameSettings::CoordType ColOrRowIndex;

@@ -46,8 +46,6 @@ namespace LabyrinthGame
             std::shared_ptr<AbstractPlayer> player); // TODO name is not what it does and function needs major refactoring!!!
 
         // Members
-        std::vector<std::shared_ptr<AbstractPlayer>> m_players;
-        std::vector<std::shared_ptr<TreasureToken>> m_treasures;
         std::shared_ptr<GameRules> m_rules;
         std::shared_ptr<GameBoard> m_board;
     };

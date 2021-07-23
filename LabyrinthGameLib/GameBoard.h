@@ -5,8 +5,9 @@
 #include "../Graph/Graph.h"
 #include "GameSettings.h"
 #include "Maze.h"
+#include "Player/AbstractPlayer.h"
 #include "Token/PlacedToken.h"
-
+#include "Token/TreasureToken.h"
 
 namespace LabyrinthGame
 {
@@ -81,6 +82,11 @@ namespace LabyrinthGame
         [[nodiscard]] bool coordsAreConnected(const Coordinate &coord1, const Coordinate &coord2) const;
         [[nodiscard]] bool coordIsConnectedToOutside(const Coordinate &coord) const;
 
+        void setPlayers(const std::vector<std::shared_ptr<AbstractPlayer>> &players);
+        [[nodiscard]] std::vector<std::shared_ptr<AbstractPlayer>> getPlayers() const;
+        void setTreasures(const std::vector<std::shared_ptr<TreasureToken>> &treasures);
+        [[nodiscard]] std::vector<std::shared_ptr<TreasureToken>> getTreasures() const;
+
     private:
         // Stable storage (after creation) of all available MazePieces
         std::vector<MazePiece> const _maze_pieces;
@@ -88,6 +94,9 @@ namespace LabyrinthGame
         std::vector<PlacedToken *> _registered_token;
         Maze _maze;
         Graph _graph;
+
+        std::vector<std::shared_ptr<AbstractPlayer>> m_players;
+        std::vector<std::shared_ptr<TreasureToken>> m_treasures;
 
         /**
          * TODO: You may want to change something here? (Not necessary)
