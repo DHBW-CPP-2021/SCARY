@@ -41,13 +41,8 @@ namespace LabyrinthGame
         }
     }
 
-    std::pair<IO::Token::TokenArrayMatrix, std::size_t> getTreasureMatrix()
+    IO::Token::TokenArrayMatrix getTreasureMatrix(std::size_t val)
     {
-
-        std::random_device rd;
-        std::mt19937 generator{rd()};
-        std::uniform_int_distribution<GameSettings::CoordType> SparePieceDist(0, 9);
-        auto val = SparePieceDist(generator);
         using c = IO::ConsoleUtils::Colors;
         auto mat = std::array<std::array<std::string, 6>, 2>{
             std::array<std::string, 6>{IO::ConsoleUtils::colorString("T", {c::FG_yellow, c::BG_black}),
@@ -57,19 +52,18 @@ namespace LabyrinthGame
                                        IO::ConsoleUtils::colorString("s", {c::FG_yellow, c::BG_black}),
                                        IO::ConsoleUtils::colorString("u", {c::FG_yellow, c::BG_black})},
             std::array<std::string, 6>{IO::ConsoleUtils::colorString("r", {c::FG_yellow, c::BG_black}),
-                                       IO::ConsoleUtils::colorString("e", {c::FG_yellow, c::BG_black}),
+                                       IO::ConsoleUtils::colorString("e", {c::FG_yellow, c::BG_black}), " ",
                                        IO::ConsoleUtils::colorString(std::to_string(val), {c::FG_yellow, c::BG_black}), " ",
-                                       " ", " "}};
-        return {mat, val};
+                                       " "}};
+        return mat;
     }
     std::size_t TreasureToken::getValue() const
     {
         return m_value;
     }
 
-    TreasureToken::TreasureToken(GameBoard &board_, Coordinate initialPos)
-        : m_randomNumandMat(getTreasureMatrix()), PlacedToken(board_, initialPos, m_randomNumandMat.first),
-          m_value(m_randomNumandMat.second)
+    TreasureToken::TreasureToken(GameBoard &board_, Coordinate initialPos, std::size_t random)
+        : PlacedToken(board_, initialPos, getTreasureMatrix(random)), m_value(random)
     {
     }
 
