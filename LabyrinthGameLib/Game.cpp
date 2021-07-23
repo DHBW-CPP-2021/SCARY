@@ -151,31 +151,30 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 
 void LabyrinthGame::Game::round()
 {
+    int i = 0;
     for (const auto &player : m_board->getPlayers())
     {
-        for (int i = 0; i < LabyrinthGame::GameSettings::MAX_PLAYER; i++)
-        {
+        
+     IO::GameDrawer drawer(*m_board);
+     IO::ConsoleUtils::clearConsole();
 
-            IO::GameDrawer drawer(*m_board);
-            IO::ConsoleUtils::clearConsole();
+     std::cout << "The Maze\n";
+     drawer.drawMaze();
+     std::cout << "\n\nAll the spare Pieces:\n";
+     drawer.drawSparePieces();
 
-            std::cout << "The Maze\n";
-            drawer.drawMaze();
-            std::cout << "\n\nAll the spare Pieces:\n";
-            drawer.drawSparePieces();
+     std::cout << std::string("Player") + std::to_string(i) + ":";
+     placePlayerSelectPiece(player);
+     LabyrinthGame::IO::ConsoleUtils::clearConsole();
 
-            std::cout << std::string("Player") + std::to_string(i) + ":";
-            placePlayerSelectPiece(player);
-            LabyrinthGame::IO::ConsoleUtils::clearConsole();
+     std::cout << "The Maze\n";
+     drawer.drawMaze();
+     std::cout << std::string("Player") + std::to_string(i) + ":";
+     movePlayer(player);
+     playerFindToken(player);
 
-            std::cout << "The Maze\n";
-            drawer.drawMaze();
-            std::cout << std::string("Player") + std::to_string(i) + ":";
-            movePlayer(player);
-            playerFindToken(player);
-
-            LabyrinthGame::IO::ConsoleUtils::clearConsole();
-        }
+     LabyrinthGame::IO::ConsoleUtils::clearConsole();
+     i++;
     }
 }
 
