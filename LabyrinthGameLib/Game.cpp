@@ -47,7 +47,7 @@ void LabyrinthGame::Game::createPlayers()
 {
     std::vector<std::shared_ptr<AbstractPlayer>> players;
     int anzahl = 2; // how many Players
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < LabyrinthGame::GameSettings::MAX_PLAYER; i++)
     {
         // What kind of Player
         kindOfPlayer player = getPlayer(i + 1);
