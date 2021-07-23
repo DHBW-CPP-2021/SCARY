@@ -102,6 +102,7 @@ namespace LabyrinthGame
     }
     Geo::Coordinate HumanPlayer::movePlayerDialog() const
     {
+        std::cout << "Move the Player to the desired Coordinates\n";
         auto X = getCoordinateXY("X-Koordinate:", IO::GameDrawer::xDigits);
         auto Y = getCoordinateXY("Y-Koordinate:", IO::GameDrawer::yDigits);
         return {static_cast<GameSettings::CoordType>(X), static_cast<GameSettings::CoordType>(Y)};

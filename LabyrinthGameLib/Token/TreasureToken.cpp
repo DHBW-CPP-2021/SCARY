@@ -1,6 +1,7 @@
 #include "TreasureToken.h"
 #include "../Utils/Utils.h"
 #include <iostream>
+#include <stdexcept>
 
 namespace LabyrinthGame
 {
@@ -32,7 +33,7 @@ namespace LabyrinthGame
         }
         else
         {
-            std::cerr << "something went wrong... this shouldn't happen. check TreasureToken.cpp\n";
+            throw std::runtime_error("something went wrong... this shouldn't happen. check TreasureToken.cpp\n");
         }
     }
 
