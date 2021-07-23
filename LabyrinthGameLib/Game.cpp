@@ -18,6 +18,9 @@ void LabyrinthGame::Game::run()
     {
         round();
     }
+    IO::GameDrawer drawer(*m_board);
+    std::cout << "The Maze\n";
+    drawer.drawMaze();
 }
 
 void LabyrinthGame::Game::config()
@@ -239,8 +242,8 @@ void LabyrinthGame::Game::playerFindToken(std::shared_ptr<AbstractPlayer> player
         if (reachedTreasure != treasures.end())
         {
             treasures.erase(reachedTreasure); // TODO memory leak ask paul???
+            player->addTreasure();
         }
 
-        player->addTreasure();
     }
 }
