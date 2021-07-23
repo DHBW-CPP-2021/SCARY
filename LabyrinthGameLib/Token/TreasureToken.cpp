@@ -2,6 +2,7 @@
 #include "../Utils/Utils.h"
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 namespace LabyrinthGame
 {
@@ -37,10 +38,11 @@ namespace LabyrinthGame
         }
     }
 
-    constexpr IO::Token::TokenArrayMatrix getTreasureMatrix()
+    IO::Token::TokenArrayMatrix getTreasureMatrix()
     {
-        return std::array<std::array<char, 6>, 2>{std::array<char, 6>{'T', 'r', 'e', 'a', 's', 'u'},
-                                                  std::array<char, 6>{'r', 'e', ' ', ' ', ' ', ' '}};
+        return std::array<std::array<std::string, 6>, 2>{std::array<std::string, 6>{"T","r","e","a","s","u"},
+                                                         std::array<std::string, 6>{"r", "e", " ", " ", " ", " "}};
+
     }
     TreasureToken::TreasureToken(GameBoard &board_, Coordinate initialPos)
         : PlacedToken(board_, initialPos, getTreasureMatrix())

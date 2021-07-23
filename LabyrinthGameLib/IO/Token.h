@@ -2,6 +2,7 @@
 #define HACKATHON_2021_TOKEN_H
 #include "../IO/DrawingConst.h"
 #include <array>
+#include <string>
 
 
 namespace LabyrinthGame::IO
@@ -15,7 +16,7 @@ namespace LabyrinthGame::IO
     {
     public:
         // Improve readability
-        using TokenArrayRow = std::array<char, DrawingConst::inner_width>;
+        using TokenArrayRow = std::array<std::string, DrawingConst::inner_width>;
         using TokenArrayMatrix = std::array<TokenArrayRow, DrawingConst::inner_height>;
 
         // If you want you can specify the appearance of your token on the whole inner_width x inner_height Matrix

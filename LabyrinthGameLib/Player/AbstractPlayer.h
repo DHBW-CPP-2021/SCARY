@@ -17,7 +17,7 @@ namespace LabyrinthGame
     {
     public:
         using Coordinate = Geo::Coordinate;
-        using DrawMatrix = std::array<std::array<char, IO::DrawingConst::inner_width>, IO::DrawingConst::inner_height>;
+        using DrawMatrix = std::array<std::array<std::string, IO::DrawingConst::inner_width>, IO::DrawingConst::inner_height>;
 
         AbstractPlayer(LabyrinthGame::GameBoard &board, Coordinate initialPos, DrawMatrix charRepresentation);
         virtual ~AbstractPlayer() = default;

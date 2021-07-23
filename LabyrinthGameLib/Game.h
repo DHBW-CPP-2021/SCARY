@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-
 #include "GameBoard.h"
 #include "GameRules.h"
 #include "Player/AbstractPlayer.h"
@@ -17,7 +16,7 @@ namespace LabyrinthGame
 
     class Game
     {
-        using DrawMatrix = std::array<std::array<char, IO::DrawingConst::inner_width>, IO::DrawingConst::inner_height>;
+        using DrawMatrix = std::array<std::array<std::string, IO::DrawingConst::inner_width>, IO::DrawingConst::inner_height>;
 
     public:
         Game();
