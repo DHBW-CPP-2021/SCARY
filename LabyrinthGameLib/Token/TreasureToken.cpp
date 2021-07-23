@@ -1,7 +1,9 @@
 #include "TreasureToken.h"
-#include "../Utils/Utils.h"
 #include "../IO/ConsoleUtils.h"
+#include "../Utils/Utils.h"
+#include <cstddef>
 #include <iostream>
+#include <random>
 #include <stdexcept>
 #include <string>
 
@@ -21,11 +23,11 @@ namespace LabyrinthGame
         {
             setCoordinate(Coordinate{GameSettings::WIDTH - 1, newCoord.getY()});
         }
-        else if (newCoord.getX() > GameSettings::WIDTH-1) // piece moved out right
+        else if (newCoord.getX() > GameSettings::WIDTH - 1) // piece moved out right
         {
             setCoordinate(Coordinate{0, newCoord.getY()});
         }
-        else if (newCoord.getY() > GameSettings::HEIGHT-1) // piece moved out bottom
+        else if (newCoord.getY() > GameSettings::HEIGHT - 1) // piece moved out bottom
         {
             setCoordinate(Coordinate{newCoord.getX(), 0});
         }
@@ -39,22 +41,29 @@ namespace LabyrinthGame
         }
     }
 
-    IO::Token::TokenArrayMatrix getTreasureMatrix()
+    IO::Token::TokenArrayMatrix getTreasureMatrix(std::size_t val)
     {
-        return std::array<std::array<std::string, 6>, 2>{
-            std::array<std::string, 6>{IO::ConsoleUtils::colorString("T", {IO::ConsoleUtils::Colors::FG_yellow, IO::ConsoleUtils::Colors::BG_black}),
-                                       IO::ConsoleUtils::colorString("r", {IO::ConsoleUtils::Colors::FG_yellow, IO::ConsoleUtils::Colors::BG_black}),
-                                       IO::ConsoleUtils::colorString("e", {IO::ConsoleUtils::Colors::FG_yellow, IO::ConsoleUtils::Colors::BG_black}),
-                                       IO::ConsoleUtils::colorString("a", {IO::ConsoleUtils::Colors::FG_yellow, IO::ConsoleUtils::Colors::BG_black}),
-                                       IO::ConsoleUtils::colorString("s", {IO::ConsoleUtils::Colors::FG_yellow, IO::ConsoleUtils::Colors::BG_black}),
-                                       IO::ConsoleUtils::colorString("u", {IO::ConsoleUtils::Colors::FG_yellow, IO::ConsoleUtils::Colors::BG_black})},
-            std::array<std::string, 6>{IO::ConsoleUtils::colorString("r", {IO::ConsoleUtils::Colors::FG_yellow, IO::ConsoleUtils::Colors::BG_black}),
-                                       IO::ConsoleUtils::colorString("e", {IO::ConsoleUtils::Colors::FG_yellow, IO::ConsoleUtils::Colors::BG_black}),
-                                       " ", " ", " ", " "}};
-
+        using c = IO::ConsoleUtils::Colors;
+        auto mat = std::array<std::array<std::string, 6>, 2>{
+            std::array<std::string, 6>{IO::ConsoleUtils::colorString("T", {c::FG_yellow, c::BG_black}),
+                                       IO::ConsoleUtils::colorString("r", {c::FG_yellow, c::BG_black}),
+                                       IO::ConsoleUtils::colorString("e", {c::FG_yellow, c::BG_black}),
+                                       IO::ConsoleUtils::colorString("a", {c::FG_yellow, c::BG_black}),
+                                       IO::ConsoleUtils::colorString("s", {c::FG_yellow, c::BG_black}),
+                                       IO::ConsoleUtils::colorString("u", {c::FG_yellow, c::BG_black})},
+            std::array<std::string, 6>{IO::ConsoleUtils::colorString("r", {c::FG_yellow, c::BG_black}),
+                                       IO::ConsoleUtils::colorString("e", {c::FG_yellow, c::BG_black}), " ",
+                                       IO::ConsoleUtils::colorString(std::to_string(val), {c::FG_yellow, c::BG_black}), " ",
+                                       " "}};
+        return mat;
     }
-    TreasureToken::TreasureToken(GameBoard &board_, Coordinate initialPos)
-        : PlacedToken(board_, initialPos, getTreasureMatrix())
+    std::size_t TreasureToken::getValue() const
+    {
+        return m_value;
+    }
+
+    TreasureToken::TreasureToken(GameBoard &board_, Coordinate initialPos, std::size_t random)
+        : PlacedToken(board_, initialPos, getTreasureMatrix(random)), m_value(random)
     {
     }
 

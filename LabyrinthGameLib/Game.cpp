@@ -39,7 +39,7 @@ void LabyrinthGame::Game::config()
     {
         std::cerr << "Game Board not available\n";
     }
-    //How Many Players    
+    // How Many Players
     createPlayers();
     if (!createGameRules())
     {
@@ -87,7 +87,12 @@ void LabyrinthGame::Game::createPlayers()
 
 void LabyrinthGame::Game::createTreasures()
 {
+    std::random_device rd;
+    std::mt19937 generator{rd()};
+    std::uniform_int_distribution<GameSettings::CoordType> Random(0, 9);
+
     std::vector<std::shared_ptr<TreasureToken>> treasures;
+
     for (int i = 0; i < LabyrinthGame::GameSettings::MAX_TREASURES_GAME; i++)
     {
         int x = 0;
@@ -99,8 +104,7 @@ void LabyrinthGame::Game::createTreasures()
         {
             coordinate = createRandomCoordinate();
         }
-
-        treasures.push_back(std::make_shared<TreasureToken>(*m_board, coordinate));
+        treasures.push_back(std::make_shared<TreasureToken>(*m_board, coordinate, Random(generator)));
     }
     m_board->setTreasures(treasures);
 }
@@ -257,9 +261,8 @@ void LabyrinthGame::Game::playerFindToken(std::shared_ptr<AbstractPlayer> player
             });
         if (reachedTreasure != treasures.end())
         {
-            treasures.erase(reachedTreasure); // TODO does not delet in the vector? 
-            player->addTreasure();
+            player->addTreasure(**reachedTreasure);
+            treasures.erase(reachedTreasure); // TODO does not delet in the vector?
         }
-
     }
 }
