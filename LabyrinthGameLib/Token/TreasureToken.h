@@ -16,7 +16,6 @@ namespace LabyrinthGame
         std::size_t m_value;
         void notifyMovement(Geo::Direction d) override;
 
-        const int m_treasureScore;
     };
 
 } // namespace LabyrinthGame

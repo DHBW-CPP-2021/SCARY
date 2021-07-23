@@ -89,8 +89,7 @@ void LabyrinthGame::Game::createTreasures()
         {
             coordinate = createRandomCoordinate();
         }
-        int randScore = 1;
-        treasures.push_back(std::make_shared<TreasureToken>(*m_board, coordinate, randScore));
+        treasures.push_back(std::make_shared<TreasureToken>(*m_board, coordinate));
     }
     m_board->setTreasures(treasures);
 }

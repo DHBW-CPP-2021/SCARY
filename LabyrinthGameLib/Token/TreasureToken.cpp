@@ -71,7 +71,6 @@ namespace LabyrinthGame
         : m_randomNumandMat(getTreasureMatrix()), PlacedToken(board_, initialPos, m_randomNumandMat.first),
           m_value(m_randomNumandMat.second)
     {
-        return m_treasureScore;
     }
 
 } // namespace LabyrinthGame
