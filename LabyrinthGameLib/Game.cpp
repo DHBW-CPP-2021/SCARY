@@ -9,9 +9,7 @@
 #include <stdexcept>
 #include <string>
 
-LabyrinthGame::Game::Game()
-{
-}
+LabyrinthGame::Game::Game() = default;
 
 void LabyrinthGame::Game::run()
 {
@@ -146,7 +144,7 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 
 void LabyrinthGame::Game::round()
 {
-    for (std::size_t i = 0; i < m_players.size(); i++)
+    for (const auto &player : m_players)
     {
         IO::GameDrawer drawer(*m_board);
         IO::ConsoleUtils::clearConsole();
@@ -155,7 +153,6 @@ void LabyrinthGame::Game::round()
         drawer.drawMaze();
         std::cout << "\n\nAll the spare Pieces:\n";
         drawer.drawSparePieces();
-        std::shared_ptr<AbstractPlayer> player = m_players[i];
         placePlayerSelectPiece(player);
 
         LabyrinthGame::IO::ConsoleUtils::clearConsole();
