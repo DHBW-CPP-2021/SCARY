@@ -18,6 +18,9 @@ void LabyrinthGame::Game::run()
     {
         round();
     }
+    IO::GameDrawer drawer(*m_board);
+    std::cout << "The Maze\n";
+    drawer.drawMaze();
 }
 
 void LabyrinthGame::Game::config()
@@ -42,6 +45,7 @@ bool LabyrinthGame::Game::createBoard()
 
 void LabyrinthGame::Game::createPlayers()
 {
+    std::vector<std::shared_ptr<AbstractPlayer>> players;
     int anzahl = 2; // how many Players
     for (int i = 0; i < 2; i++)
     {
@@ -57,21 +61,22 @@ void LabyrinthGame::Game::createPlayers()
         {
         case kindOfPlayer::HUMANPLAYER:
             /*m_players[i] = std::make_shared<HumanPlayer>(*m_board, coor, drawMatrix);*/
-            m_players.push_back(std::make_shared<HumanPlayer>(*m_board, coor, drawMatrix));
+            players.push_back(std::make_shared<HumanPlayer>(*m_board, coor, drawMatrix));
             break;
         case kindOfPlayer::DUMPBOT:
-            m_players.push_back(std::make_shared<BotPlayer>(*m_board, coor, drawMatrix));
+            players.push_back(std::make_shared<BotPlayer>(*m_board, coor, drawMatrix));
             break;
         case kindOfPlayer::SMARTBOT:
-            m_players.push_back(std::make_shared<SmartbotPlayer>(*m_board, coor, drawMatrix));
+            players.push_back(std::make_shared<SmartbotPlayer>(*m_board, coor, drawMatrix));
             break;
         }
     }
+    m_board->setPlayers(players);
 }
 
 void LabyrinthGame::Game::createTreasures()
 {
-
+    std::vector<std::shared_ptr<TreasureToken>> treasures;
     for (int i = 0; i < LabyrinthGame::GameSettings::MAX_TREASURES_GAME; i++)
     {
         int x = 0;
@@ -84,14 +89,15 @@ void LabyrinthGame::Game::createTreasures()
             coordinate = createRandomCoordinate();
         }
 
-        m_treasures.push_back(std::make_shared<TreasureToken>(*m_board, coordinate));
+        treasures.push_back(std::make_shared<TreasureToken>(*m_board, coordinate));
     }
+    m_board->setTreasures(treasures);
 }
 
 bool LabyrinthGame::Game::createGameRules()
 {
     std::vector<std::weak_ptr<AbstractPlayer>> temp;
-    for (const auto &player : m_players)
+    for (const auto &player : m_board->getPlayers())
     {
         temp.push_back(player);
     }
@@ -144,7 +150,7 @@ LabyrinthGame::kindOfPlayer LabyrinthGame::Game::getPlayer(int i)
 
 void LabyrinthGame::Game::round()
 {
-    for (const auto &player : m_players)
+    for (const auto &player : m_board->getPlayers())
     {
         IO::GameDrawer drawer(*m_board);
         IO::ConsoleUtils::clearConsole();
@@ -169,7 +175,7 @@ void LabyrinthGame::Game::round()
 bool LabyrinthGame::Game::gameOver()
 {
     bool win = false;
-    for (const auto &player : m_players)
+    for (const auto &player : m_board->getPlayers())
     {
         win |= m_rules->checkWin(player);
     }
@@ -227,16 +233,17 @@ void LabyrinthGame::Game::playerFindToken(std::shared_ptr<AbstractPlayer> player
 {
     if (m_board->isTokenPlaced(player->getCoordinate()))
     {
+        auto &treasures = m_board->getTreasures();
         Geo::Coordinate playerCoord = player->getCoordinate();
-        auto reachedTreasure = std::find_if(m_treasures.begin(), m_treasures.end(),
-                                            [playerCoord](const std::shared_ptr<TreasureToken> &treasure) {
-                                                return treasure->getCoordinate() == playerCoord;
-                                            });
-        if (reachedTreasure != m_treasures.end())
+        auto reachedTreasure =
+            std::find_if(treasures.begin(), treasures.end(), [playerCoord](const std::shared_ptr<TreasureToken> &treasure) {
+                return treasure->getCoordinate() == playerCoord;
+            });
+        if (reachedTreasure != treasures.end())
         {
-            m_treasures.erase(reachedTreasure); // TODO memory leak ask paul???
+            treasures.erase(reachedTreasure); // TODO does not delet in the vector? 
+            player->addTreasure();
         }
 
-        player->addTreasure();
     }
 }

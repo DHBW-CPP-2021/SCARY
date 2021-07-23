@@ -1,12 +1,13 @@
 #pragma once
 
-#include "../GameBoard.h"
 #include "../IO/DrawingConst.h"
 #include "../Token/PlayerToken.h"
 #include <array>
 
+
 namespace LabyrinthGame
 {
+    class GameBoard;
     struct PlacePartData
     {
         GameSettings::CoordType ColOrRowIndex;
@@ -30,11 +31,10 @@ namespace LabyrinthGame
 
         void addTreasure();
         void setCoordinates(const Coordinate &pos); //! Achtung kann gefährlich sein.
-    protected:
-        // ? Single Responsibility Principle: sollte das nicht in gameRules sein?!
-        [[deprecated]] bool canMoveTo(
-            const Coordinate &pos); // TODO Überall durch methode in GameRules ersetzen oder entfernen. Danach entfernen.
 
+    protected:
+        [[nodiscard]] const GameBoard& getGameBoard() const;
+    
     private:
         PlayerToken m_token;
         const GameBoard &m_board;
